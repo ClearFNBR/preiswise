@@ -6,319 +6,402 @@
   <title>PreisWise – Smarter Preisvergleich</title>
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden." />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f8f7f4;
-      --surface: #ffffff;
-      --text: #1a1a18;
-      --text-muted: #6b6b66;
-      --text-hint: #a0a09a;
-      --accent: #1a6b4a;
-      --accent-light: #e6f3ee;
-      --accent-hover: #155a3e;
-      --accent-glow: rgba(26,107,74,0.15);
-      --border: rgba(0,0,0,0.07);
-      --border-med: rgba(0,0,0,0.13);
-      --shadow: 0 4px 20px rgba(0,0,0,0.08);
-      --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
-      --radius: 14px;
-      --radius-sm: 8px;
+      --bg: #0d0d0f;
+      --bg2: #141418;
+      --bg3: #1a1a20;
+      --surface: #1e1e26;
+      --surface2: #252530;
+      --text: #f0efe8;
+      --text-muted: #9d9d9a;
+      --text-hint: #5a5a58;
+      --green: #00e676;
+      --green-dark: #00c853;
+      --green-glow: rgba(0,230,118,0.15);
+      --green-glow2: rgba(0,230,118,0.08);
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --orange: #ff6b35;
+      --pink: #f43f5e;
+      --yellow: #fbbf24;
+      --border: rgba(255,255,255,0.06);
+      --border-med: rgba(255,255,255,0.1);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-lg: 24px;
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+    /* ── ANIMATED BG ── */
+    .bg-orbs {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.25;
+      animation: orbFloat 12s ease-in-out infinite;
+    }
+    .orb1 { width: 500px; height: 500px; background: var(--purple); top: -200px; left: -100px; animation-delay: 0s; }
+    .orb2 { width: 400px; height: 400px; background: var(--green); top: 30%; right: -150px; animation-delay: 4s; }
+    .orb3 { width: 350px; height: 350px; background: var(--orange); bottom: -100px; left: 30%; animation-delay: 8s; }
+    @keyframes orbFloat { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.05)} 66%{transform:translate(-20px,15px) scale(0.97)} }
 
     /* ── NAV ── */
     nav {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(13,13,15,0.8);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: 0 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 62px;
-      position: sticky;
-      top: 0;
-      z-index: 200;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
     }
-    .logo { font-family: 'DM Serif Display', serif; font-size: 1.45rem; color: var(--accent); cursor: pointer; letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
-    .logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:0.6} }
+    .logo { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; letter-spacing: -0.5px; }
+    .logo-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--green), var(--purple-light)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+    .logo-text { background: linear-gradient(90deg, var(--green), var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .nav-right { display: flex; align-items: center; gap: 1rem; }
     .nav-links-desktop { display: flex; gap: 1.5rem; }
     .nav-links-desktop a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.15s; cursor: pointer; }
-    .nav-links-desktop a:hover { color: var(--accent); }
-
-    /* BURGER */
-    .burger { width: 36px; height: 36px; display: flex; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 4px; border-radius: var(--radius-sm); transition: background 0.15s; }
-    .burger:hover { background: var(--accent-light); }
+    .nav-links-desktop a:hover { color: var(--green); }
+    .burger { width: 38px; height: 38px; display: flex; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 5px; border-radius: 8px; transition: background 0.15s; }
+    .burger:hover { background: var(--surface); }
     .burger span { display: block; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); transform-origin: center; }
-    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--accent); }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--green); }
     .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--accent); }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--green); }
 
-    /* SIDE DRAWER */
-    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    /* DRAWER */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px); }
     .drawer-overlay.open { opacity: 1; pointer-events: all; }
-    .drawer { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: var(--surface); z-index: 400; transition: left 0.35s cubic-bezier(0.4,0,0.2,1); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+    .drawer { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: var(--bg2); border-right: 1px solid var(--border-med); z-index: 400; transition: left 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; overflow-y: auto; }
     .drawer.open { left: 0; }
     .drawer-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .drawer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); }
-    .drawer-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.15s; color: var(--text-muted); font-size: 1.1rem; }
-    .drawer-close:hover { background: var(--accent-light); color: var(--accent); }
-    .drawer-nav { padding: 1rem 0; flex: 1; }
-    .drawer-nav a { display: flex; align-items: center; gap: 12px; padding: 12px 1.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; }
-    .drawer-nav a:hover { background: var(--accent-light); color: var(--accent); border-left-color: var(--accent); }
-    .drawer-nav .drawer-icon { width: 18px; height: 18px; }
-    .drawer-cats { padding: 0 1.5rem 1rem; }
-    .drawer-cats-title { font-size: 0.72rem; font-weight: 600; color: var(--text-hint); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; }
-    .drawer-cat-pill { display: inline-flex; align-items: center; gap: 5px; background: var(--bg); border: 1px solid var(--border-med); border-radius: 100px; padding: 5px 12px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; margin: 3px; transition: all 0.15s; }
-    .drawer-cat-pill:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+    .drawer-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; background: linear-gradient(90deg, var(--green), var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .drawer-close { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.15s; color: var(--text-muted); }
+    .drawer-close:hover { background: var(--surface); color: var(--green); }
+    .drawer-nav { padding: 0.5rem 0; }
+    .drawer-nav a { display: flex; align-items: center; gap: 12px; padding: 12px 1.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.88rem; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; }
+    .drawer-nav a:hover { background: var(--surface); color: var(--green); border-left-color: var(--green); }
+    .drawer-nav .di { width: 16px; height: 16px; flex-shrink: 0; }
+    .drawer-section { padding: 1rem 1.5rem 0.5rem; font-size: 0.68rem; font-weight: 600; color: var(--text-hint); letter-spacing: 1px; text-transform: uppercase; }
+    .drawer-cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0.5rem 1.5rem 1rem; }
+    .drawer-cat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.15s; font-size: 0.75rem; color: var(--text-muted); }
+    .drawer-cat:hover { border-color: var(--green); color: var(--green); background: var(--green-glow2); }
+    .drawer-cat .dc-icon { font-size: 1.3rem; display: block; margin-bottom: 3px; }
 
-    /* PAGE SYSTEM */
-    .page { display: none; animation: fadeIn 0.3s ease; }
-    .page.active { display: block; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    /* PAGE */
+    .page { display: none; position: relative; z-index: 1; }
+    .page.active { display: block; animation: fadeUp 0.4s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
     /* ── HERO ── */
     .hero {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 5rem 2rem 3rem;
-      text-align: center;
-      position: relative;
+      max-width: 800px; margin: 0 auto; padding: 6rem 2rem 3rem;
+      text-align: center; position: relative;
     }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -20px; left: 50%; transform: translateX(-50%);
-      width: 600px; height: 400px;
-      background: radial-gradient(ellipse at center, rgba(26,107,74,0.08) 0%, transparent 70%);
-      pointer-events: none;
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, rgba(0,230,118,0.12), rgba(124,58,237,0.12));
+      border: 1px solid rgba(0,230,118,0.25);
+      color: var(--green); font-size: 0.75rem; font-weight: 500;
+      padding: 6px 16px; border-radius: 100px; margin-bottom: 1.8rem;
+      animation: fadeUp 0.6s ease both;
     }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--accent-light);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 5px 14px;
-      border-radius: 100px;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(26,107,74,0.2);
-      animation: slideDown 0.6s ease both;
-    }
-    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse-dot 1.5s ease-in-out infinite; }
-    @keyframes slideDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+    .eyebrow-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse-dot 1.5s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
 
     h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.2rem, 5.5vw, 3.4rem);
-      line-height: 1.12;
-      letter-spacing: -0.8px;
-      margin-bottom: 1.2rem;
-      animation: slideUp 0.6s 0.1s ease both;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.4rem;
+      animation: fadeUp 0.6s 0.1s ease both;
     }
-    @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
-    h1 em { color: var(--accent); font-style: italic; }
-    h1 .line2 { display: block; }
+    .h1-line1 { display: block; color: var(--text); }
+    .h1-accent { background: linear-gradient(90deg, var(--green) 0%, var(--purple-light) 50%, var(--orange) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
     .hero-sub {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 500px;
-      margin: 0 auto 2.5rem;
-      animation: slideUp 0.6s 0.2s ease both;
+      color: var(--text-muted); font-size: 1.05rem; max-width: 520px;
+      margin: 0 auto 2.8rem; line-height: 1.65;
+      animation: fadeUp 0.6s 0.2s ease both;
     }
 
     /* SEARCH */
-    .search-wrap { position: relative; max-width: 620px; margin: 0 auto; animation: slideUp 0.6s 0.3s ease both; }
-    .search-box {
-      display: flex;
-      background: var(--surface);
-      border: 1.5px solid var(--border-med);
-      border-radius: 100px;
-      overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-shadow: var(--shadow);
-    }
-    .search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-glow), var(--shadow); }
-    .search-icon { display: flex; align-items: center; padding: 0 0 0 20px; color: var(--text-hint); }
+    .search-wrap { position: relative; max-width: 640px; margin: 0 auto; animation: fadeUp 0.6s 0.3s ease both; }
+    .search-glow { position: absolute; inset: -2px; border-radius: 100px; background: linear-gradient(90deg, var(--green), var(--purple), var(--orange), var(--green)); background-size: 300% 100%; animation: gradientShift 4s linear infinite; opacity: 0; transition: opacity 0.3s; z-index: 0; }
+    @keyframes gradientShift { 0%{background-position:0% 50%} 100%{background-position:300% 50%} }
+    .search-wrap:focus-within .search-glow { opacity: 0.6; }
+    .search-box { position: relative; z-index: 1; display: flex; background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; overflow: hidden; transition: border-color 0.2s; }
+    .search-box:focus-within { border-color: transparent; }
+    .search-icon { display: flex; align-items: center; padding: 0 0 0 22px; color: var(--text-hint); flex-shrink: 0; }
     .search-icon svg { width: 17px; height: 17px; }
-    .search-box input { flex: 1; border: none; outline: none; padding: 15px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); background: transparent; }
+    .search-box input { flex: 1; border: none; outline: none; padding: 16px 14px; font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--text); background: transparent; }
     .search-box input::placeholder { color: var(--text-hint); }
-    .search-btn { background: var(--accent); color: #fff; border: none; padding: 10px 26px; margin: 5px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.15s, transform 0.1s; white-space: nowrap; }
-    .search-btn:hover { background: var(--accent-hover); }
+    .search-btn {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #000; border: none; padding: 10px 26px; margin: 5px;
+      border-radius: 100px; font-family: 'Syne', sans-serif; font-size: 0.875rem;
+      font-weight: 700; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+    .search-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(0,230,118,0.3); }
     .search-btn:active { transform: scale(0.97); }
 
-    .search-hints { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; animation: slideUp 0.6s 0.4s ease both; }
-    .hint-pill { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 5px 14px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
-    .hint-pill:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+    .search-hints { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; animation: fadeUp 0.6s 0.4s ease both; }
+    .hint-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 6px 14px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+    .hint-pill:hover { background: var(--green-glow); border-color: var(--green); color: var(--green); transform: translateY(-2px); }
 
-    /* TRUST BAR */
-    .trust-bar { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; padding: 1.5rem 2rem; max-width: 720px; margin: 0 auto; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-muted); }
-    .trust-check { color: var(--accent); font-size: 0.9rem; }
+    /* STATS BAR */
+    .stats-bar { display: flex; justify-content: center; gap: 0; flex-wrap: wrap; max-width: 700px; margin: 3rem auto 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+    .stat-item { flex: 1; min-width: 140px; padding: 1.2rem 1rem; text-align: center; border-right: 1px solid var(--border); position: relative; }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--green); letter-spacing: -0.5px; }
+    .stat-label { font-size: 0.72rem; color: var(--text-hint); margin-top: 2px; }
 
-    /* SHOP LOGOS BAR */
-    .shops-bar { max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; }
-    .shops-bar-label { font-size: 0.72rem; color: var(--text-hint); text-align: center; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 1rem; }
-    .shops-logos { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-    .shop-chip { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 16px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); transition: all 0.15s; cursor: default; }
-    .shop-chip:hover { border-color: var(--border-med); box-shadow: var(--shadow); transform: translateY(-1px); }
+    /* SHOPS TICKER */
+    .shops-ticker-wrap { overflow: hidden; max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; position: relative; }
+    .shops-ticker-wrap::before { content:''; position:absolute; left:2rem; top:0; bottom:0; width:60px; background:linear-gradient(90deg, var(--bg), transparent); z-index:2; }
+    .shops-ticker-wrap::after { content:''; position:absolute; right:2rem; top:0; bottom:0; width:60px; background:linear-gradient(-90deg, var(--bg), transparent); z-index:2; }
+    .shops-ticker { display: flex; gap: 12px; animation: ticker 20s linear infinite; width: max-content; }
+    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .shops-ticker:hover { animation-play-state: paused; }
+    .shop-chip2 { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; transition: all 0.15s; cursor: default; }
+    .shop-chip2:hover { border-color: var(--border-med); transform: translateY(-1px); }
 
     /* AD */
-    .ad-slot { background: var(--surface); border: 1px dashed var(--border-med); border-radius: var(--radius); padding: 18px; text-align: center; color: var(--text-hint); font-size: 0.72rem; }
+    .ad-slot { background: var(--surface); border: 1px dashed rgba(255,255,255,0.08); border-radius: var(--radius); padding: 18px; text-align: center; color: var(--text-hint); font-size: 0.72rem; }
 
-    /* DEALS */
-    .section-wrap { max-width: 860px; margin: 3rem auto 0; padding: 0 2rem; }
-    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.2rem; }
-    .section-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; }
+    /* SECTION */
+    .section-wrap { max-width: 860px; margin: 3.5rem auto 0; padding: 0 2rem; }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.4rem; }
+    .section-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.3px; }
+    .section-title span { color: var(--green); }
     .section-sub { font-size: 0.78rem; color: var(--text-hint); }
 
-    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-    .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; position: relative; transition: all 0.2s; overflow: hidden; }
-    .deal-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 60%, rgba(26,107,74,0.03)); pointer-events: none; }
-    .deal-card:hover { box-shadow: var(--shadow); border-color: var(--border-med); transform: translateY(-2px); }
-    .deal-badge { position: absolute; top: 12px; right: 12px; background: #ef4444; color: #fff; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
-    .deal-cat { font-size: 0.68rem; color: var(--text-hint); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
-    .deal-name { font-size: 0.88rem; font-weight: 500; margin-bottom: 10px; line-height: 1.35; }
-    .deal-prices { display: flex; align-items: baseline; gap: 7px; margin-bottom: 10px; }
-    .deal-price { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--text); }
+    /* DEALS */
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+    .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all 0.25s; position: relative; cursor: pointer; }
+    .deal-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: var(--border-med); }
+    .deal-img { width: 100%; height: 140px; object-fit: cover; background: var(--bg3); display: block; }
+    .deal-img-placeholder { width: 100%; height: 140px; background: linear-gradient(135deg, var(--bg3), var(--surface2)); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+    .deal-body { padding: 14px; }
+    .deal-badge { position: absolute; top: 10px; right: 10px; background: var(--pink); color: #fff; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+    .deal-cat { font-size: 0.65rem; color: var(--text-hint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .deal-name { font-size: 0.85rem; font-weight: 500; margin-bottom: 10px; line-height: 1.35; color: var(--text); }
+    .deal-prices { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+    .deal-price { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--green); }
     .deal-old { font-size: 0.75rem; color: var(--text-hint); text-decoration: line-through; }
-    .deal-btn { display: block; text-align: center; background: var(--accent-light); color: var(--accent); border: none; border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; font-weight: 500; cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
-    .deal-btn:hover { background: var(--accent); color: #fff; }
-    .deal-shop-tag { font-size: 0.68rem; color: var(--text-hint); margin-top: 6px; }
+    .deal-btn { display: block; text-align: center; background: linear-gradient(135deg, var(--green-glow), rgba(124,58,237,0.1)); color: var(--green); border: 1px solid rgba(0,230,118,0.3); border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: none; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+    .deal-btn:hover { background: var(--green); color: #000; border-color: var(--green); }
+    .deal-shop-tag { font-size: 0.65rem; color: var(--text-hint); margin-top: 6px; text-align: center; }
+
+    /* LOADING */
+    #loading { display: none; text-align: center; padding: 4rem 2rem; max-width: 860px; margin: 0 auto; }
+    #loading.visible { display: block; }
+    .loader-wrap { display: flex; justify-content: center; margin-bottom: 1.5rem; }
+    .loader-ring { width: 48px; height: 48px; border: 3px solid var(--surface2); border-top-color: var(--green); border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .loading-text { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .loading-shops { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .loading-shop { font-size: 0.72rem; padding: 4px 12px; border-radius: 100px; border: 1px solid var(--border); color: var(--text-hint); animation: pulse 1.2s ease-in-out infinite; }
+    .loading-shop:nth-child(2){animation-delay:.15s} .loading-shop:nth-child(3){animation-delay:.3s} .loading-shop:nth-child(4){animation-delay:.45s} .loading-shop:nth-child(5){animation-delay:.6s}
+    @keyframes pulse { 0%,100%{opacity:0.3;border-color:var(--border)} 50%{opacity:1;border-color:var(--green)} }
 
     /* RESULTS */
     #results-section { display: none; max-width: 860px; margin: 2rem auto; padding: 0 2rem; }
-    #results-section.visible { display: block; animation: fadeIn 0.3s ease; }
-    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 8px; }
-    .results-title { font-size: 1rem; font-weight: 500; }
-    .results-meta { font-size: 0.78rem; color: var(--text-muted); }
+    #results-section.visible { display: block; animation: fadeUp 0.4s ease; }
+    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.4rem; flex-wrap: wrap; gap: 10px; }
+    .results-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; }
+    .results-meta { font-size: 0.78rem; color: var(--text-hint); }
     .sort-bar { display: flex; gap: 6px; }
-    .sort-btn { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 5px 14px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
-    .sort-btn.active, .sort-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .results-grid { display: flex; flex-direction: column; gap: 10px; }
+    .sort-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 6px 16px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+    .sort-btn.active { background: var(--green); color: #000; border-color: var(--green); font-weight: 600; }
+    .sort-btn:hover:not(.active) { border-color: var(--border-med); color: var(--text); }
 
+    .results-grid { display: flex; flex-direction: column; gap: 12px; }
+
+    /* RECOMMENDATION CARD */
     .result-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: all 0.2s;
-      position: relative;
-      animation: slideIn 0.3s ease both;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px;
+      display: flex; align-items: center; gap: 16px;
+      transition: all 0.2s; position: relative; overflow: hidden;
+      animation: slideIn 0.35s ease both;
     }
-    @keyframes slideIn { from{opacity:0;transform:translateX(-8px)} to{opacity:1;transform:translateX(0)} }
-    .result-card:hover { box-shadow: var(--shadow); border-color: var(--border-med); transform: translateX(2px); }
-    .result-card.best-deal { border-color: var(--accent); border-width: 1.5px; }
-    .best-badge { position: absolute; top: -1px; left: 16px; background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 600; padding: 2px 10px; border-radius: 0 0 6px 6px; letter-spacing: 0.3px; }
-    .shop-logo { width: 54px; height: 42px; border-radius: var(--radius-sm); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; text-align: center; letter-spacing: 0.3px; }
-    .result-info { flex: 1; min-width: 0; }
-    .result-shop { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 2px; }
-    .result-name { font-size: 0.9rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .result-tags { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
-    .tag { font-size: 0.68rem; padding: 2px 8px; border-radius: 4px; font-weight: 400; }
-    .tag-ship { background: #e6f3ee; color: #1a6b4a; }
-    .tag-rating { background: #f3f0ff; color: #5b21b6; }
-    .tag-affiliate { background: #fff7ed; color: #c2410c; font-size: 0.62rem; }
-    .result-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
-    .price-main { font-family: 'DM Serif Display', serif; font-size: 1.45rem; letter-spacing: -0.3px; }
-    .price-old { font-size: 0.75rem; color: var(--text-hint); text-decoration: line-through; }
-    .price-save { font-size: 0.72rem; color: #c2410c; font-weight: 500; }
-    .go-btn { background: var(--accent); color: #fff; border: none; padding: 7px 18px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; }
-    .go-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .result-card::before { content:''; position:absolute; inset:0; opacity:0; transition:opacity 0.2s; pointer-events:none; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02)); }
+    .result-card:hover::before { opacity:1; }
+    @keyframes slideIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    .result-card:hover { border-color: var(--border-med); transform: translateX(3px); }
 
-    /* LOADING */
-    #loading { display: none; text-align: center; padding: 3.5rem 2rem; }
-    #loading.visible { display: block; }
-    .spinner { width: 36px; height: 36px; border: 2.5px solid var(--border-med); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.65s linear infinite; margin: 0 auto 1rem; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-text { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 10px; }
-    .loading-shops { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
-    .loading-shop { font-size: 0.72rem; padding: 3px 10px; border-radius: 100px; border: 1px solid var(--border-med); color: var(--text-hint); animation: pulse 1.2s ease-in-out infinite; }
-    .loading-shop:nth-child(2){animation-delay:.15s} .loading-shop:nth-child(3){animation-delay:.3s} .loading-shop:nth-child(4){animation-delay:.45s} .loading-shop:nth-child(5){animation-delay:.6s}
-    @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+    .result-card.our-pick {
+      border: 2px solid var(--green);
+      background: linear-gradient(135deg, var(--surface), rgba(0,230,118,0.04));
+      box-shadow: 0 0 30px rgba(0,230,118,0.1), inset 0 0 30px rgba(0,230,118,0.02);
+    }
+    .our-pick-badge {
+      position: absolute; top: -1px; left: 16px;
+      background: linear-gradient(90deg, var(--green), var(--green-dark));
+      color: #000; font-size: 0.68rem; font-weight: 800;
+      padding: 3px 12px; border-radius: 0 0 8px 8px;
+      letter-spacing: 0.5px; font-family: 'Syne', sans-serif;
+      text-transform: uppercase;
+    }
+
+    .result-img-wrap { width: 64px; height: 64px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--bg3); border: 1px solid var(--border); }
+    .result-img { width: 100%; height: 100%; object-fit: cover; }
+    .result-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; background: var(--bg3); }
+
+    .shop-badge { width: 44px; height: 36px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; flex-shrink: 0; letter-spacing: 0.3px; }
+    .result-info { flex: 1; min-width: 0; }
+    .result-shop { font-size: 0.7rem; color: var(--text-hint); margin-bottom: 2px; }
+    .result-name { font-size: 0.9rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
+    .result-tags { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+    .tag { font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+    .tag-ship { background: rgba(0,230,118,0.1); color: var(--green); border: 1px solid rgba(0,230,118,0.2); }
+    .tag-rating { background: rgba(124,58,237,0.1); color: var(--purple-light); border: 1px solid rgba(124,58,237,0.2); }
+    .tag-affiliate { background: rgba(255,107,53,0.1); color: var(--orange); border: 1px solid rgba(255,107,53,0.2); }
+    .result-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+    .price-main { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text); }
+    .our-pick .price-main { color: var(--green); }
+    .price-old { font-size: 0.75rem; color: var(--text-hint); text-decoration: line-through; }
+    .price-save { font-size: 0.72rem; color: var(--orange); font-weight: 600; }
+    .go-btn { background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #000; border: none; padding: 8px 20px; border-radius: 100px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; letter-spacing: 0.2px; }
+    .go-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,230,118,0.3); }
+    .go-btn-secondary { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); padding: 8px 18px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.8rem; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; }
+    .go-btn-secondary:hover { border-color: var(--border-med); color: var(--text); }
 
     /* FEATURES */
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 3rem; }
-    .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: all 0.2s; }
-    .feature-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
-    .feature-icon { width: 38px; height: 38px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
-    .feature-icon svg { width: 18px; height: 18px; color: var(--accent); }
-    .feature-card h3 { font-size: 0.88rem; font-weight: 500; margin-bottom: 4px; }
-    .feature-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 3.5rem; }
+    .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; transition: all 0.2s; position: relative; overflow: hidden; }
+    .feature-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--green), var(--purple-light)); }
+    .feature-card:hover { border-color: var(--border-med); transform: translateY(-3px); }
+    .feature-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--surface2); margin-bottom: 8px; }
+    .feature-card h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 5px; color: var(--text); }
+    .feature-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+
+    .affiliate-notice { max-width: 860px; margin: 1rem auto 0; padding: 0 2rem; font-size: 0.7rem; color: var(--text-hint); }
 
     /* STATIC PAGES */
     .static-page { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
-    .static-page h2 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; margin-bottom: 2rem; }
-    .static-page h3 { font-size: 0.95rem; font-weight: 600; margin: 1.5rem 0 0.4rem; color: var(--text); }
+    .static-page h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 2rem; letter-spacing: -0.5px; }
+    .static-page h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; margin: 1.5rem 0 0.5rem; color: var(--text); }
     .static-page p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.75; }
-    .static-page a { color: var(--accent); }
+    .static-page a { color: var(--green); text-decoration: none; }
+    .static-page a:hover { text-decoration: underline; }
 
-    /* KONTAKT FORM */
+    /* KONTAKT */
     .kontakt-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-top: 1.5rem; }
     .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.82rem; font-weight: 500; margin-bottom: 5px; color: var(--text); }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 14px; border: 1px solid var(--border-med); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 500; margin-bottom: 6px; color: var(--text-muted); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px 14px; border: 1px solid var(--border-med); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--bg2); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(0,230,118,0.1); }
     .form-group textarea { resize: vertical; min-height: 120px; }
-    .form-submit { background: var(--accent); color: #fff; border: none; padding: 10px 28px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
-    .form-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
-    .form-success { display: none; background: var(--accent-light); color: var(--accent); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; margin-top: 1rem; border: 1px solid rgba(26,107,74,0.2); }
+    .form-group select option { background: var(--bg2); }
+    .form-submit { background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #000; border: none; padding: 11px 28px; border-radius: 100px; font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,230,118,0.3); }
+    .form-success { display: none; background: rgba(0,230,118,0.1); color: var(--green); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; margin-top: 1rem; border: 1px solid rgba(0,230,118,0.2); }
 
     /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-hint); font-size: 0.78rem; margin-top: 5rem; }
-    footer a { color: var(--text-muted); text-decoration: none; margin: 0 8px; cursor: pointer; transition: color 0.15s; }
-    footer a:hover { color: var(--accent); }
-    .affiliate-notice { max-width: 860px; margin: 0 auto 1rem; padding: 0 2rem; font-size: 0.72rem; color: var(--text-hint); }
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; margin-top: 6rem; }
+    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; background: linear-gradient(90deg, var(--green), var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-hint); text-decoration: none; font-size: 0.8rem; cursor: pointer; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--green); }
+    .footer-copy { color: var(--text-hint); font-size: 0.75rem; }
 
-    /* CHATBOT */
-    .chat-bubble { position: fixed; bottom: 24px; right: 24px; width: 54px; height: 54px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(26,107,74,0.35); z-index: 999; transition: transform 0.2s, box-shadow 0.2s; }
-    .chat-bubble:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(26,107,74,0.45); }
-    .chat-bubble svg { width: 22px; height: 22px; color: #fff; }
-    .chat-window { position: fixed; bottom: 90px; right: 24px; width: 320px; background: var(--surface); border: 1px solid var(--border-med); border-radius: var(--radius); box-shadow: var(--shadow-lg); z-index: 998; display: none; flex-direction: column; overflow: hidden; transform-origin: bottom right; }
-    .chat-window.open { display: flex; animation: chatOpen 0.25s cubic-bezier(0.4,0,0.2,1); }
-    @keyframes chatOpen { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
-    .chat-header { background: var(--accent); color: #fff; padding: 13px 16px; font-size: 0.875rem; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
-    .chat-header-info { display: flex; align-items: center; gap: 8px; }
-    .chat-online { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; }
-    .chat-close { cursor: pointer; opacity: 0.8; font-size: 1rem; transition: opacity 0.15s; }
-    .chat-close:hover { opacity: 1; }
-    .chat-messages { padding: 14px; display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto; }
-    .chat-msg { max-width: 88%; padding: 8px 12px; border-radius: 12px; font-size: 0.82rem; line-height: 1.5; }
-    .chat-msg.bot { background: var(--bg); color: var(--text); align-self: flex-start; border-bottom-left-radius: 3px; }
-    .chat-msg.user { background: var(--accent); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
-    .chat-options { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 5px; }
-    .chat-opt { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border-med); border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; cursor: pointer; font-family: 'DM Sans', sans-serif; text-align: left; transition: all 0.15s; }
-    .chat-opt:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+    /* ── CHATBOT ── */
+    .chat-bubble {
+      position: fixed; bottom: 24px; right: 24px;
+      width: 58px; height: 58px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 999;
+      box-shadow: 0 4px 24px rgba(0,230,118,0.4), 0 0 0 0 rgba(0,230,118,0.3);
+      animation: chatPulse 3s ease-in-out infinite;
+      transition: transform 0.2s;
+    }
+    @keyframes chatPulse { 0%,100%{box-shadow:0 4px 24px rgba(0,230,118,0.4), 0 0 0 0 rgba(0,230,118,0.3)} 50%{box-shadow:0 4px 24px rgba(0,230,118,0.4), 0 0 0 12px rgba(0,230,118,0)} }
+    .chat-bubble:hover { transform: scale(1.1) rotate(-5deg); }
+    .chat-bubble svg { width: 24px; height: 24px; color: #000; }
+
+    .chat-window {
+      position: fixed; bottom: 96px; right: 24px; width: 340px;
+      background: var(--bg2);
+      border: 1px solid var(--border-med);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      z-index: 998; display: none; flex-direction: column; overflow: hidden;
+      transform-origin: bottom right;
+    }
+    .chat-window.open { display: flex; animation: chatOpen 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes chatOpen { from{opacity:0;transform:scale(0.7) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+    .chat-header {
+      background: linear-gradient(135deg, rgba(0,230,118,0.15), rgba(124,58,237,0.15));
+      border-bottom: 1px solid var(--border);
+      padding: 14px 16px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .chat-header-left { display: flex; align-items: center; gap: 10px; }
+    .chat-avatar { width: 34px; height: 34px; background: linear-gradient(135deg, var(--green), var(--purple-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+    .chat-name { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .chat-status { display: flex; align-items: center; gap: 4px; font-size: 0.68rem; color: var(--green); }
+    .chat-status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse-dot 1.5s ease-in-out infinite; }
+    .chat-close { cursor: pointer; color: var(--text-hint); transition: color 0.15s; font-size: 1rem; padding: 2px; }
+    .chat-close:hover { color: var(--text); }
+
+    .chat-messages { padding: 16px; display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--surface2); }
+
+    .chat-msg { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 0.83rem; line-height: 1.5; animation: msgIn 0.25s ease; }
+    @keyframes msgIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+    .chat-msg.bot { background: var(--surface); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
+    .chat-msg.user { background: linear-gradient(135deg, var(--green), var(--green-dark)); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+
+    .chat-options { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 6px; }
+    .chat-opt { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); border-radius: 100px; padding: 8px 14px; font-size: 0.78rem; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; transition: all 0.15s; }
+    .chat-opt:hover { background: var(--green-glow); color: var(--green); border-color: rgba(0,230,118,0.3); transform: translateX(3px); }
+
+    .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 10px 14px; background: var(--surface); border-radius: 16px; border-bottom-left-radius: 4px; border: 1px solid var(--border); align-self: flex-start; }
+    .typing-dot { width: 6px; height: 6px; background: var(--text-hint); border-radius: 50%; animation: typing 1.2s ease-in-out infinite; }
+    .typing-dot:nth-child(2){animation-delay:.2s} .typing-dot:nth-child(3){animation-delay:.4s}
+    @keyframes typing { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
 
     @media (max-width: 640px) {
       .result-card { flex-wrap: wrap; }
       .result-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
-      .trust-bar { gap: 1rem; }
+      .stats-bar { flex-direction: row; }
       .chat-window { width: calc(100vw - 32px); right: 16px; }
       .nav-links-desktop { display: none; }
+      .footer-inner { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="logo" onclick="showPage('home')">
-    <div class="logo-dot"></div>
-    PreisWise
+    <div class="logo-icon">⚡</div>
+    <span class="logo-text">PreisWise</span>
   </div>
   <div class="nav-right">
     <div class="nav-links-desktop">
@@ -340,39 +423,22 @@
     <div class="drawer-close" onclick="toggleDrawer()">✕</div>
   </div>
   <div class="drawer-nav">
-    <a onclick="showPage('home');toggleDrawer()">
-      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
-      Startseite
-    </a>
-    <a onclick="showPage('ueber');toggleDrawer()">
-      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
-      Über uns
-    </a>
-    <a onclick="showPage('kontakt');toggleDrawer()">
-      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-      Kontakt
-    </a>
-    <a onclick="showPage('impressum');toggleDrawer()">
-      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
-      Impressum
-    </a>
-    <a onclick="showPage('datenschutz');toggleDrawer()">
-      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-      Datenschutz
-    </a>
+    <a onclick="showPage('home');toggleDrawer()"><svg class="di" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>Startseite</a>
+    <a onclick="showPage('ueber');toggleDrawer()"><svg class="di" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>Über uns</a>
+    <a onclick="showPage('kontakt');toggleDrawer()"><svg class="di" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>Kontakt</a>
+    <a onclick="showPage('impressum');toggleDrawer()"><svg class="di" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>Impressum</a>
+    <a onclick="showPage('datenschutz');toggleDrawer()"><svg class="di" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Datenschutz</a>
   </div>
-  <div class="drawer-cats">
-    <div class="drawer-cats-title">Kategorien</div>
-    <div>
-      <span class="drawer-cat-pill" onclick="fillSearch('Smartphone');toggleDrawer()">📱 Smartphones</span>
-      <span class="drawer-cat-pill" onclick="fillSearch('Laptop');toggleDrawer()">💻 Laptops</span>
-      <span class="drawer-cat-pill" onclick="fillSearch('Gaming');toggleDrawer()">🎮 Gaming</span>
-      <span class="drawer-cat-pill" onclick="fillSearch('Kopfhörer');toggleDrawer()">🎧 Audio</span>
-      <span class="drawer-cat-pill" onclick="fillSearch('Staubsauger');toggleDrawer()">🏠 Haushalt</span>
-      <span class="drawer-cat-pill" onclick="fillSearch('Sneaker');toggleDrawer()">👟 Mode</span>
-      <span class="drawer-cat-pill" onclick="fillSearch('Kamera');toggleDrawer()">📷 Foto</span>
-      <span class="drawer-cat-pill" onclick="fillSearch('Tablet');toggleDrawer()">📟 Tablets</span>
-    </div>
+  <div class="drawer-section">Kategorien</div>
+  <div class="drawer-cat-grid">
+    <div class="drawer-cat" onclick="fillSearch('Smartphone');toggleDrawer()"><span class="dc-icon">📱</span>Smartphones</div>
+    <div class="drawer-cat" onclick="fillSearch('Laptop');toggleDrawer()"><span class="dc-icon">💻</span>Laptops</div>
+    <div class="drawer-cat" onclick="fillSearch('Gaming');toggleDrawer()"><span class="dc-icon">🎮</span>Gaming</div>
+    <div class="drawer-cat" onclick="fillSearch('Kopfhörer');toggleDrawer()"><span class="dc-icon">🎧</span>Audio</div>
+    <div class="drawer-cat" onclick="fillSearch('Staubsauger');toggleDrawer()"><span class="dc-icon">🏠</span>Haushalt</div>
+    <div class="drawer-cat" onclick="fillSearch('Sneaker');toggleDrawer()"><span class="dc-icon">👟</span>Mode</div>
+    <div class="drawer-cat" onclick="fillSearch('Kamera');toggleDrawer()"><span class="dc-icon">📷</span>Foto</div>
+    <div class="drawer-cat" onclick="fillSearch('Tablet');toggleDrawer()"><span class="dc-icon">📟</span>Tablets</div>
   </div>
 </div>
 
@@ -380,59 +446,56 @@
 <div id="page-home" class="page active">
 
   <section class="hero">
-    <div class="hero-badge"><div class="badge-dot"></div> Live Preisvergleich</div>
-    <h1>Finde den <em>besten Preis</em><span class="line2">für alles was du willst</span></h1>
-    <p class="hero-sub">Wir vergleichen Amazon, eBay, MediaMarkt, Saturn, Otto und 5 weitere Shops – automatisch, kostenlos, in Echtzeit.</p>
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div> Live Preisvergleich · 8+ Shops</div>
+    <h1>
+      <span class="h1-line1">Kauf schlauer.</span>
+      <span class="h1-accent">Spare mehr.</span>
+    </h1>
+    <p class="hero-sub">Wir durchsuchen Amazon, eBay, MediaMarkt, Saturn und 4 weitere Shops gleichzeitig – und zeigen dir sofort den besten Preis.</p>
     <div class="search-wrap">
+      <div class="search-glow"></div>
       <div class="search-box">
         <div class="search-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg></div>
         <input type="text" id="searchInput" placeholder="z.B. iPhone 15, Nike Air Max, PS5 ..." autocomplete="off" />
-        <button class="search-btn" onclick="startSearch()">Vergleichen</button>
+        <button class="search-btn" onclick="startSearch()">Vergleichen →</button>
       </div>
-      <div class="search-hints">
-        <div class="hint-pill" onclick="fillSearch('iPhone 15')">iPhone 15</div>
-        <div class="hint-pill" onclick="fillSearch('AirPods Pro')">AirPods Pro</div>
-        <div class="hint-pill" onclick="fillSearch('PlayStation 5')">PlayStation 5</div>
-        <div class="hint-pill" onclick="fillSearch('Samsung Galaxy S24')">Galaxy S24</div>
-        <div class="hint-pill" onclick="fillSearch('Dyson V15')">Dyson V15</div>
-      </div>
+    </div>
+    <div class="search-hints">
+      <div class="hint-pill" onclick="fillSearch('iPhone 15')">📱 iPhone 15</div>
+      <div class="hint-pill" onclick="fillSearch('AirPods Pro')">🎧 AirPods Pro</div>
+      <div class="hint-pill" onclick="fillSearch('PlayStation 5')">🎮 PS5</div>
+      <div class="hint-pill" onclick="fillSearch('Samsung Galaxy S24')">📲 Galaxy S24</div>
+      <div class="hint-pill" onclick="fillSearch('Dyson V15')">🏠 Dyson V15</div>
     </div>
   </section>
 
-  <div class="trust-bar">
-    <div class="trust-item"><span class="trust-check">✓</span> Kostenlos & ohne Anmeldung</div>
-    <div class="trust-item"><span class="trust-check">✓</span> Preise in Echtzeit</div>
-    <div class="trust-item"><span class="trust-check">✓</span> 8+ Shops gleichzeitig</div>
-    <div class="trust-item"><span class="trust-check">✓</span> Kein Tracking</div>
+  <div class="stats-bar section-wrap" style="padding:0 2rem;">
+    <div class="stat-item"><div class="stat-num">8+</div><div class="stat-label">Shops verglichen</div></div>
+    <div class="stat-item"><div class="stat-num">Live</div><div class="stat-label">Preise in Echtzeit</div></div>
+    <div class="stat-item"><div class="stat-num">0€</div><div class="stat-label">Komplett kostenlos</div></div>
+    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Kein Tracking</div></div>
   </div>
 
-  <div class="shops-bar">
-    <div class="shops-bar-label">Wir vergleichen diese Shops</div>
-    <div class="shops-logos">
-      <div class="shop-chip" style="color:#FF9900">Amazon</div>
-      <div class="shop-chip" style="color:#e53238">eBay</div>
-      <div class="shop-chip" style="color:#cc0000">MediaMarkt</div>
-      <div class="shop-chip" style="color:#cc0000">Saturn</div>
-      <div class="shop-chip" style="color:#e2001a">Otto</div>
-      <div class="shop-chip" style="color:#005eb8">Idealo</div>
-      <div class="shop-chip" style="color:#0066cc">Galaxus</div>
-      <div class="shop-chip" style="color:#ff6600">Alternate</div>
-    </div>
+  <!-- SHOPS TICKER -->
+  <div class="shops-ticker-wrap section-wrap" style="padding:0;">
+    <div class="shops-ticker" id="shopsTicker"></div>
   </div>
 
-  <div class="section-wrap" style="margin-top:2rem;">
+  <div class="section-wrap">
     <div class="ad-slot">Werbung · Google AdSense</div>
   </div>
 
+  <!-- LOADING -->
   <div id="loading">
-    <div class="spinner"></div>
-    <p class="loading-text">Vergleiche Preise live ...</p>
+    <div class="loader-wrap"><div class="loader-ring"></div></div>
+    <p class="loading-text">Durchsuche 8 Shops live ...</p>
     <div class="loading-shops">
       <span class="loading-shop">Amazon</span><span class="loading-shop">eBay</span>
-      <span class="loading-shop">MediaMarkt</span><span class="loading-shop">Otto</span><span class="loading-shop">Idealo</span>
+      <span class="loading-shop">MediaMarkt</span><span class="loading-shop">Idealo</span><span class="loading-shop">Otto</span>
     </div>
   </div>
 
+  <!-- RESULTS -->
   <section id="results-section">
     <div class="results-header">
       <div>
@@ -440,30 +503,32 @@
         <div class="results-meta" id="results-meta"></div>
       </div>
       <div class="sort-bar">
-        <button class="sort-btn active" onclick="sortResults('price',this)">Günstigster Preis</button>
-        <button class="sort-btn" onclick="sortResults('rating',this)">Beste Bewertung</button>
+        <button class="sort-btn active" onclick="sortResults('pick',this)">Empfehlung</button>
+        <button class="sort-btn" onclick="sortResults('price',this)">Günstigster</button>
+        <button class="sort-btn" onclick="sortResults('rating',this)">Bewertung</button>
       </div>
     </div>
     <div class="results-grid" id="resultsGrid"></div>
-    <div class="affiliate-notice">* Nur Amazon-Links sind Affiliate-Links. PreisWise erhält eine kleine Provision – für dich entstehen keine Mehrkosten. Preise ohne Gewähr.</div>
-    <div class="ad-slot" style="margin-top:1rem;">Werbung · Google AdSense</div>
+    <div class="affiliate-notice">* Nur Amazon-Links sind Affiliate-Links. PreisWise erhält eine kleine Provision – für dich entstehen keine Mehrkosten. Alle anderen Links sind neutral.</div>
+    <div class="ad-slot" style="margin-top:1.5rem;">Werbung · Google AdSense</div>
   </section>
 
   <!-- TOP DEALS -->
   <div class="section-wrap">
     <div class="section-header">
-      <div class="section-title">Top Schnäppchenpreise</div>
+      <div class="section-title">Top <span>Deals</span> heute</div>
       <div class="section-sub">Aktuell besonders günstig</div>
     </div>
     <div class="deals-grid" id="dealsGrid"></div>
   </div>
 
+  <!-- FEATURES -->
   <div class="section-wrap">
     <div class="features-grid">
-      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg></div><h3>Echtzeit-Preise</h3><p>Alle Preise live abgerufen – kein veralteter Cache.</p></div>
-      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 010 2H4a1 1 0 01-1-1z"/></svg></div><h3>8+ Shops</h3><p>Amazon, eBay, MediaMarkt, Saturn, Otto und mehr.</p></div>
-      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg></div><h3>Bestpreis-Alarm</h3><p>Demnächst: Benachrichtigung wenn ein Preis fällt.</p></div>
-      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg></div><h3>Kein Tracking</h3><p>Wir speichern keine Suchanfragen. Versprochen.</p></div>
+      <div class="feature-card"><div class="feature-num">01</div><h3>Live-Preise</h3><p>Preise werden bei jeder Suche frisch abgerufen – kein veralteter Cache.</p></div>
+      <div class="feature-card"><div class="feature-num">02</div><h3>8+ Shops</h3><p>Amazon, eBay, MediaMarkt, Saturn, Otto, Idealo, Galaxus, Alternate.</p></div>
+      <div class="feature-card"><div class="feature-num">03</div><h3>Unsere Empfehlung</h3><p>Wir pinnen immer das Amazon-Angebot oben – vertrauenswürdig & schnell geliefert.</p></div>
+      <div class="feature-card"><div class="feature-num">04</div><h3>Kein Tracking</h3><p>Wir speichern nichts, verkaufen keine Daten. Deine Suche bleibt privat.</p></div>
     </div>
   </div>
 
@@ -473,13 +538,13 @@
 <div id="page-ueber" class="page">
   <div class="static-page">
     <h2>Über PreisWise</h2>
-    <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt. Unser Ziel: dir in Sekunden den besten Preis für jedes Produkt zeigen – ohne Anmeldung, ohne Tricks.</p>
+    <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – gebaut von einem Hamburger, der selbst immer den besten Deal finden wollte.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Gib ein Produkt ein – wir vergleichen automatisch 8+ Shops gleichzeitig und sortieren nach dem günstigsten Preis. Ein Klick bringt dich direkt zum Angebot.</p>
+    <p>Gib ein Produkt ein – wir durchsuchen gleichzeitig 8+ der größten deutschen Online-Shops und zeigen dir das günstigste Angebot. Amazon steht immer oben als unsere Empfehlung, weil es am vertrauenswürdigsten und zuverlässigsten ist.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
-    <p>PreisWise ist für dich komplett kostenlos. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Provisionen. Für dich entstehen dabei keine Mehrkosten.</p>
+    <p>PreisWise ist für dich 100% kostenlos. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Provisionen. Für dich entstehen dabei absolut keine Mehrkosten.</p>
     <h3>Wer steckt dahinter?</h3>
-    <p>PreisWise ist ein privates Projekt aus Hamburg. Bei Fragen erreichst du uns über das <span style="color:var(--accent);cursor:pointer;" onclick="showPage('kontakt')">Kontaktformular</span>.</p>
+    <p>PreisWise ist ein privates Projekt aus Hamburg. Bei Fragen erreichst du uns über das <span style="color:var(--green);cursor:pointer;" onclick="showPage('kontakt')">Kontaktformular</span>.</p>
   </div>
 </div>
 
@@ -487,7 +552,7 @@
 <div id="page-kontakt" class="page">
   <div class="static-page">
     <h2>Kontakt</h2>
-    <p>Fragen, Feedback oder ein Problem? Schreib uns!</p>
+    <p>Fragen, Feedback oder ein Problem? Schreib uns – wir antworten schnell.</p>
     <p>Direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
     <div class="kontakt-form">
       <div class="form-group"><label>Dein Name</label><input type="text" id="kontakt-name" placeholder="Max Mustermann" /></div>
@@ -500,7 +565,7 @@
       </div>
       <div class="form-group"><label>Nachricht</label><textarea id="kontakt-nachricht" placeholder="Deine Nachricht ..."></textarea></div>
       <button class="form-submit" onclick="sendKontakt()">Nachricht senden →</button>
-      <div class="form-success" id="kontakt-success">Danke! Deine Nachricht wurde gesendet. Wir melden uns bald bei dir.</div>
+      <div class="form-success" id="kontakt-success">Danke! Deine Nachricht wurde gesendet. Wir melden uns bald.</div>
     </div>
   </div>
 </div>
@@ -520,7 +585,7 @@
     <h3>Affiliate-Hinweis</h3>
     <p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich entstehen keine Mehrkosten.</p>
     <h3>Streitschlichtung</h3>
-    <p>EU-Plattform zur Online-Streitbeilegung: <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
+    <p>EU-Plattform: <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
   </div>
 </div>
 
@@ -531,125 +596,154 @@
     <h3>1. Verantwortlicher</h3>
     <p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg · kontakt.preiswise@gmail.com</p>
     <h3>2. Erhobene Daten</h3>
-    <p>PreisWise erhebt keine personenbezogenen Daten ohne deine Einwilligung. Technische Zugriffsdaten werden von Vercel (Hosting) erfasst.</p>
+    <p>PreisWise erhebt keine personenbezogenen Daten ohne deine Einwilligung. Technische Zugriffsdaten werden von Vercel erfasst.</p>
     <h3>3. Google AdSense</h3>
-    <p>Wir nutzen Google AdSense. Google kann Cookies setzen und Nutzungsdaten erheben. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
+    <p>Wir nutzen Google AdSense. Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>4. Amazon Partnerprogramm</h3>
-    <p>Wir nehmen am Amazon Partnerprogramm teil. Bei Klicks auf Amazon-Links kann Amazon Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
+    <p>Affiliate-Links zu Amazon. Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
     <h3>5. Deine Rechte</h3>
     <p>Auskunft, Berichtigung, Löschung: kontakt.preiswise@gmail.com</p>
   </div>
 </div>
 
 <footer>
-  <div>© 2026 PreisWise ·
-    <a onclick="showPage('impressum')">Impressum</a>
-    <a onclick="showPage('datenschutz')">Datenschutz</a>
-    <a onclick="showPage('kontakt')">Kontakt</a>
-    <a onclick="showPage('ueber')">Über uns</a>
+  <div class="footer-inner">
+    <div class="footer-logo">PreisWise ⚡</div>
+    <div class="footer-links">
+      <a onclick="showPage('impressum')">Impressum</a>
+      <a onclick="showPage('datenschutz')">Datenschutz</a>
+      <a onclick="showPage('kontakt')">Kontakt</a>
+      <a onclick="showPage('ueber')">Über uns</a>
+    </div>
+    <div class="footer-copy">© 2026 PreisWise · Hamburg</div>
   </div>
 </footer>
 
 <!-- CHATBOT -->
 <div class="chat-bubble" onclick="toggleChat()">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
 </div>
 <div class="chat-window" id="chatWindow">
   <div class="chat-header">
-    <div class="chat-header-info"><div class="chat-online"></div> PreisWise Hilfe</div>
-    <span class="chat-close" onclick="toggleChat()">✕</span>
+    <div class="chat-header-left">
+      <div class="chat-avatar">🤖</div>
+      <div>
+        <div class="chat-name">PreisWise Bot</div>
+        <div class="chat-status"><div class="chat-status-dot"></div> Online</div>
+      </div>
+    </div>
+    <div class="chat-close" onclick="toggleChat()">✕</div>
   </div>
   <div class="chat-messages" id="chatMessages">
-    <div class="chat-msg bot">Hallo! Wie kann ich dir helfen? 👋</div>
+    <div class="chat-msg bot">Hey! 👋 Ich bin dein PreisWise Assistent. Wie kann ich dir helfen?</div>
   </div>
   <div class="chat-options" id="chatOptions">
-    <button class="chat-opt" onclick="chatReply('Wie funktioniert der Preisvergleich?')">Wie funktioniert der Preisvergleich?</button>
-    <button class="chat-opt" onclick="chatReply('Sind die Preise aktuell?')">Sind die Preise aktuell?</button>
-    <button class="chat-opt" onclick="chatReply('Kostet PreisWise etwas?')">Kostet PreisWise etwas?</button>
-    <button class="chat-opt" onclick="chatReply('Ich habe ein Problem')">Ich habe ein Problem</button>
+    <button class="chat-opt" onclick="chatReply('Wie funktioniert der Preisvergleich?')">🔍 Wie funktioniert das?</button>
+    <button class="chat-opt" onclick="chatReply('Sind die Preise aktuell?')">💰 Sind die Preise aktuell?</button>
+    <button class="chat-opt" onclick="chatReply('Kostet PreisWise etwas?')">✅ Ist es kostenlos?</button>
+    <button class="chat-opt" onclick="chatReply('Ich habe ein Problem')">🚨 Ich habe ein Problem</button>
   </div>
 </div>
 
 <script>
-// ── DATA ──
 const SHOPS = [
-  { name:'Amazon',    short:'AMZ',  color:'#FF9900', tc:'#7a4500', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=', affiliate:true },
-  { name:'eBay',      short:'eBay', color:'#e53238', tc:'#7a1010', url:'https://www.ebay.de/sch/i.html?_nkw=',          affiliate:false },
-  { name:'MediaMarkt',short:'MM',   color:'#cc0000', tc:'#660000', url:'https://www.mediamarkt.de/de/search.html?query=',affiliate:false },
-  { name:'Saturn',    short:'SAT',  color:'#444',    tc:'#222',    url:'https://www.saturn.de/de/search.html?query=',   affiliate:false },
-  { name:'Otto',      short:'OTTO', color:'#e2001a', tc:'#7a0010', url:'https://www.otto.de/suche/',                    affiliate:false },
-  { name:'Idealo',    short:'IDL',  color:'#005eb8', tc:'#00336b', url:'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=', affiliate:false },
-  { name:'Galaxus',   short:'GLX',  color:'#0066cc', tc:'#003d7a', url:'https://www.galaxus.de/search?q=',              affiliate:false },
-  { name:'Alternate', short:'ALT',  color:'#ff6600', tc:'#7a3000', url:'https://www.alternate.de/search.xhtml?q=',      affiliate:false },
+  { name:'Amazon',    short:'AMZ',  color:'#FF9900', tc:'#FF9900', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=', affiliate:true },
+  { name:'eBay',      short:'eBay', color:'#e53238', tc:'#e53238', url:'https://www.ebay.de/sch/i.html?_nkw=',          affiliate:false },
+  { name:'MediaMarkt',short:'MM',   color:'#cc0000', tc:'#cc0000', url:'https://www.mediamarkt.de/de/search.html?query=',affiliate:false },
+  { name:'Saturn',    short:'SAT',  color:'#a0a0a0', tc:'#a0a0a0', url:'https://www.saturn.de/de/search.html?query=',   affiliate:false },
+  { name:'Otto',      short:'OTTO', color:'#e2001a', tc:'#e2001a', url:'https://www.otto.de/suche/',                    affiliate:false },
+  { name:'Idealo',    short:'IDL',  color:'#005eb8', tc:'#4a9de0', url:'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=', affiliate:false },
+  { name:'Galaxus',   short:'GLX',  color:'#0066cc', tc:'#4499e0', url:'https://www.galaxus.de/search?q=',              affiliate:false },
+  { name:'Alternate', short:'ALT',  color:'#ff6600', tc:'#ff6600', url:'https://www.alternate.de/search.xhtml?q=',      affiliate:false },
 ];
 
-// Realistic base prices per product keyword
 const PRICES = {
-  'iphone 15':799,'iphone 15 pro':1199,'iphone 14':649,
-  'airpods pro':229,'airpods':149,'apple watch':399,
-  'playstation 5':449,'ps5':449,'xbox series x':399,
-  'samsung galaxy s24':749,'galaxy s24':749,'samsung s24':749,
-  'dyson v15':549,'dyson v11':399,'dyson airwrap':499,
-  'laptop':799,'macbook':1299,'macbook air':1099,
+  'iphone 15':799,'iphone 15 pro':1199,'iphone 14':629,'iphone':799,
+  'airpods pro':229,'airpods':149,'apple watch':399,'apple':799,
+  'playstation 5':449,'ps5':449,'xbox series x':399,'xbox':349,'nintendo switch':299,
+  'samsung galaxy s24':749,'galaxy s24':749,'samsung s24':749,'samsung':499,
+  'dyson v15':549,'dyson v11':399,'dyson airwrap':499,'dyson':399,
+  'laptop':799,'macbook':1299,'macbook air':1099,'macbook pro':1599,
   'nike air max':129,'nike':89,'adidas':79,'sneaker':99,
-  'kopfhörer':149,'sony wh-1000xm5':279,'bose':299,
-  'gaming':299,'gaming stuhl':199,'gaming maus':69,
-  'tablet':349,'ipad':429,'ipad pro':1099,
-  'kamera':599,'canon':499,'nikon':449,
+  'kopfhörer':149,'sony wh-1000xm5':279,'bose':299,'beats':199,
+  'gaming':299,'gaming stuhl':199,'gaming maus':69,'gaming tastatur':89,
+  'tablet':349,'ipad':429,'ipad pro':1099,'ipad air':699,
+  'kamera':599,'canon':499,'nikon':449,'sony kamera':799,
   'staubsauger':249,'roomba':299,'miele':399,
   'smartphone':499,'handy':349,
+  'fernseher':799,'tv':699,'samsung tv':649,
+  'kühlschrank':649,'waschmaschine':549,'spülmaschine':499,
 };
 
 const DEALS = [
-  { name:'Apple AirPods Pro (2. Gen)', cat:'Audio', price:219, old:279, shop:'Amazon', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro' },
-  { name:'Samsung Galaxy S24 128GB',   cat:'Smartphones', price:649, old:849, shop:'MediaMarkt', url:'https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24' },
-  { name:'PlayStation 5 Slim Digital', cat:'Gaming', price:399, old:449, shop:'Otto', url:'https://www.otto.de/suche/PlayStation+5' },
-  { name:'Dyson V15 Detect',           cat:'Haushalt', price:499, old:649, shop:'Amazon', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15' },
-  { name:'Nike Air Max 270',            cat:'Mode', price:89, old:149, shop:'eBay', url:'https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270' },
-  { name:'iPad 10. Generation 64GB',   cat:'Tablets', price:349, old:429, shop:'Saturn', url:'https://www.saturn.de/de/search.html?query=iPad+10' },
+  { name:'Apple AirPods Pro (2. Gen)', cat:'Audio', price:219, old:279, shop:'Amazon', emoji:'🎧', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro' },
+  { name:'Samsung Galaxy S24 128GB',   cat:'Smartphones', price:649, old:849, shop:'MediaMarkt', emoji:'📱', url:'https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24' },
+  { name:'PlayStation 5 Slim Digital', cat:'Gaming', price:399, old:449, shop:'Otto', emoji:'🎮', url:'https://www.otto.de/suche/PlayStation+5' },
+  { name:'Dyson V15 Detect',           cat:'Haushalt', price:499, old:649, shop:'Amazon', emoji:'🏠', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15' },
+  { name:'Nike Air Max 270',            cat:'Mode', price:89, old:149, shop:'eBay', emoji:'👟', url:'https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270' },
+  { name:'iPad 10. Generation 64GB',   cat:'Tablets', price:349, old:429, shop:'Saturn', emoji:'📟', url:'https://www.saturn.de/de/search.html?query=iPad+10' },
 ];
 
-let currentResults = [];
+// Unsplash image search (free, no key needed for source URLs)
+function getProductImageUrl(query) {
+  const encodedQuery = encodeURIComponent(query + ' product');
+  return `https://source.unsplash.com/120x120/?${encodedQuery}`;
+}
 
-// ── PAGE SYSTEM ──
+let currentResults = [];
+let currentQuery = '';
+
+// PAGE
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── DRAWER ──
+// DRAWER
 function toggleDrawer() {
-  const drawer = document.getElementById('drawer');
-  const overlay = document.getElementById('drawerOverlay');
-  const burger = document.getElementById('burger');
-  drawer.classList.toggle('open');
-  overlay.classList.toggle('open');
-  burger.classList.toggle('open');
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawerOverlay').classList.toggle('open');
+  document.getElementById('burger').classList.toggle('open');
 }
 
-// ── DEALS ──
+// SHOPS TICKER
+function buildTicker() {
+  const shopNames = ['Amazon ⚡','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate','Amazon ⚡','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
+  const colors = ['#FF9900','#e53238','#cc0000','#a0a0a0','#e2001a','#4a9de0','#4499e0','#ff6600'];
+  const ticker = document.getElementById('shopsTicker');
+  if (!ticker) return;
+  ticker.innerHTML = [...shopNames, ...shopNames].map((name, i) => 
+    `<div class="shop-chip2" style="color:${colors[i % colors.length]}">${name}</div>`
+  ).join('');
+}
+buildTicker();
+
+// DEALS
 function renderDeals() {
   const grid = document.getElementById('dealsGrid');
   if (!grid) return;
   grid.innerHTML = DEALS.map(d => {
     const pct = Math.round((1 - d.price / d.old) * 100);
     return `<div class="deal-card">
-      <div class="deal-badge">-${pct}%</div>
-      <div class="deal-cat">${d.cat}</div>
-      <div class="deal-name">${d.name}</div>
-      <div class="deal-prices">
-        <span class="deal-price">${d.price} €</span>
-        <span class="deal-old">${d.old} €</span>
+      <div class="deal-img-placeholder">${d.emoji}</div>
+      <div class="deal-body">
+        <div class="deal-badge">-${pct}%</div>
+        <div class="deal-cat">${d.cat}</div>
+        <div class="deal-name">${d.name}</div>
+        <div class="deal-prices">
+          <span class="deal-price">${d.price} €</span>
+          <span class="deal-old">${d.old} €</span>
+        </div>
+        <a class="deal-btn" href="${d.url}" target="_blank" rel="noopener noreferrer">Zum Angebot →</a>
+        <div class="deal-shop-tag">bei ${d.shop}</div>
       </div>
-      <a class="deal-btn" href="${d.url}" target="_blank" rel="noopener noreferrer">Zum Angebot →</a>
-      <div class="deal-shop-tag">bei ${d.shop}</div>
     </div>`;
   }).join('');
 }
 renderDeals();
 
-// ── SEARCH ──
+// SEARCH
 function fillSearch(text) {
   showPage('home');
   document.getElementById('searchInput').value = text;
@@ -663,14 +757,17 @@ document.getElementById('searchInput').addEventListener('keydown', e => {
 function startSearch() {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) return;
+  currentQuery = q;
   document.getElementById('results-section').classList.remove('visible');
-  document.getElementById('loading').classList.add('visible');
-  document.getElementById('loading').style.display = 'block';
-  window.scrollTo({ top: 320, behavior: 'smooth' });
+  const loading = document.getElementById('loading');
+  loading.classList.add('visible');
+  loading.style.display = 'block';
+  window.scrollTo({ top: 340, behavior: 'smooth' });
   setTimeout(() => {
-    document.getElementById('loading').style.display = 'none';
+    loading.style.display = 'none';
+    loading.classList.remove('visible');
     showResults(q);
-  }, 1600);
+  }, 1800);
 }
 
 function getBasePrice(query) {
@@ -678,77 +775,96 @@ function getBasePrice(query) {
   for (const key of Object.keys(PRICES)) {
     if (q.includes(key)) return PRICES[key];
   }
-  return Math.round(Math.random() * 250 + 50);
+  // Fallback: generate believable price
+  return Math.round((Math.random() * 200 + 30) / 5) * 5;
 }
 
 function showResults(query) {
   const base = getBasePrice(query);
-  // Each shop gets a price within ±18% of base, but Amazon slightly higher to show variety
-  currentResults = SHOPS.map((shop, i) => {
-    const variance = base * 0.18;
-    const offset = (Math.random() - 0.45) * variance;
-    const price = Math.max(1, parseFloat((base + offset).toFixed(2)));
-    const hasDiscount = Math.random() > 0.45;
-    const oldPrice = hasDiscount ? parseFloat((price * (1 + Math.random() * 0.2 + 0.05)).toFixed(2)) : null;
-    const freeShip = Math.random() > 0.35;
+  currentResults = SHOPS.map((shop) => {
+    const variance = base * 0.16;
+    const price = Math.max(1, parseFloat((base + (Math.random() - 0.4) * variance).toFixed(2)));
+    const hasDiscount = Math.random() > 0.5;
+    const oldPrice = hasDiscount ? parseFloat((price * (1 + Math.random() * 0.18 + 0.05)).toFixed(2)) : null;
+    const freeShip = Math.random() > 0.3;
     const rating = parseFloat((3.8 + Math.random() * 1.2).toFixed(1));
     return { shop, price, oldPrice, freeShip, rating, url: shop.url + encodeURIComponent(query) };
   });
-  currentResults.sort((a, b) => a.price - b.price);
-  renderResults(query);
+  // Sort: Amazon first (our pick), then by price
+  renderResults(query, 'pick');
 }
 
-function renderResults(query) {
+function renderResults(query, sortMode) {
   document.getElementById('results-title').textContent = `Ergebnisse für „${query}"`;
-  document.getElementById('results-meta').textContent = `${currentResults.length} Angebote · Preise inkl. MwSt.`;
+  document.getElementById('results-meta').textContent = `${currentResults.length} Angebote gefunden · Preise inkl. MwSt. · Richtwerte`;
+
+  let sorted = [...currentResults];
+  if (sortMode === 'pick') {
+    // Amazon first, rest by price
+    const amazon = sorted.find(r => r.shop.name === 'Amazon');
+    const rest = sorted.filter(r => r.shop.name !== 'Amazon').sort((a,b) => a.price - b.price);
+    sorted = amazon ? [amazon, ...rest] : rest;
+  } else if (sortMode === 'price') {
+    sorted.sort((a,b) => a.price - b.price);
+  } else {
+    sorted.sort((a,b) => b.rating - a.rating);
+  }
+
+  const imgUrl = getProductImageUrl(query);
   const grid = document.getElementById('resultsGrid');
   grid.innerHTML = '';
-  currentResults.forEach((r, i) => {
-    const isBest = i === 0;
+
+  sorted.forEach((r, i) => {
+    const isAmazon = r.shop.name === 'Amazon';
     const saving = r.oldPrice ? (r.oldPrice - r.price).toFixed(2) : null;
+
     const card = document.createElement('div');
-    card.className = 'result-card' + (isBest ? ' best-deal' : '');
-    card.style.animationDelay = (i * 0.05) + 's';
-    if (isBest) card.style.marginTop = '12px';
+    card.className = 'result-card' + (isAmazon ? ' our-pick' : '');
+    card.style.animationDelay = (i * 0.06) + 's';
+    if (isAmazon) card.style.marginTop = '12px';
+
     card.innerHTML = `
-      ${isBest ? '<div class="best-badge">Bester Preis</div>' : ''}
-      <div class="shop-logo" style="background:${r.shop.color}12;border-color:${r.shop.color}25;color:${r.shop.tc};">${r.shop.short}</div>
+      ${isAmazon ? '<div class="our-pick-badge">⭐ Unsere Empfehlung</div>' : ''}
+      <div class="result-img-wrap">
+        <img class="result-img" src="${imgUrl}" alt="${query}" onerror="this.parentNode.innerHTML='<div class=\\'result-img-placeholder\\'>🛍️</div>'" loading="lazy" />
+      </div>
+      <div class="shop-badge" style="background:${r.shop.color}15;border-color:${r.shop.color}30;color:${r.shop.tc};">${r.shop.short}</div>
       <div class="result-info">
         <div class="result-shop">${r.shop.name}</div>
         <div class="result-name">${query}</div>
         <div class="result-tags">
-          ${r.freeShip ? '<span class="tag tag-ship">Kostenloser Versand</span>' : ''}
+          ${r.freeShip ? '<span class="tag tag-ship">✓ Kostenloser Versand</span>' : ''}
           <span class="tag tag-rating">★ ${r.rating}</span>
-          ${r.shop.affiliate ? '<span class="tag tag-affiliate">Affiliate-Link</span>' : ''}
+          ${r.shop.affiliate ? '<span class="tag tag-affiliate">Affiliate</span>' : ''}
         </div>
       </div>
       <div class="result-right">
-        <div>
+        <div style="text-align:right;">
           ${r.oldPrice ? `<div class="price-old">${r.oldPrice} €</div>` : ''}
           <div class="price-main">${r.price} €</div>
-          ${saving ? `<div class="price-save">-${saving} €</div>` : ''}
+          ${saving ? `<div class="price-save">-${saving} € sparen</div>` : ''}
         </div>
-        <a class="go-btn" href="${r.url}" target="_blank" rel="noopener noreferrer">Zum Shop →</a>
+        <a class="${isAmazon ? 'go-btn' : 'go-btn-secondary'}" href="${r.url}" target="_blank" rel="noopener noreferrer">${isAmazon ? 'Jetzt kaufen →' : 'Zum Shop →'}</a>
       </div>`;
     grid.appendChild(card);
   });
+
   document.getElementById('results-section').classList.add('visible');
-  window.scrollTo({ top: 360, behavior: 'smooth' });
+  window.scrollTo({ top: 380, behavior: 'smooth' });
 }
 
 function sortResults(by, btn) {
   document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  currentResults.sort(by === 'price' ? (a,b) => a.price - b.price : (a,b) => b.rating - a.rating);
-  renderResults(document.getElementById('searchInput').value);
+  renderResults(currentQuery, by);
 }
 
-// ── CHAT ──
+// CHAT
 const chatAnswers = {
-  'Wie funktioniert der Preisvergleich?': 'Gib einfach ein Produkt ein – wir suchen sofort bei 8+ Shops und zeigen dir den günstigsten Preis zuerst! 🔍',
-  'Sind die Preise aktuell?': 'Die Preise werden live bei jeder Suche abgerufen. Wir empfehlen, den Endpreis direkt beim Shop nochmal zu prüfen. ✅',
-  'Kostet PreisWise etwas?': 'Nein! PreisWise ist 100% kostenlos. Wir finanzieren uns durch Werbung und Affiliate-Links – für dich keine Mehrkosten. 🎉',
-  'Ich habe ein Problem': 'Das tut mir leid! Schreib uns direkt: kontakt.preiswise@gmail.com – wir helfen schnell! 📧',
+  'Wie funktioniert der Preisvergleich?': 'Gib einfach ein Produkt oben in die Suche ein! Wir durchsuchen sofort 8+ Shops und zeigen dir Amazon immer als unsere Empfehlung – plus alle anderen Angebote sortiert nach Preis. 🔍',
+  'Sind die Preise aktuell?': 'Die Preise sind Richtwerte die live bei jeder Suche generiert werden. Für den exakten Endpreis bitte immer direkt beim Shop prüfen – Preise können sich schnell ändern. ✅',
+  'Kostet PreisWise etwas?': 'Absolut nicht! PreisWise ist 100% kostenlos für dich. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Links – für dich entstehen keinerlei Mehrkosten. 🎉',
+  'Ich habe ein Problem': 'Das tut mir leid! Schreib uns direkt an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. Wir schauen uns das so schnell wie möglich an! 🚀',
 };
 
 function toggleChat() { document.getElementById('chatWindow').classList.toggle('open'); }
@@ -759,11 +875,19 @@ function chatReply(q) {
   msgs.innerHTML += `<div class="chat-msg user">${q}</div>`;
   opts.style.display = 'none';
   msgs.scrollTop = msgs.scrollHeight;
+
+  // Show typing indicator
+  const typingId = 'typing-' + Date.now();
+  msgs.innerHTML += `<div class="typing-indicator" id="${typingId}"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  msgs.scrollTop = msgs.scrollHeight;
+
   setTimeout(() => {
+    const el = document.getElementById(typingId);
+    if (el) el.remove();
     msgs.innerHTML += `<div class="chat-msg bot">${chatAnswers[q]}</div>`;
     msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(() => opts.style.display = 'flex', 600);
-  }, 500);
+    setTimeout(() => { opts.style.display = 'flex'; }, 400);
+  }, 900);
 }
 
 function sendKontakt() {
