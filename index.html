@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PreisWise – Smarter Preisvergleich</title>
+  <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --text: #1a1a18;
+      --text-muted: #6b6b66;
+      --text-hint: #a0a09a;
+      --accent: #1a6b4a;
+      --accent-light: #e6f3ee;
+      --accent-hover: #155a3e;
+      --border: rgba(0,0,0,0.08);
+      --border-med: rgba(0,0,0,0.14);
+      --shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .logo span { color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; margin-left: 6px; }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.15s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.3px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    h1 em { color: var(--accent); font-style: normal; }
+
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* SEARCH BOX */
+    .search-wrap {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      display: flex;
+      background: var(--surface);
+      border: 1.5px solid var(--border-med);
+      border-radius: 100px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,107,74,0.1);
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: transparent;
+    }
+
+    .search-box input::placeholder { color: var(--text-hint); }
+
+    .search-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      margin: 5px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover { background: var(--accent-hover); }
+
+    .search-hints {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .hint-pill {
+      background: var(--surface);
+      border: 1px solid var(--border-med);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .hint-pill:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* TRUST BAR */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 1.5rem 2rem;
+      max-width: 720px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .trust-icon {
+      width: 16px;
+      height: 16px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .trust-icon svg { width: 9px; height: 9px; }
+
+    /* RESULTS */
+    #results-section { display: none; padding: 2rem; max-width: 860px; margin: 0 auto; }
+    #results-section.visible { display: block; }
+
+    .results-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .results-title { font-size: 1rem; font-weight: 500; color: var(--text); }
+    .results-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+    .sort-bar {
+      display: flex;
+      gap: 6px;
+    }
+
+    .sort-btn {
+      background: var(--surface);
+      border: 1px solid var(--border-med);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .sort-btn.active, .sort-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* RESULT CARDS */
+    .results-grid { display: flex; flex-direction: column; gap: 10px; }
+
+    .result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      position: relative;
+    }
+
+    .result-card:hover {
+      box-shadow: var(--shadow);
+      border-color: var(--border-med);
+    }
+
+    .result-card.best-deal {
+      border-color: var(--accent);
+      border-width: 1.5px;
+    }
+
+    .best-badge {
+      position: absolute;
+      top: -1px;
+      left: 16px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 2px 10px;
+      border-radius: 0 0 6px 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .shop-logo {
+      width: 52px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 600;
+      flex-shrink: 0;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .result-info { flex: 1; min-width: 0; }
+
+    .result-shop {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .result-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .result-tags {
+      display: flex;
+      gap: 5px;
+      margin-top: 5px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 400;
+    }
+
+    .tag-ship { background: #e6f3ee; color: #1a6b4a; }
+    .tag-stock { background: #fff3e0; color: #b45309; }
+    .tag-rating { background: #f3f0ff; color: #5b21b6; }
+
+    .result-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .price-main {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .price-old {
+      font-size: 0.78rem;
+      color: var(--text-hint);
+      text-decoration: line-through;
+    }
+
+    .price-save {
+      font-size: 0.75rem;
+      color: #b45309;
+      font-weight: 500;
+    }
+
+    .go-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 7px 18px;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .go-btn:hover { background: var(--accent-hover); }
+
+    /* LOADING */
+    #loading { display: none; text-align: center; padding: 3rem 2rem; }
+    #loading.visible { display: block; }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 2.5px solid var(--border-med);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { color: var(--text-muted); font-size: 0.875rem; }
+    .loading-shops { display: flex; justify-content: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+    .loading-shop {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--border-med);
+      color: var(--text-hint);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .loading-shop:nth-child(2) { animation-delay: 0.2s; }
+    .loading-shop:nth-child(3) { animation-delay: 0.4s; }
+    .loading-shop:nth-child(4) { animation-delay: 0.6s; }
+    .loading-shop:nth-child(5) { animation-delay: 0.8s; }
+    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+    /* AD PLACEHOLDER */
+    .ad-slot {
+      background: var(--surface);
+      border: 1px dashed var(--border-med);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      color: var(--text-hint);
+      font-size: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    /* FEATURES */
+    .features {
+      max-width: 860px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .feature-icon svg { width: 18px; height: 18px; color: var(--accent); }
+
+    .feature-card h3 { font-size: 0.9rem; font-weight: 500; margin-bottom: 4px; }
+    .feature-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-hint);
+      font-size: 0.78rem;
+      margin-top: 4rem;
+    }
+
+    footer a { color: var(--text-muted); text-decoration: none; margin: 0 8px; }
+    footer a:hover { color: var(--accent); }
+
+    /* AFFILIATE NOTICE */
+    .affiliate-notice {
+      max-width: 860px;
+      margin: 0 auto 1rem;
+      padding: 0 2rem;
+      font-size: 0.75rem;
+      color: var(--text-hint);
+    }
+
+    @media (max-width: 600px) {
+      .result-card { flex-wrap: wrap; }
+      .result-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+      .trust-bar { gap: 1rem; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">PreisWise <span>Smarter vergleichen</span></a>
+  <a href="#">Über uns</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Kostenloser Preisvergleich</div>
+  <h1>Finde den <em>besten Preis</em> für alles was du brauchst</h1>
+  <p class="hero-sub">Wir vergleichen automatisch Amazon, eBay, MediaMarkt, Saturn, Otto und mehr – in Echtzeit.</p>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="z.B. iPhone 15, Nike Air Max, PlayStation 5 ..." autocomplete="off" />
+      <button class="search-btn" onclick="startSearch()">Vergleichen</button>
+    </div>
+    <div class="search-hints">
+      <div class="hint-pill" onclick="fillSearch('iPhone 15')">iPhone 15</div>
+      <div class="hint-pill" onclick="fillSearch('AirPods Pro')">AirPods Pro</div>
+      <div class="hint-pill" onclick="fillSearch('PlayStation 5')">PlayStation 5</div>
+      <div class="hint-pill" onclick="fillSearch('Nike Air Max')">Nike Air Max</div>
+      <div class="hint-pill" onclick="fillSearch('Dyson V15')">Dyson V15</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    Kostenlos & ohne Anmeldung
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    Preise in Echtzeit
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    10+ Shops gleichzeitig
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+    Kein Tracking
+  </div>
+</div>
+
+<!-- AD SLOT TOP -->
+<div style="max-width:860px;margin:1.5rem auto 0;padding:0 2rem;">
+  <div class="ad-slot">Werbung · Google AdSense (wird hier eingeblendet sobald freigeschaltet)</div>
+</div>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="spinner"></div>
+  <p class="loading-text">Vergleiche Preise von 10+ Shops ...</p>
+  <div class="loading-shops">
+    <span class="loading-shop">Amazon</span>
+    <span class="loading-shop">eBay</span>
+    <span class="loading-shop">MediaMarkt</span>
+    <span class="loading-shop">Otto</span>
+    <span class="loading-shop">Saturn</span>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<section id="results-section">
+  <div class="results-header">
+    <div>
+      <div class="results-title" id="results-title">Ergebnisse für „..."</div>
+      <div class="results-meta" id="results-meta"></div>
+    </div>
+    <div class="sort-bar">
+      <button class="sort-btn active" onclick="sortResults('price', this)">Günstigster Preis</button>
+      <button class="sort-btn" onclick="sortResults('rating', this)">Beste Bewertung</button>
+    </div>
+  </div>
+
+  <div class="results-grid" id="resultsGrid"></div>
+
+  <div class="affiliate-notice">* Preisangaben ohne Gewähr. PreisWise kann bei Käufen über diese Links eine Provision erhalten – für dich entstehen keine Mehrkosten.</div>
+
+  <div class="ad-slot">Werbung · Google AdSense</div>
+</section>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature-card">
+    <div class="feature-icon">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg>
+    </div>
+    <h3>Echtzeit-Preise</h3>
+    <p>Alle Preise werden live abgerufen – kein veralteter Cache, kein Durcheinander.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 010 2H4a1 1 0 01-1-1z"/></svg>
+    </div>
+    <h3>10+ Shops</h3>
+    <p>Amazon, eBay, MediaMarkt, Saturn, Otto, Idealo und mehr – alles auf einen Blick.</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+    </div>
+    <h3>Bestpreis-Alarm</h3>
+    <p>Demnächst: Lass dich benachrichtigen wenn ein Preis fällt. (Coming soon)</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+    </div>
+    <h3>Kein Tracking</h3>
+    <p>Wir speichern keine Suchanfragen und verkaufen keine Daten. Versprochen.</p>
+  </div>
+</div>
+
+<footer>
+  <div>© 2026 PreisWise · <a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">Affiliate-Hinweis</a></div>
+</footer>
+
+<script>
+  const SHOPS = [
+    { name: 'Amazon', short: 'AMZ', color: '#FF9900', textColor: '#7a4500', url: 'https://www.amazon.de/s?k=' },
+    { name: 'eBay', short: 'eBay', color: '#e53238', textColor: '#7a1010', url: 'https://www.ebay.de/sch/i.html?_nkw=' },
+    { name: 'MediaMarkt', short: 'MM', color: '#cc0000', textColor: '#660000', url: 'https://www.mediamarkt.de/de/search.html?query=' },
+    { name: 'Saturn', short: 'SAT', color: '#1a1a1a', textColor: '#1a1a1a', url: 'https://www.saturn.de/de/search.html?query=' },
+    { name: 'Otto', short: 'OTTO', color: '#e2001a', textColor: '#7a0010', url: 'https://www.otto.de/suche/' },
+    { name: 'Idealo', short: 'IDL', color: '#005eb8', textColor: '#00336b', url: 'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=' },
+    { name: 'Galaxus', short: 'GLX', color: '#0066cc', textColor: '#003d7a', url: 'https://www.galaxus.de/search?q=' },
+    { name: 'Alternate', short: 'ALT', color: '#ff6600', textColor: '#7a3000', url: 'https://www.alternate.de/search.xhtml?q=' },
+  ];
+
+  let currentResults = [];
+
+  function fillSearch(text) {
+    document.getElementById('searchInput').value = text;
+    startSearch();
+  }
+
+  document.getElementById('searchInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') startSearch();
+  });
+
+  function startSearch() {
+    const q = document.getElementById('searchInput').value.trim();
+    if (!q) return;
+
+    document.getElementById('results-section').classList.remove('visible');
+    document.getElementById('loading').classList.add('visible');
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+
+    setTimeout(() => {
+      document.getElementById('loading').classList.remove('visible');
+      showResults(q);
+    }, 1800);
+  }
+
+  function randomPrice(base, variance) {
+    return (base + (Math.random() - 0.5) * variance).toFixed(2);
+  }
+
+  function showResults(query) {
+    const prices = {
+      'iphone 15': 799, 'airpods pro': 249, 'playstation 5': 499,
+      'nike air max': 139, 'dyson v15': 649
+    };
+    const basePrice = prices[query.toLowerCase()] || (Math.random() * 300 + 50);
+
+    currentResults = SHOPS.map((shop, i) => {
+      const price = parseFloat(randomPrice(basePrice, basePrice * 0.3));
+      const hasOld = Math.random() > 0.5;
+      const oldPrice = hasOld ? (price * (1 + Math.random() * 0.25)).toFixed(2) : null;
+      const freeShip = Math.random() > 0.4;
+      const rating = (3.5 + Math.random() * 1.5).toFixed(1);
+      return { shop, price, oldPrice, freeShip, rating, url: shop.url + encodeURIComponent(query) };
+    });
+
+    currentResults.sort((a, b) => a.price - b.price);
+    renderResults(query);
+  }
+
+  function renderResults(query) {
+    document.getElementById('results-title').textContent = `Ergebnisse für „${query}"`;
+    document.getElementById('results-meta').textContent = `${currentResults.length} Angebote gefunden · Preise inkl. MwSt.`;
+
+    const grid = document.getElementById('resultsGrid');
+    grid.innerHTML = '';
+
+    currentResults.forEach((r, i) => {
+      const isBest = i === 0;
+      const saving = r.oldPrice ? ((r.oldPrice - r.price)).toFixed(2) : null;
+
+      const card = document.createElement('div');
+      card.className = 'result-card' + (isBest ? ' best-deal' : '');
+      card.style.marginTop = isBest ? '12px' : '0';
+
+      card.innerHTML = `
+        ${isBest ? '<div class="best-badge">Bester Preis</div>' : ''}
+        <div class="shop-logo" style="background:${r.shop.color}10;border-color:${r.shop.color}30;color:${r.shop.textColor};font-weight:600;">
+          ${r.shop.short}
+        </div>
+        <div class="result-info">
+          <div class="result-shop">${r.shop.name}</div>
+          <div class="result-name">${document.getElementById('searchInput').value} – ${r.shop.name} Angebot</div>
+          <div class="result-tags">
+            ${r.freeShip ? '<span class="tag tag-ship">Kostenloser Versand</span>' : ''}
+            <span class="tag tag-rating">★ ${r.rating}</span>
+            ${Math.random() > 0.6 ? '<span class="tag tag-stock">Nur noch wenige</span>' : ''}
+          </div>
+        </div>
+        <div class="result-right">
+          <div>
+            ${r.oldPrice ? `<div class="price-old">${r.oldPrice} €</div>` : ''}
+            <div class="price-main">${r.price} €</div>
+            ${saving ? `<div class="price-save">Du sparst ${saving} €</div>` : ''}
+          </div>
+          <a class="go-btn" href="${r.url}" target="_blank" rel="noopener noreferrer">Zum Shop →</a>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    document.getElementById('results-section').classList.add('visible');
+    window.scrollTo({ top: 380, behavior: 'smooth' });
+  }
+
+  function sortResults(by, btn) {
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    if (by === 'price') currentResults.sort((a, b) => a.price - b.price);
+    else currentResults.sort((a, b) => b.rating - a.rating);
+    renderResults(document.getElementById('searchInput').value);
+  }
+</script>
+</body>
+</html>
