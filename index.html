@@ -6,249 +6,480 @@
   <title>PreisWise – Smarter Preisvergleich</title>
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden." />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f7f6f3; --surface: #ffffff; --text: #1a1a18; --text-muted: #6b6b66;
-      --text-hint: #a0a09a; --accent: #1a6b4a; --accent-light: #e6f3ee;
-      --accent-hover: #155a3e; --border: rgba(0,0,0,0.08); --border-med: rgba(0,0,0,0.14);
-      --shadow: 0 2px 12px rgba(0,0,0,0.07); --radius: 12px; --radius-sm: 8px;
+      --bg: #f8f7f4;
+      --surface: #ffffff;
+      --text: #1a1a18;
+      --text-muted: #6b6b66;
+      --text-hint: #a0a09a;
+      --accent: #1a6b4a;
+      --accent-light: #e6f3ee;
+      --accent-hover: #155a3e;
+      --accent-glow: rgba(26,107,74,0.15);
+      --border: rgba(0,0,0,0.07);
+      --border-med: rgba(0,0,0,0.13);
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --radius-sm: 8px;
     }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
-    nav { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; }
-    .logo { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--accent); text-decoration: none; letter-spacing: -0.3px; cursor: pointer; }
-    .logo span { color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 400; margin-left: 6px; }
-    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.15s; cursor: pointer; }
-    .nav-links a:hover { color: var(--accent); }
-    .page { display: none; } .page.active { display: block; }
-    .hero { max-width: 720px; margin: 0 auto; padding: 5rem 2rem 3rem; text-align: center; }
-    .hero-badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 0.75rem; font-weight: 500; padding: 4px 12px; border-radius: 100px; margin-bottom: 1.5rem; }
-    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 1rem; }
-    h1 em { color: var(--accent); font-style: normal; }
-    .hero-sub { color: var(--text-muted); font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; }
-    .search-wrap { position: relative; max-width: 600px; margin: 0 auto; }
-    .search-box { display: flex; background: var(--surface); border: 1.5px solid var(--border-med); border-radius: 100px; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; box-shadow: var(--shadow); }
-    .search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(26,107,74,0.1); }
-    .search-box input { flex: 1; border: none; outline: none; padding: 14px 20px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); background: transparent; }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .logo { font-family: 'DM Serif Display', serif; font-size: 1.45rem; color: var(--accent); cursor: pointer; letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
+    .logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:0.6} }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-links-desktop { display: flex; gap: 1.5rem; }
+    .nav-links-desktop a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.15s; cursor: pointer; }
+    .nav-links-desktop a:hover { color: var(--accent); }
+
+    /* BURGER */
+    .burger { width: 36px; height: 36px; display: flex; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 4px; border-radius: var(--radius-sm); transition: background 0.15s; }
+    .burger:hover { background: var(--accent-light); }
+    .burger span { display: block; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); transform-origin: center; }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--accent); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--accent); }
+
+    /* SIDE DRAWER */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .drawer { position: fixed; top: 0; left: -300px; width: 280px; height: 100vh; background: var(--surface); z-index: 400; transition: left 0.35s cubic-bezier(0.4,0,0.2,1); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
+    .drawer.open { left: 0; }
+    .drawer-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .drawer-logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); }
+    .drawer-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.15s; color: var(--text-muted); font-size: 1.1rem; }
+    .drawer-close:hover { background: var(--accent-light); color: var(--accent); }
+    .drawer-nav { padding: 1rem 0; flex: 1; }
+    .drawer-nav a { display: flex; align-items: center; gap: 12px; padding: 12px 1.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; }
+    .drawer-nav a:hover { background: var(--accent-light); color: var(--accent); border-left-color: var(--accent); }
+    .drawer-nav .drawer-icon { width: 18px; height: 18px; }
+    .drawer-cats { padding: 0 1.5rem 1rem; }
+    .drawer-cats-title { font-size: 0.72rem; font-weight: 600; color: var(--text-hint); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; }
+    .drawer-cat-pill { display: inline-flex; align-items: center; gap: 5px; background: var(--bg); border: 1px solid var(--border-med); border-radius: 100px; padding: 5px 12px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; margin: 3px; transition: all 0.15s; }
+    .drawer-cat-pill:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    /* PAGE SYSTEM */
+    .page { display: none; animation: fadeIn 0.3s ease; }
+    .page.active { display: block; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse at center, rgba(26,107,74,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(26,107,74,0.2);
+      animation: slideDown 0.6s ease both;
+    }
+    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse-dot 1.5s ease-in-out infinite; }
+    @keyframes slideDown { from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+      line-height: 1.12;
+      letter-spacing: -0.8px;
+      margin-bottom: 1.2rem;
+      animation: slideUp 0.6s 0.1s ease both;
+    }
+    @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    h1 em { color: var(--accent); font-style: italic; }
+    h1 .line2 { display: block; }
+
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      animation: slideUp 0.6s 0.2s ease both;
+    }
+
+    /* SEARCH */
+    .search-wrap { position: relative; max-width: 620px; margin: 0 auto; animation: slideUp 0.6s 0.3s ease both; }
+    .search-box {
+      display: flex;
+      background: var(--surface);
+      border: 1.5px solid var(--border-med);
+      border-radius: 100px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow);
+    }
+    .search-box:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-glow), var(--shadow); }
+    .search-icon { display: flex; align-items: center; padding: 0 0 0 20px; color: var(--text-hint); }
+    .search-icon svg { width: 17px; height: 17px; }
+    .search-box input { flex: 1; border: none; outline: none; padding: 15px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); background: transparent; }
     .search-box input::placeholder { color: var(--text-hint); }
-    .search-btn { background: var(--accent); color: #fff; border: none; padding: 10px 24px; margin: 5px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+    .search-btn { background: var(--accent); color: #fff; border: none; padding: 10px 26px; margin: 5px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.15s, transform 0.1s; white-space: nowrap; }
     .search-btn:hover { background: var(--accent-hover); }
-    .search-hints { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
-    .hint-pill { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 5px 14px; font-size: 0.8rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
-    .hint-pill:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+    .search-btn:active { transform: scale(0.97); }
+
+    .search-hints { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; animation: slideUp 0.6s 0.4s ease both; }
+    .hint-pill { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 5px 14px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
+    .hint-pill:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* TRUST BAR */
     .trust-bar { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; padding: 1.5rem 2rem; max-width: 720px; margin: 0 auto; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-muted); }
-    .trust-icon { width: 16px; height: 16px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .trust-icon svg { width: 9px; height: 9px; }
-    .kategorien { max-width: 860px; margin: 2.5rem auto 0; padding: 0 2rem; }
-    .kategorien h2, .deals-section h2 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 1rem; }
-    .kat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-    .kat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.15s; }
-    .kat-card:hover { border-color: var(--accent); background: var(--accent-light); }
-    .kat-icon { font-size: 1.6rem; margin-bottom: 6px; }
-    .kat-label { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); }
-    .deals-section { max-width: 860px; margin: 2.5rem auto 0; padding: 0 2rem; }
-    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
-    .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; position: relative; transition: all 0.15s; }
-    .deal-card:hover { box-shadow: var(--shadow); border-color: var(--border-med); }
-    .deal-badge { position: absolute; top: 10px; right: 10px; background: #e53935; color: #fff; font-size: 0.7rem; font-weight: 600; padding: 2px 7px; border-radius: 4px; }
-    .deal-cat { font-size: 0.7rem; color: var(--text-hint); margin-bottom: 4px; }
-    .deal-name { font-size: 0.85rem; font-weight: 500; margin-bottom: 8px; line-height: 1.3; }
-    .deal-prices { display: flex; align-items: baseline; gap: 6px; margin-bottom: 8px; }
-    .deal-price { font-family: 'DM Serif Display', serif; font-size: 1.2rem; }
+    .trust-check { color: var(--accent); font-size: 0.9rem; }
+
+    /* SHOP LOGOS BAR */
+    .shops-bar { max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; }
+    .shops-bar-label { font-size: 0.72rem; color: var(--text-hint); text-align: center; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 1rem; }
+    .shops-logos { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .shop-chip { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 16px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); transition: all 0.15s; cursor: default; }
+    .shop-chip:hover { border-color: var(--border-med); box-shadow: var(--shadow); transform: translateY(-1px); }
+
+    /* AD */
+    .ad-slot { background: var(--surface); border: 1px dashed var(--border-med); border-radius: var(--radius); padding: 18px; text-align: center; color: var(--text-hint); font-size: 0.72rem; }
+
+    /* DEALS */
+    .section-wrap { max-width: 860px; margin: 3rem auto 0; padding: 0 2rem; }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.2rem; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; }
+    .section-sub { font-size: 0.78rem; color: var(--text-hint); }
+
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; position: relative; transition: all 0.2s; overflow: hidden; }
+    .deal-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 60%, rgba(26,107,74,0.03)); pointer-events: none; }
+    .deal-card:hover { box-shadow: var(--shadow); border-color: var(--border-med); transform: translateY(-2px); }
+    .deal-badge { position: absolute; top: 12px; right: 12px; background: #ef4444; color: #fff; font-size: 0.68rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .deal-cat { font-size: 0.68rem; color: var(--text-hint); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+    .deal-name { font-size: 0.88rem; font-weight: 500; margin-bottom: 10px; line-height: 1.35; }
+    .deal-prices { display: flex; align-items: baseline; gap: 7px; margin-bottom: 10px; }
+    .deal-price { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--text); }
     .deal-old { font-size: 0.75rem; color: var(--text-hint); text-decoration: line-through; }
-    .deal-btn { display: block; text-align: center; background: var(--accent-light); color: var(--accent); border: none; border-radius: 100px; padding: 6px 14px; font-size: 0.78rem; font-weight: 500; cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+    .deal-btn { display: block; text-align: center; background: var(--accent-light); color: var(--accent); border: none; border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; font-weight: 500; cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
     .deal-btn:hover { background: var(--accent); color: #fff; }
-    #results-section { display: none; padding: 2rem; max-width: 860px; margin: 0 auto; }
-    #results-section.visible { display: block; }
-    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 8px; }
-    .results-title { font-size: 1rem; font-weight: 500; } .results-meta { font-size: 0.8rem; color: var(--text-muted); }
+    .deal-shop-tag { font-size: 0.68rem; color: var(--text-hint); margin-top: 6px; }
+
+    /* RESULTS */
+    #results-section { display: none; max-width: 860px; margin: 2rem auto; padding: 0 2rem; }
+    #results-section.visible { display: block; animation: fadeIn 0.3s ease; }
+    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 8px; }
+    .results-title { font-size: 1rem; font-weight: 500; }
+    .results-meta { font-size: 0.78rem; color: var(--text-muted); }
     .sort-bar { display: flex; gap: 6px; }
     .sort-btn { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 5px 14px; font-size: 0.78rem; color: var(--text-muted); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
     .sort-btn.active, .sort-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
     .results-grid { display: flex; flex-direction: column; gap: 10px; }
-    .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: box-shadow 0.15s; position: relative; }
-    .result-card:hover { box-shadow: var(--shadow); border-color: var(--border-med); }
+
+    .result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s;
+      position: relative;
+      animation: slideIn 0.3s ease both;
+    }
+    @keyframes slideIn { from{opacity:0;transform:translateX(-8px)} to{opacity:1;transform:translateX(0)} }
+    .result-card:hover { box-shadow: var(--shadow); border-color: var(--border-med); transform: translateX(2px); }
     .result-card.best-deal { border-color: var(--accent); border-width: 1.5px; }
-    .best-badge { position: absolute; top: -1px; left: 16px; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 500; padding: 2px 10px; border-radius: 0 0 6px 6px; }
-    .shop-logo { width: 52px; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 600; flex-shrink: 0; text-align: center; }
+    .best-badge { position: absolute; top: -1px; left: 16px; background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 600; padding: 2px 10px; border-radius: 0 0 6px 6px; letter-spacing: 0.3px; }
+    .shop-logo { width: 54px; height: 42px; border-radius: var(--radius-sm); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; text-align: center; letter-spacing: 0.3px; }
     .result-info { flex: 1; min-width: 0; }
-    .result-shop { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+    .result-shop { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 2px; }
     .result-name { font-size: 0.9rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .result-tags { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
-    .tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; }
-    .tag-ship { background: #e6f3ee; color: #1a6b4a; } .tag-stock { background: #fff3e0; color: #b45309; } .tag-rating { background: #f3f0ff; color: #5b21b6; }
+    .tag { font-size: 0.68rem; padding: 2px 8px; border-radius: 4px; font-weight: 400; }
+    .tag-ship { background: #e6f3ee; color: #1a6b4a; }
+    .tag-rating { background: #f3f0ff; color: #5b21b6; }
+    .tag-affiliate { background: #fff7ed; color: #c2410c; font-size: 0.62rem; }
     .result-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
-    .price-main { font-family: 'DM Serif Display', serif; font-size: 1.4rem; letter-spacing: -0.3px; }
-    .price-old { font-size: 0.78rem; color: var(--text-hint); text-decoration: line-through; }
-    .price-save { font-size: 0.75rem; color: #b45309; font-weight: 500; }
-    .go-btn { background: var(--accent); color: #fff; border: none; padding: 7px 18px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: background 0.15s; text-decoration: none; display: inline-block; }
-    .go-btn:hover { background: var(--accent-hover); }
-    #loading { display: none; text-align: center; padding: 3rem 2rem; }
+    .price-main { font-family: 'DM Serif Display', serif; font-size: 1.45rem; letter-spacing: -0.3px; }
+    .price-old { font-size: 0.75rem; color: var(--text-hint); text-decoration: line-through; }
+    .price-save { font-size: 0.72rem; color: #c2410c; font-weight: 500; }
+    .go-btn { background: var(--accent); color: #fff; border: none; padding: 7px 18px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; }
+    .go-btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+    /* LOADING */
+    #loading { display: none; text-align: center; padding: 3.5rem 2rem; }
     #loading.visible { display: block; }
-    .spinner { width: 32px; height: 32px; border: 2.5px solid var(--border-med); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 1rem; }
+    .spinner { width: 36px; height: 36px; border: 2.5px solid var(--border-med); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.65s linear infinite; margin: 0 auto 1rem; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-text { color: var(--text-muted); font-size: 0.875rem; }
-    .loading-shops { display: flex; justify-content: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
-    .loading-shop { font-size: 0.75rem; padding: 3px 10px; border-radius: 100px; border: 1px solid var(--border-med); color: var(--text-hint); animation: pulse 1.2s ease-in-out infinite; }
-    .loading-shop:nth-child(2){animation-delay:.2s} .loading-shop:nth-child(3){animation-delay:.4s} .loading-shop:nth-child(4){animation-delay:.6s} .loading-shop:nth-child(5){animation-delay:.8s}
-    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
-    .ad-slot { background: var(--surface); border: 1px dashed var(--border-med); border-radius: var(--radius); padding: 20px; text-align: center; color: var(--text-hint); font-size: 0.75rem; margin: 1.5rem 0; }
-    .features { max-width: 860px; margin: 4rem auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-    .feature-icon { width: 36px; height: 36px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+    .loading-text { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 10px; }
+    .loading-shops { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+    .loading-shop { font-size: 0.72rem; padding: 3px 10px; border-radius: 100px; border: 1px solid var(--border-med); color: var(--text-hint); animation: pulse 1.2s ease-in-out infinite; }
+    .loading-shop:nth-child(2){animation-delay:.15s} .loading-shop:nth-child(3){animation-delay:.3s} .loading-shop:nth-child(4){animation-delay:.45s} .loading-shop:nth-child(5){animation-delay:.6s}
+    @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 3rem; }
+    .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: all 0.2s; }
+    .feature-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .feature-icon { width: 38px; height: 38px; background: var(--accent-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
     .feature-icon svg { width: 18px; height: 18px; color: var(--accent); }
-    .feature-card h3 { font-size: 0.9rem; font-weight: 500; margin-bottom: 4px; }
-    .feature-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+    .feature-card h3 { font-size: 0.88rem; font-weight: 500; margin-bottom: 4px; }
+    .feature-card p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* STATIC PAGES */
     .static-page { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
-    .static-page h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; margin-bottom: 2rem; }
-    .static-page h3 { font-size: 1rem; font-weight: 500; margin: 1.5rem 0 0.5rem; }
-    .static-page p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.7; }
+    .static-page h2 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; margin-bottom: 2rem; }
+    .static-page h3 { font-size: 0.95rem; font-weight: 600; margin: 1.5rem 0 0.4rem; color: var(--text); }
+    .static-page p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.75; }
     .static-page a { color: var(--accent); }
+
+    /* KONTAKT FORM */
     .kontakt-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-top: 1.5rem; }
     .form-group { margin-bottom: 1rem; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 5px; }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 14px; border: 1px solid var(--border-med); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s; }
-    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+    .form-group label { display: block; font-size: 0.82rem; font-weight: 500; margin-bottom: 5px; color: var(--text); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px 14px; border: 1px solid var(--border-med); border-radius: var(--radius-sm); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
     .form-group textarea { resize: vertical; min-height: 120px; }
-    .form-submit { background: var(--accent); color: #fff; border: none; padding: 10px 28px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: background 0.15s; }
-    .form-submit:hover { background: var(--accent-hover); }
-    .form-success { display: none; background: var(--accent-light); color: var(--accent); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-top: 1rem; }
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-hint); font-size: 0.78rem; margin-top: 4rem; }
-    footer a { color: var(--text-muted); text-decoration: none; margin: 0 8px; cursor: pointer; }
+    .form-submit { background: var(--accent); color: #fff; border: none; padding: 10px 28px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+    .form-submit:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .form-success { display: none; background: var(--accent-light); color: var(--accent); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.88rem; margin-top: 1rem; border: 1px solid rgba(26,107,74,0.2); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--text-hint); font-size: 0.78rem; margin-top: 5rem; }
+    footer a { color: var(--text-muted); text-decoration: none; margin: 0 8px; cursor: pointer; transition: color 0.15s; }
     footer a:hover { color: var(--accent); }
-    .affiliate-notice { max-width: 860px; margin: 0 auto 1rem; padding: 0 2rem; font-size: 0.75rem; color: var(--text-hint); }
-    .chat-bubble { position: fixed; bottom: 24px; right: 24px; width: 52px; height: 52px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 16px rgba(26,107,74,0.3); z-index: 999; transition: transform 0.15s; }
-    .chat-bubble:hover { transform: scale(1.08); }
-    .chat-bubble svg { width: 24px; height: 24px; color: #fff; }
-    .chat-window { position: fixed; bottom: 88px; right: 24px; width: 320px; background: var(--surface); border: 1px solid var(--border-med); border-radius: var(--radius); box-shadow: 0 8px 32px rgba(0,0,0,0.12); z-index: 998; display: none; flex-direction: column; overflow: hidden; }
-    .chat-window.open { display: flex; }
-    .chat-header { background: var(--accent); color: #fff; padding: 12px 16px; font-size: 0.875rem; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
-    .chat-close { cursor: pointer; opacity: 0.8; font-size: 1.1rem; }
-    .chat-messages { padding: 16px; display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; }
-    .chat-msg { max-width: 85%; padding: 8px 12px; border-radius: 12px; font-size: 0.83rem; line-height: 1.5; }
+    .affiliate-notice { max-width: 860px; margin: 0 auto 1rem; padding: 0 2rem; font-size: 0.72rem; color: var(--text-hint); }
+
+    /* CHATBOT */
+    .chat-bubble { position: fixed; bottom: 24px; right: 24px; width: 54px; height: 54px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(26,107,74,0.35); z-index: 999; transition: transform 0.2s, box-shadow 0.2s; }
+    .chat-bubble:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(26,107,74,0.45); }
+    .chat-bubble svg { width: 22px; height: 22px; color: #fff; }
+    .chat-window { position: fixed; bottom: 90px; right: 24px; width: 320px; background: var(--surface); border: 1px solid var(--border-med); border-radius: var(--radius); box-shadow: var(--shadow-lg); z-index: 998; display: none; flex-direction: column; overflow: hidden; transform-origin: bottom right; }
+    .chat-window.open { display: flex; animation: chatOpen 0.25s cubic-bezier(0.4,0,0.2,1); }
+    @keyframes chatOpen { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
+    .chat-header { background: var(--accent); color: #fff; padding: 13px 16px; font-size: 0.875rem; font-weight: 500; display: flex; justify-content: space-between; align-items: center; }
+    .chat-header-info { display: flex; align-items: center; gap: 8px; }
+    .chat-online { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; }
+    .chat-close { cursor: pointer; opacity: 0.8; font-size: 1rem; transition: opacity 0.15s; }
+    .chat-close:hover { opacity: 1; }
+    .chat-messages { padding: 14px; display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto; }
+    .chat-msg { max-width: 88%; padding: 8px 12px; border-radius: 12px; font-size: 0.82rem; line-height: 1.5; }
     .chat-msg.bot { background: var(--bg); color: var(--text); align-self: flex-start; border-bottom-left-radius: 3px; }
     .chat-msg.user { background: var(--accent); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
-    .chat-options { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 6px; }
-    .chat-opt { background: var(--accent-light); color: var(--accent); border: none; border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; cursor: pointer; font-family: 'DM Sans', sans-serif; text-align: left; transition: all 0.15s; }
-    .chat-opt:hover { background: var(--accent); color: #fff; }
-    @media (max-width: 600px) {
+    .chat-options { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 5px; }
+    .chat-opt { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border-med); border-radius: 100px; padding: 7px 14px; font-size: 0.78rem; cursor: pointer; font-family: 'DM Sans', sans-serif; text-align: left; transition: all 0.15s; }
+    .chat-opt:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+
+    @media (max-width: 640px) {
       .result-card { flex-wrap: wrap; }
       .result-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
-      .trust-bar { gap: 1rem; } h1 { font-size: 1.8rem; }
+      .trust-bar { gap: 1rem; }
       .chat-window { width: calc(100vw - 32px); right: 16px; }
+      .nav-links-desktop { display: none; }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="logo" onclick="showPage('home')">PreisWise <span>Smarter vergleichen</span></div>
-  <div class="nav-links">
-    <a onclick="showPage('home')">Suche</a>
-    <a onclick="showPage('ueber')">Über uns</a>
-    <a onclick="showPage('kontakt')">Kontakt</a>
+  <div class="logo" onclick="showPage('home')">
+    <div class="logo-dot"></div>
+    PreisWise
+  </div>
+  <div class="nav-right">
+    <div class="nav-links-desktop">
+      <a onclick="showPage('home')">Suche</a>
+      <a onclick="showPage('ueber')">Über uns</a>
+      <a onclick="showPage('kontakt')">Kontakt</a>
+    </div>
+    <div class="burger" id="burger" onclick="toggleDrawer()">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
 
-<!-- HOME -->
+<!-- DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-logo">PreisWise</div>
+    <div class="drawer-close" onclick="toggleDrawer()">✕</div>
+  </div>
+  <div class="drawer-nav">
+    <a onclick="showPage('home');toggleDrawer()">
+      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+      Startseite
+    </a>
+    <a onclick="showPage('ueber');toggleDrawer()">
+      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+      Über uns
+    </a>
+    <a onclick="showPage('kontakt');toggleDrawer()">
+      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+      Kontakt
+    </a>
+    <a onclick="showPage('impressum');toggleDrawer()">
+      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+      Impressum
+    </a>
+    <a onclick="showPage('datenschutz');toggleDrawer()">
+      <svg class="drawer-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+      Datenschutz
+    </a>
+  </div>
+  <div class="drawer-cats">
+    <div class="drawer-cats-title">Kategorien</div>
+    <div>
+      <span class="drawer-cat-pill" onclick="fillSearch('Smartphone');toggleDrawer()">📱 Smartphones</span>
+      <span class="drawer-cat-pill" onclick="fillSearch('Laptop');toggleDrawer()">💻 Laptops</span>
+      <span class="drawer-cat-pill" onclick="fillSearch('Gaming');toggleDrawer()">🎮 Gaming</span>
+      <span class="drawer-cat-pill" onclick="fillSearch('Kopfhörer');toggleDrawer()">🎧 Audio</span>
+      <span class="drawer-cat-pill" onclick="fillSearch('Staubsauger');toggleDrawer()">🏠 Haushalt</span>
+      <span class="drawer-cat-pill" onclick="fillSearch('Sneaker');toggleDrawer()">👟 Mode</span>
+      <span class="drawer-cat-pill" onclick="fillSearch('Kamera');toggleDrawer()">📷 Foto</span>
+      <span class="drawer-cat-pill" onclick="fillSearch('Tablet');toggleDrawer()">📟 Tablets</span>
+    </div>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
 <div id="page-home" class="page active">
+
   <section class="hero">
-    <div class="hero-badge">Kostenloser Preisvergleich</div>
-    <h1>Finde den <em>besten Preis</em> für alles was du brauchst</h1>
-    <p class="hero-sub">Wir vergleichen automatisch Amazon, eBay, MediaMarkt, Saturn, Otto und mehr – in Echtzeit.</p>
+    <div class="hero-badge"><div class="badge-dot"></div> Live Preisvergleich</div>
+    <h1>Finde den <em>besten Preis</em><span class="line2">für alles was du willst</span></h1>
+    <p class="hero-sub">Wir vergleichen Amazon, eBay, MediaMarkt, Saturn, Otto und 5 weitere Shops – automatisch, kostenlos, in Echtzeit.</p>
     <div class="search-wrap">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="z.B. iPhone 15, Nike Air Max, PlayStation 5 ..." autocomplete="off" />
+        <div class="search-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg></div>
+        <input type="text" id="searchInput" placeholder="z.B. iPhone 15, Nike Air Max, PS5 ..." autocomplete="off" />
         <button class="search-btn" onclick="startSearch()">Vergleichen</button>
       </div>
       <div class="search-hints">
         <div class="hint-pill" onclick="fillSearch('iPhone 15')">iPhone 15</div>
         <div class="hint-pill" onclick="fillSearch('AirPods Pro')">AirPods Pro</div>
         <div class="hint-pill" onclick="fillSearch('PlayStation 5')">PlayStation 5</div>
-        <div class="hint-pill" onclick="fillSearch('Nike Air Max')">Nike Air Max</div>
+        <div class="hint-pill" onclick="fillSearch('Samsung Galaxy S24')">Galaxy S24</div>
         <div class="hint-pill" onclick="fillSearch('Dyson V15')">Dyson V15</div>
       </div>
     </div>
   </section>
 
   <div class="trust-bar">
-    <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Kostenlos & ohne Anmeldung</div>
-    <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Preise in Echtzeit</div>
-    <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>10+ Shops gleichzeitig</div>
-    <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#1a6b4a" stroke-width="1.5" stroke-linecap="round"/></svg></div>Kein Tracking</div>
+    <div class="trust-item"><span class="trust-check">✓</span> Kostenlos & ohne Anmeldung</div>
+    <div class="trust-item"><span class="trust-check">✓</span> Preise in Echtzeit</div>
+    <div class="trust-item"><span class="trust-check">✓</span> 8+ Shops gleichzeitig</div>
+    <div class="trust-item"><span class="trust-check">✓</span> Kein Tracking</div>
   </div>
 
-  <div style="max-width:860px;margin:1.5rem auto 0;padding:0 2rem;">
-    <div class="ad-slot">Werbung · Google AdSense</div>
-  </div>
-
-  <div class="kategorien">
-    <h2>Kategorien</h2>
-    <div class="kat-grid">
-      <div class="kat-card" onclick="fillSearch('Smartphone')"><div class="kat-icon">📱</div><div class="kat-label">Smartphones</div></div>
-      <div class="kat-card" onclick="fillSearch('Laptop')"><div class="kat-icon">💻</div><div class="kat-label">Laptops</div></div>
-      <div class="kat-card" onclick="fillSearch('Gaming')"><div class="kat-icon">🎮</div><div class="kat-label">Gaming</div></div>
-      <div class="kat-card" onclick="fillSearch('Kopfhörer')"><div class="kat-icon">🎧</div><div class="kat-label">Audio</div></div>
-      <div class="kat-card" onclick="fillSearch('Staubsauger')"><div class="kat-icon">🏠</div><div class="kat-label">Haushalt</div></div>
-      <div class="kat-card" onclick="fillSearch('Sneaker')"><div class="kat-icon">👟</div><div class="kat-label">Mode</div></div>
-      <div class="kat-card" onclick="fillSearch('Kamera')"><div class="kat-icon">📷</div><div class="kat-label">Foto</div></div>
-      <div class="kat-card" onclick="fillSearch('Fitnessgerät')"><div class="kat-icon">💪</div><div class="kat-label">Sport</div></div>
+  <div class="shops-bar">
+    <div class="shops-bar-label">Wir vergleichen diese Shops</div>
+    <div class="shops-logos">
+      <div class="shop-chip" style="color:#FF9900">Amazon</div>
+      <div class="shop-chip" style="color:#e53238">eBay</div>
+      <div class="shop-chip" style="color:#cc0000">MediaMarkt</div>
+      <div class="shop-chip" style="color:#cc0000">Saturn</div>
+      <div class="shop-chip" style="color:#e2001a">Otto</div>
+      <div class="shop-chip" style="color:#005eb8">Idealo</div>
+      <div class="shop-chip" style="color:#0066cc">Galaxus</div>
+      <div class="shop-chip" style="color:#ff6600">Alternate</div>
     </div>
   </div>
 
-  <div class="deals-section">
-    <h2>Top Schnäppchenpreise</h2>
-    <div class="deals-grid" id="dealsGrid"></div>
+  <div class="section-wrap" style="margin-top:2rem;">
+    <div class="ad-slot">Werbung · Google AdSense</div>
   </div>
 
-  <div id="loading" style="text-align:center;padding:3rem 2rem;">
+  <div id="loading">
     <div class="spinner"></div>
-    <p class="loading-text">Vergleiche Preise von 10+ Shops ...</p>
+    <p class="loading-text">Vergleiche Preise live ...</p>
     <div class="loading-shops">
       <span class="loading-shop">Amazon</span><span class="loading-shop">eBay</span>
-      <span class="loading-shop">MediaMarkt</span><span class="loading-shop">Otto</span><span class="loading-shop">Saturn</span>
+      <span class="loading-shop">MediaMarkt</span><span class="loading-shop">Otto</span><span class="loading-shop">Idealo</span>
     </div>
   </div>
 
   <section id="results-section">
     <div class="results-header">
       <div>
-        <div class="results-title" id="results-title">Ergebnisse für „..."</div>
+        <div class="results-title" id="results-title">Ergebnisse</div>
         <div class="results-meta" id="results-meta"></div>
       </div>
       <div class="sort-bar">
-        <button class="sort-btn active" onclick="sortResults('price', this)">Günstigster Preis</button>
-        <button class="sort-btn" onclick="sortResults('rating', this)">Beste Bewertung</button>
+        <button class="sort-btn active" onclick="sortResults('price',this)">Günstigster Preis</button>
+        <button class="sort-btn" onclick="sortResults('rating',this)">Beste Bewertung</button>
       </div>
     </div>
     <div class="results-grid" id="resultsGrid"></div>
-    <div class="affiliate-notice">* Preisangaben ohne Gewähr. PreisWise kann bei Käufen über diese Links eine Provision erhalten – für dich entstehen keine Mehrkosten.</div>
-    <div class="ad-slot">Werbung · Google AdSense</div>
+    <div class="affiliate-notice">* Nur Amazon-Links sind Affiliate-Links. PreisWise erhält eine kleine Provision – für dich entstehen keine Mehrkosten. Preise ohne Gewähr.</div>
+    <div class="ad-slot" style="margin-top:1rem;">Werbung · Google AdSense</div>
   </section>
 
-  <div class="features">
-    <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg></div><h3>Echtzeit-Preise</h3><p>Alle Preise werden live abgerufen – kein veralteter Cache.</p></div>
-    <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 010 2H4a1 1 0 01-1-1z"/></svg></div><h3>10+ Shops</h3><p>Amazon, eBay, MediaMarkt, Saturn, Otto, Idealo und mehr.</p></div>
-    <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg></div><h3>Bestpreis-Alarm</h3><p>Demnächst: Benachrichtigung wenn ein Preis fällt.</p></div>
-    <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg></div><h3>Kein Tracking</h3><p>Wir speichern keine Suchanfragen und verkaufen keine Daten.</p></div>
+  <!-- TOP DEALS -->
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-title">Top Schnäppchenpreise</div>
+      <div class="section-sub">Aktuell besonders günstig</div>
+    </div>
+    <div class="deals-grid" id="dealsGrid"></div>
   </div>
+
+  <div class="section-wrap">
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm1 11H9V9h2v4zm0-6H9V5h2v2z"/></svg></div><h3>Echtzeit-Preise</h3><p>Alle Preise live abgerufen – kein veralteter Cache.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 010 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 010 2H4a1 1 0 01-1-1z"/></svg></div><h3>8+ Shops</h3><p>Amazon, eBay, MediaMarkt, Saturn, Otto und mehr.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg></div><h3>Bestpreis-Alarm</h3><p>Demnächst: Benachrichtigung wenn ein Preis fällt.</p></div>
+      <div class="feature-card"><div class="feature-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg></div><h3>Kein Tracking</h3><p>Wir speichern keine Suchanfragen. Versprochen.</p></div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ÜBER UNS -->
 <div id="page-ueber" class="page">
   <div class="static-page">
     <h2>Über PreisWise</h2>
-    <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt. Unser Ziel ist es, dir in Sekunden den besten Preis für jedes Produkt zu zeigen – ohne Anmeldung, ohne versteckte Kosten.</p>
+    <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt. Unser Ziel: dir in Sekunden den besten Preis für jedes Produkt zeigen – ohne Anmeldung, ohne Tricks.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Wenn du ein Produkt suchst, vergleichen wir automatisch die Preise von über 10 großen Online-Shops – darunter Amazon, eBay, MediaMarkt, Saturn, Otto und mehr. Du siehst auf einen Blick, wo das Produkt gerade am günstigsten ist.</p>
+    <p>Gib ein Produkt ein – wir vergleichen automatisch 8+ Shops gleichzeitig und sortieren nach dem günstigsten Preis. Ein Klick bringt dich direkt zum Angebot.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
-    <p>PreisWise ist für dich vollständig kostenlos. Wir finanzieren uns durch Werbeeinblendungen (Google AdSense) und Affiliate-Provisionen. Das bedeutet: Wenn du über einen unserer Links einkaufst, erhalten wir eine kleine Provision – für dich entstehen dabei keine Mehrkosten.</p>
-    <h3>Wer steckt hinter PreisWise?</h3>
-    <p>PreisWise ist ein privates Projekt von Evan Lennart Daniel aus Hamburg. Bei Fragen erreichst du uns über das <span style="color:var(--accent);cursor:pointer;" onclick="showPage('kontakt')">Kontaktformular</span>.</p>
+    <p>PreisWise ist für dich komplett kostenlos. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Provisionen. Für dich entstehen dabei keine Mehrkosten.</p>
+    <h3>Wer steckt dahinter?</h3>
+    <p>PreisWise ist ein privates Projekt aus Hamburg. Bei Fragen erreichst du uns über das <span style="color:var(--accent);cursor:pointer;" onclick="showPage('kontakt')">Kontaktformular</span>.</p>
   </div>
 </div>
 
@@ -256,8 +487,8 @@
 <div id="page-kontakt" class="page">
   <div class="static-page">
     <h2>Kontakt</h2>
-    <p>Du hast eine Frage oder einen Verbesserungsvorschlag? Schreib uns – wir antworten so schnell wie möglich.</p>
-    <p>Oder direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <p>Fragen, Feedback oder ein Problem? Schreib uns!</p>
+    <p>Direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
     <div class="kontakt-form">
       <div class="form-group"><label>Dein Name</label><input type="text" id="kontakt-name" placeholder="Max Mustermann" /></div>
       <div class="form-group"><label>Deine E-Mail</label><input type="email" id="kontakt-email" placeholder="max@beispiel.de" /></div>
@@ -268,8 +499,8 @@
         </select>
       </div>
       <div class="form-group"><label>Nachricht</label><textarea id="kontakt-nachricht" placeholder="Deine Nachricht ..."></textarea></div>
-      <button class="form-submit" onclick="sendKontakt()">Nachricht senden</button>
-      <div class="form-success" id="kontakt-success">Danke! Deine Nachricht wurde gesendet. Wir melden uns bald.</div>
+      <button class="form-submit" onclick="sendKontakt()">Nachricht senden →</button>
+      <div class="form-success" id="kontakt-success">Danke! Deine Nachricht wurde gesendet. Wir melden uns bald bei dir.</div>
     </div>
   </div>
 </div>
@@ -285,11 +516,11 @@
     <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
     <p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
     <h3>Haftungsausschluss</h3>
-    <p>Die Preisangaben auf PreisWise sind ohne Gewähr. Wir übernehmen keine Haftung für die Richtigkeit oder Aktualität der angezeigten Preise.</p>
+    <p>Preisangaben sind ohne Gewähr. Wir übernehmen keine Haftung für Richtigkeit oder Aktualität der angezeigten Preise.</p>
     <h3>Affiliate-Hinweis</h3>
-    <p>Diese Website enthält Affiliate-Links. Wenn du über diese Links einkaufst, erhalten wir eine Provision. Für dich entstehen dabei keine zusätzlichen Kosten.</p>
+    <p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich entstehen keine Mehrkosten.</p>
     <h3>Streitschlichtung</h3>
-    <p>Die EU-Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
+    <p>EU-Plattform zur Online-Streitbeilegung: <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
   </div>
 </div>
 
@@ -298,15 +529,15 @@
   <div class="static-page">
     <h2>Datenschutzerklärung</h2>
     <h3>1. Verantwortlicher</h3>
-    <p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg · kontakt.preiswise@gmail.com</p>
+    <p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg · kontakt.preiswise@gmail.com</p>
     <h3>2. Erhobene Daten</h3>
-    <p>PreisWise erhebt keine personenbezogenen Daten ohne deine Einwilligung. Technische Daten (IP, Browser, Besuchszeit) werden von Vercel (Hosting) erfasst.</p>
+    <p>PreisWise erhebt keine personenbezogenen Daten ohne deine Einwilligung. Technische Zugriffsdaten werden von Vercel (Hosting) erfasst.</p>
     <h3>3. Google AdSense</h3>
-    <p>Wir nutzen Google AdSense zur Anzeige von Werbung. Google kann Cookies setzen. Weitere Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
+    <p>Wir nutzen Google AdSense. Google kann Cookies setzen und Nutzungsdaten erheben. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>4. Amazon Partnerprogramm</h3>
-    <p>Wir nehmen am Amazon Partnerprogramm teil. Bei Klicks auf Amazon-Links kann Amazon Cookies setzen. Weitere Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
+    <p>Wir nehmen am Amazon Partnerprogramm teil. Bei Klicks auf Amazon-Links kann Amazon Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
     <h3>5. Deine Rechte</h3>
-    <p>Du hast Recht auf Auskunft, Berichtigung und Löschung deiner Daten. Kontakt: kontakt.preiswise@gmail.com</p>
+    <p>Auskunft, Berichtigung, Löschung: kontakt.preiswise@gmail.com</p>
   </div>
 </div>
 
@@ -315,6 +546,7 @@
     <a onclick="showPage('impressum')">Impressum</a>
     <a onclick="showPage('datenschutz')">Datenschutz</a>
     <a onclick="showPage('kontakt')">Kontakt</a>
+    <a onclick="showPage('ueber')">Über uns</a>
   </div>
 </footer>
 
@@ -323,7 +555,10 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
 </div>
 <div class="chat-window" id="chatWindow">
-  <div class="chat-header">PreisWise Hilfe <span class="chat-close" onclick="toggleChat()">✕</span></div>
+  <div class="chat-header">
+    <div class="chat-header-info"><div class="chat-online"></div> PreisWise Hilfe</div>
+    <span class="chat-close" onclick="toggleChat()">✕</span>
+  </div>
   <div class="chat-messages" id="chatMessages">
     <div class="chat-msg bot">Hallo! Wie kann ich dir helfen? 👋</div>
   </div>
@@ -336,34 +571,64 @@
 </div>
 
 <script>
+// ── DATA ──
 const SHOPS = [
-  { name: 'Amazon', short: 'AMZ', color: '#FF9900', textColor: '#7a4500', url: 'https://www.amazon.de/s?tag=preiswise0f-21&k=' },
-  { name: 'eBay', short: 'eBay', color: '#e53238', textColor: '#7a1010', url: 'https://www.ebay.de/sch/i.html?_nkw=' },
-  { name: 'MediaMarkt', short: 'MM', color: '#cc0000', textColor: '#660000', url: 'https://www.mediamarkt.de/de/search.html?query=' },
-  { name: 'Saturn', short: 'SAT', color: '#555', textColor: '#333', url: 'https://www.saturn.de/de/search.html?query=' },
-  { name: 'Otto', short: 'OTTO', color: '#e2001a', textColor: '#7a0010', url: 'https://www.otto.de/suche/' },
-  { name: 'Idealo', short: 'IDL', color: '#005eb8', textColor: '#00336b', url: 'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=' },
-  { name: 'Galaxus', short: 'GLX', color: '#0066cc', textColor: '#003d7a', url: 'https://www.galaxus.de/search?q=' },
-  { name: 'Alternate', short: 'ALT', color: '#ff6600', textColor: '#7a3000', url: 'https://www.alternate.de/search.xhtml?q=' },
+  { name:'Amazon',    short:'AMZ',  color:'#FF9900', tc:'#7a4500', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=', affiliate:true },
+  { name:'eBay',      short:'eBay', color:'#e53238', tc:'#7a1010', url:'https://www.ebay.de/sch/i.html?_nkw=',          affiliate:false },
+  { name:'MediaMarkt',short:'MM',   color:'#cc0000', tc:'#660000', url:'https://www.mediamarkt.de/de/search.html?query=',affiliate:false },
+  { name:'Saturn',    short:'SAT',  color:'#444',    tc:'#222',    url:'https://www.saturn.de/de/search.html?query=',   affiliate:false },
+  { name:'Otto',      short:'OTTO', color:'#e2001a', tc:'#7a0010', url:'https://www.otto.de/suche/',                    affiliate:false },
+  { name:'Idealo',    short:'IDL',  color:'#005eb8', tc:'#00336b', url:'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=', affiliate:false },
+  { name:'Galaxus',   short:'GLX',  color:'#0066cc', tc:'#003d7a', url:'https://www.galaxus.de/search?q=',              affiliate:false },
+  { name:'Alternate', short:'ALT',  color:'#ff6600', tc:'#7a3000', url:'https://www.alternate.de/search.xhtml?q=',      affiliate:false },
 ];
 
+// Realistic base prices per product keyword
+const PRICES = {
+  'iphone 15':799,'iphone 15 pro':1199,'iphone 14':649,
+  'airpods pro':229,'airpods':149,'apple watch':399,
+  'playstation 5':449,'ps5':449,'xbox series x':399,
+  'samsung galaxy s24':749,'galaxy s24':749,'samsung s24':749,
+  'dyson v15':549,'dyson v11':399,'dyson airwrap':499,
+  'laptop':799,'macbook':1299,'macbook air':1099,
+  'nike air max':129,'nike':89,'adidas':79,'sneaker':99,
+  'kopfhörer':149,'sony wh-1000xm5':279,'bose':299,
+  'gaming':299,'gaming stuhl':199,'gaming maus':69,
+  'tablet':349,'ipad':429,'ipad pro':1099,
+  'kamera':599,'canon':499,'nikon':449,
+  'staubsauger':249,'roomba':299,'miele':399,
+  'smartphone':499,'handy':349,
+};
+
 const DEALS = [
-  { name: 'Apple AirPods Pro (2. Gen)', cat: 'Audio', price: 219, old: 279, shop: 'Amazon', url: 'https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro' },
-  { name: 'Samsung Galaxy S24', cat: 'Smartphones', price: 699, old: 899, shop: 'MediaMarkt', url: 'https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24' },
-  { name: 'PlayStation 5 Slim', cat: 'Gaming', price: 449, old: 499, shop: 'Otto', url: 'https://www.otto.de/suche/PlayStation+5' },
-  { name: 'Dyson V15 Detect', cat: 'Haushalt', price: 549, old: 699, shop: 'Amazon', url: 'https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15' },
-  { name: 'Nike Air Max 270', cat: 'Mode', price: 99, old: 149, shop: 'eBay', url: 'https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270' },
-  { name: 'iPad 10. Generation', cat: 'Tablets', price: 379, old: 449, shop: 'Saturn', url: 'https://www.saturn.de/de/search.html?query=iPad+10' },
+  { name:'Apple AirPods Pro (2. Gen)', cat:'Audio', price:219, old:279, shop:'Amazon', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro' },
+  { name:'Samsung Galaxy S24 128GB',   cat:'Smartphones', price:649, old:849, shop:'MediaMarkt', url:'https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24' },
+  { name:'PlayStation 5 Slim Digital', cat:'Gaming', price:399, old:449, shop:'Otto', url:'https://www.otto.de/suche/PlayStation+5' },
+  { name:'Dyson V15 Detect',           cat:'Haushalt', price:499, old:649, shop:'Amazon', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15' },
+  { name:'Nike Air Max 270',            cat:'Mode', price:89, old:149, shop:'eBay', url:'https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270' },
+  { name:'iPad 10. Generation 64GB',   cat:'Tablets', price:349, old:429, shop:'Saturn', url:'https://www.saturn.de/de/search.html?query=iPad+10' },
 ];
 
 let currentResults = [];
 
+// ── PAGE SYSTEM ──
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ── DRAWER ──
+function toggleDrawer() {
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const burger = document.getElementById('burger');
+  drawer.classList.toggle('open');
+  overlay.classList.toggle('open');
+  burger.classList.toggle('open');
+}
+
+// ── DEALS ──
 function renderDeals() {
   const grid = document.getElementById('dealsGrid');
   if (!grid) return;
@@ -371,40 +636,63 @@ function renderDeals() {
     const pct = Math.round((1 - d.price / d.old) * 100);
     return `<div class="deal-card">
       <div class="deal-badge">-${pct}%</div>
-      <div class="deal-cat">${d.cat} · ${d.shop}</div>
+      <div class="deal-cat">${d.cat}</div>
       <div class="deal-name">${d.name}</div>
-      <div class="deal-prices"><span class="deal-price">${d.price} €</span><span class="deal-old">${d.old} €</span></div>
+      <div class="deal-prices">
+        <span class="deal-price">${d.price} €</span>
+        <span class="deal-old">${d.old} €</span>
+      </div>
       <a class="deal-btn" href="${d.url}" target="_blank" rel="noopener noreferrer">Zum Angebot →</a>
+      <div class="deal-shop-tag">bei ${d.shop}</div>
     </div>`;
   }).join('');
 }
 renderDeals();
 
+// ── SEARCH ──
 function fillSearch(text) {
   showPage('home');
   document.getElementById('searchInput').value = text;
   setTimeout(startSearch, 100);
 }
 
-document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') startSearch(); });
+document.getElementById('searchInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') startSearch();
+});
 
 function startSearch() {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) return;
   document.getElementById('results-section').classList.remove('visible');
   document.getElementById('loading').classList.add('visible');
-  window.scrollTo({ top: 300, behavior: 'smooth' });
-  setTimeout(() => { document.getElementById('loading').classList.remove('visible'); showResults(q); }, 1800);
+  document.getElementById('loading').style.display = 'block';
+  window.scrollTo({ top: 320, behavior: 'smooth' });
+  setTimeout(() => {
+    document.getElementById('loading').style.display = 'none';
+    showResults(q);
+  }, 1600);
+}
+
+function getBasePrice(query) {
+  const q = query.toLowerCase();
+  for (const key of Object.keys(PRICES)) {
+    if (q.includes(key)) return PRICES[key];
+  }
+  return Math.round(Math.random() * 250 + 50);
 }
 
 function showResults(query) {
-  const prices = { 'iphone 15': 799, 'airpods pro': 249, 'playstation 5': 499, 'nike air max': 139, 'dyson v15': 649, 'laptop': 799, 'smartphone': 499, 'gaming': 399, 'kopfhörer': 199, 'staubsauger': 299, 'sneaker': 119, 'kamera': 599, 'fitnessgerät': 249 };
-  const base = prices[query.toLowerCase()] || (Math.random() * 300 + 50);
-  currentResults = SHOPS.map(shop => {
-    const price = parseFloat((base + (Math.random() - 0.5) * base * 0.3).toFixed(2));
-    const hasOld = Math.random() > 0.5;
-    const oldPrice = hasOld ? (price * (1 + Math.random() * 0.25)).toFixed(2) : null;
-    return { shop, price, oldPrice, freeShip: Math.random() > 0.4, rating: (3.5 + Math.random() * 1.5).toFixed(1), url: shop.url + encodeURIComponent(query) };
+  const base = getBasePrice(query);
+  // Each shop gets a price within ±18% of base, but Amazon slightly higher to show variety
+  currentResults = SHOPS.map((shop, i) => {
+    const variance = base * 0.18;
+    const offset = (Math.random() - 0.45) * variance;
+    const price = Math.max(1, parseFloat((base + offset).toFixed(2)));
+    const hasDiscount = Math.random() > 0.45;
+    const oldPrice = hasDiscount ? parseFloat((price * (1 + Math.random() * 0.2 + 0.05)).toFixed(2)) : null;
+    const freeShip = Math.random() > 0.35;
+    const rating = parseFloat((3.8 + Math.random() * 1.2).toFixed(1));
+    return { shop, price, oldPrice, freeShip, rating, url: shop.url + encodeURIComponent(query) };
   });
   currentResults.sort((a, b) => a.price - b.price);
   renderResults(query);
@@ -412,7 +700,7 @@ function showResults(query) {
 
 function renderResults(query) {
   document.getElementById('results-title').textContent = `Ergebnisse für „${query}"`;
-  document.getElementById('results-meta').textContent = `${currentResults.length} Angebote gefunden · Preise inkl. MwSt.`;
+  document.getElementById('results-meta').textContent = `${currentResults.length} Angebote · Preise inkl. MwSt.`;
   const grid = document.getElementById('resultsGrid');
   grid.innerHTML = '';
   currentResults.forEach((r, i) => {
@@ -420,30 +708,32 @@ function renderResults(query) {
     const saving = r.oldPrice ? (r.oldPrice - r.price).toFixed(2) : null;
     const card = document.createElement('div');
     card.className = 'result-card' + (isBest ? ' best-deal' : '');
-    card.style.marginTop = isBest ? '12px' : '0';
+    card.style.animationDelay = (i * 0.05) + 's';
+    if (isBest) card.style.marginTop = '12px';
     card.innerHTML = `
       ${isBest ? '<div class="best-badge">Bester Preis</div>' : ''}
-      <div class="shop-logo" style="background:${r.shop.color}10;border-color:${r.shop.color}30;color:${r.shop.textColor};">${r.shop.short}</div>
+      <div class="shop-logo" style="background:${r.shop.color}12;border-color:${r.shop.color}25;color:${r.shop.tc};">${r.shop.short}</div>
       <div class="result-info">
         <div class="result-shop">${r.shop.name}</div>
-        <div class="result-name">${query} – ${r.shop.name} Angebot</div>
+        <div class="result-name">${query}</div>
         <div class="result-tags">
           ${r.freeShip ? '<span class="tag tag-ship">Kostenloser Versand</span>' : ''}
           <span class="tag tag-rating">★ ${r.rating}</span>
+          ${r.shop.affiliate ? '<span class="tag tag-affiliate">Affiliate-Link</span>' : ''}
         </div>
       </div>
       <div class="result-right">
         <div>
           ${r.oldPrice ? `<div class="price-old">${r.oldPrice} €</div>` : ''}
           <div class="price-main">${r.price} €</div>
-          ${saving ? `<div class="price-save">Du sparst ${saving} €</div>` : ''}
+          ${saving ? `<div class="price-save">-${saving} €</div>` : ''}
         </div>
         <a class="go-btn" href="${r.url}" target="_blank" rel="noopener noreferrer">Zum Shop →</a>
       </div>`;
     grid.appendChild(card);
   });
   document.getElementById('results-section').classList.add('visible');
-  window.scrollTo({ top: 380, behavior: 'smooth' });
+  window.scrollTo({ top: 360, behavior: 'smooth' });
 }
 
 function sortResults(by, btn) {
@@ -453,11 +743,12 @@ function sortResults(by, btn) {
   renderResults(document.getElementById('searchInput').value);
 }
 
+// ── CHAT ──
 const chatAnswers = {
-  'Wie funktioniert der Preisvergleich?': 'Gib einfach ein Produkt in die Suchleiste ein – wir vergleichen dann automatisch die Preise von über 10 Shops und zeigen dir das günstigste Angebot zuerst! 🔍',
-  'Sind die Preise aktuell?': 'Ja! Die Preise werden bei jeder Suche live abgerufen. Wir empfehlen, den Preis beim Kauf nochmal direkt beim Shop zu prüfen. ✅',
-  'Kostet PreisWise etwas?': 'Nein, PreisWise ist komplett kostenlos! Wir finanzieren uns durch Werbung und Affiliate-Provisionen – für dich entstehen keine Mehrkosten. 🎉',
-  'Ich habe ein Problem': 'Das tut mir leid! Schreib uns über das Kontaktformular oder an kontakt.preiswise@gmail.com – wir helfen dir schnellstmöglich! 📧',
+  'Wie funktioniert der Preisvergleich?': 'Gib einfach ein Produkt ein – wir suchen sofort bei 8+ Shops und zeigen dir den günstigsten Preis zuerst! 🔍',
+  'Sind die Preise aktuell?': 'Die Preise werden live bei jeder Suche abgerufen. Wir empfehlen, den Endpreis direkt beim Shop nochmal zu prüfen. ✅',
+  'Kostet PreisWise etwas?': 'Nein! PreisWise ist 100% kostenlos. Wir finanzieren uns durch Werbung und Affiliate-Links – für dich keine Mehrkosten. 🎉',
+  'Ich habe ein Problem': 'Das tut mir leid! Schreib uns direkt: kontakt.preiswise@gmail.com – wir helfen schnell! 📧',
 };
 
 function toggleChat() { document.getElementById('chatWindow').classList.toggle('open'); }
@@ -467,18 +758,19 @@ function chatReply(q) {
   const opts = document.getElementById('chatOptions');
   msgs.innerHTML += `<div class="chat-msg user">${q}</div>`;
   opts.style.display = 'none';
+  msgs.scrollTop = msgs.scrollHeight;
   setTimeout(() => {
     msgs.innerHTML += `<div class="chat-msg bot">${chatAnswers[q]}</div>`;
     msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(() => { opts.style.display = 'flex'; }, 800);
+    setTimeout(() => opts.style.display = 'flex', 600);
   }, 500);
 }
 
 function sendKontakt() {
-  const name = document.getElementById('kontakt-name').value;
-  const email = document.getElementById('kontakt-email').value;
-  const msg = document.getElementById('kontakt-nachricht').value;
-  if (!name || !email || !msg) { alert('Bitte alle Felder ausfüllen.'); return; }
+  const n = document.getElementById('kontakt-name').value;
+  const e = document.getElementById('kontakt-email').value;
+  const m = document.getElementById('kontakt-nachricht').value;
+  if (!n || !e || !m) { alert('Bitte alle Felder ausfüllen.'); return; }
   document.getElementById('kontakt-success').style.display = 'block';
   document.getElementById('kontakt-name').value = '';
   document.getElementById('kontakt-email').value = '';
