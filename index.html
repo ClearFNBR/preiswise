@@ -7,48 +7,27 @@
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden." />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #111113;
-      --bg2: #18181c;
-      --bg3: #1f1f24;
-      --surface: #242429;
-      --surface2: #2c2c33;
-      --text: #eeeee8;
-      --text-muted: #8a8a88;
-      --text-hint: #555554;
-      --green: #22c55e;
-      --green-dim: #16a34a;
-      --green-glow: rgba(34,197,94,0.12);
-      --border: rgba(255,255,255,0.07);
-      --border-med: rgba(255,255,255,0.12);
-      --radius: 14px;
-      --radius-sm: 9px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.35);
+      --bg: #111113; --bg2: #18181c; --bg3: #1f1f24;
+      --surface: #242429; --surface2: #2c2c33;
+      --text: #eeeee8; --text-muted: #8a8a88; --text-hint: #555554;
+      --green: #22c55e; --green-dim: #16a34a; --green-glow: rgba(34,197,94,0.12);
+      --border: rgba(255,255,255,0.07); --border-med: rgba(255,255,255,0.12);
+      --radius: 14px; --radius-sm: 9px; --shadow: 0 4px 24px rgba(0,0,0,0.35);
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; font-size: 15px; line-height: 1.6; }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
 
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 200;
-      background: rgba(17,17,19,0.9);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 1.5rem;
-      display: flex; align-items: center; justify-content: space-between; height: 62px;
-    }
-    .logo { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 9px; color: var(--text); letter-spacing: -0.3px; }
-    .logo-icon { width: 30px; height: 30px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #000; }
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(17,17,19,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .logo { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 9px; color: var(--text); }
+    .logo-icon { width: 28px; height: 28px; background: var(--green); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #000; font-weight: 700; }
     .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-links-desktop { display: flex; gap: 1.5rem; }
-    .nav-links-desktop a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.15s; cursor: pointer; }
-    .nav-links-desktop a:hover { color: var(--text); }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; margin-left: 1.4rem; cursor: pointer; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
     .burger { width: 36px; height: 36px; display: flex; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 5px; border-radius: 8px; transition: background 0.15s; }
     .burger:hover { background: var(--surface); }
     .burger span { display: block; height: 1.5px; background: var(--text-muted); border-radius: 2px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); transform-origin: center; }
@@ -56,46 +35,35 @@
     .burger.open span:nth-child(2) { opacity: 0; }
     .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--green); }
 
-    /* DRAWER */
-    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.25s; backdrop-filter: blur(3px); }
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.25s; backdrop-filter: blur(3px); }
     .drawer-overlay.open { opacity: 1; pointer-events: all; }
     .drawer { position: fixed; top: 0; left: -290px; width: 270px; height: 100vh; background: var(--bg2); border-right: 1px solid var(--border-med); z-index: 400; transition: left 0.3s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; overflow-y: auto; }
     .drawer.open { left: 0; }
-    .drawer-header { padding: 1.4rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .drawer-header { padding: 1.3rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .drawer-logo { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text); }
-    .drawer-close { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; transition: background 0.15s; color: var(--text-muted); font-size: 0.9rem; }
-    .drawer-close:hover { background: var(--surface); color: var(--text); }
-    .drawer-nav { padding: 0.5rem 0; }
-    .drawer-nav a { display: flex; align-items: center; gap: 11px; padding: 11px 1.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; border-left: 2px solid transparent; }
+    .drawer-x { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; color: var(--text-muted); font-size: 0.9rem; transition: all 0.15s; }
+    .drawer-x:hover { background: var(--surface); color: var(--text); }
+    .drawer-nav a { display: flex; align-items: center; gap: 10px; padding: 11px 1.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; border-left: 2px solid transparent; }
     .drawer-nav a:hover { background: var(--bg3); color: var(--text); border-left-color: var(--green); }
     .drawer-nav svg { width: 15px; height: 15px; flex-shrink: 0; }
-    .drawer-section { padding: 1rem 1.5rem 0.5rem; font-size: 0.65rem; font-weight: 600; color: var(--text-hint); letter-spacing: 1px; text-transform: uppercase; }
+    .drawer-sec { padding: 1rem 1.5rem 0.4rem; font-size: 0.63rem; font-weight: 600; color: var(--text-hint); letter-spacing: 1px; text-transform: uppercase; }
     .drawer-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0.4rem 1.5rem 1.2rem; }
-    .drawer-cat { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.15s; font-size: 0.72rem; color: var(--text-muted); }
-    .drawer-cat:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
-    .drawer-cat .dci { font-size: 1.3rem; display: block; margin-bottom: 3px; }
+    .dcat { background: var(--bg3); border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; text-align: center; cursor: pointer; transition: all 0.15s; font-size: 0.72rem; color: var(--text-muted); }
+    .dcat:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
+    .dcat .di { font-size: 1.25rem; display: block; margin-bottom: 3px; }
 
-    /* PAGES */
     .page { display: none; }
     .page.active { display: block; animation: fadeUp 0.3s ease; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 
-    /* HERO */
     .hero { max-width: 760px; margin: 0 auto; padding: 5.5rem 2rem 3rem; text-align: center; }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: var(--surface); border: 1px solid var(--border-med);
-      color: var(--green); font-size: 0.72rem; font-weight: 600;
-      padding: 5px 14px; border-radius: 100px; margin-bottom: 1.6rem;
-      letter-spacing: 0.3px;
-    }
+    .hero-tag { display: inline-flex; align-items: center; gap: 7px; background: var(--surface); border: 1px solid var(--border-med); color: var(--green); font-size: 0.72rem; font-weight: 500; padding: 5px 14px; border-radius: 100px; margin-bottom: 1.6rem; }
     .htag-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: blink 1.8s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 5.5vw, 3.6rem); font-weight: 800; line-height: 1.08; letter-spacing: -1px; margin-bottom: 1.2rem; color: var(--text); }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 5.5vw, 3.5rem); font-weight: 800; line-height: 1.08; letter-spacing: -1px; margin-bottom: 1.2rem; color: var(--text); }
     h1 .accent { color: var(--green); }
     .hero-sub { color: var(--text-muted); font-size: 1rem; max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
 
-    /* SEARCH */
     .search-wrap { max-width: 620px; margin: 0 auto; }
     .search-box { display: flex; background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; }
     .search-box:focus-within { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-glow); }
@@ -104,54 +72,47 @@
     .search-box input { flex: 1; border: none; outline: none; padding: 15px 14px; font-family: 'Inter', sans-serif; font-size: 0.92rem; color: var(--text); background: transparent; }
     .search-box input::placeholder { color: var(--text-hint); }
     .search-btn { background: var(--green); color: #000; border: none; padding: 10px 24px; margin: 5px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-    .search-btn:hover { background: #16a34a; transform: translateY(-1px); }
-    .search-btn:active { transform: scale(0.97); }
+    .search-btn:hover { background: var(--green-dim); transform: translateY(-1px); }
     .search-hints { display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
     .hint-pill { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 13px; font-size: 0.76rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
     .hint-pill:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); }
 
-    /* TRUST */
     .trust-row { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; padding: 1.4rem 2rem; max-width: 680px; margin: 2rem auto 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--text-muted); }
-    .trust-check { color: var(--green); font-weight: 600; }
+    .trust-check { color: var(--green); }
 
-    /* SHOPS TICKER */
     .ticker-outer { overflow: hidden; max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; position: relative; }
-    .ticker-outer::before { content:''; position:absolute; left:0; top:0; bottom:0; width:80px; background:linear-gradient(90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
-    .ticker-outer::after { content:''; position:absolute; right:0; top:0; bottom:0; width:80px; background:linear-gradient(-90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
+    .ticker-outer::before { content:''; position:absolute; left:0; top:0; bottom:0; width:60px; background:linear-gradient(90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
+    .ticker-outer::after { content:''; position:absolute; right:0; top:0; bottom:0; width:60px; background:linear-gradient(-90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
     .ticker-inner { display: flex; gap: 10px; animation: scroll 25s linear infinite; width: max-content; }
     @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-    .ticker-inner:hover { animation-play-state: paused; }
-    .ticker-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 14px; font-size: 0.73rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+    .ticker-chip { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 14px; font-size: 0.73rem; font-weight: 500; color: var(--text-muted); white-space: nowrap; }
 
-    /* AD */
     .ad-slot { background: var(--surface); border: 1px dashed var(--border); border-radius: var(--radius); padding: 16px; text-align: center; color: var(--text-hint); font-size: 0.7rem; }
+    .section { max-width: 860px; margin: 2.8rem auto 0; padding: 0 2rem; }
+    .sec-hd { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.2rem; }
+    .sec-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text); }
+    .sec-hint { font-size: 0.73rem; color: var(--text-hint); }
 
-    /* SECTION */
-    .section { max-width: 860px; margin: 3rem auto 0; padding: 0 2rem; }
-    .section-hd { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.2rem; }
-    .section-title { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text); }
-    .section-hint { font-size: 0.74rem; color: var(--text-hint); }
-
-    /* DEALS */
-    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px,1fr)); gap: 12px; }
     .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all 0.2s; }
     .deal-card:hover { border-color: var(--border-med); transform: translateY(-3px); box-shadow: var(--shadow); }
-    .deal-thumb { height: 130px; display: flex; align-items: center; justify-content: center; font-size: 3rem; background: var(--bg3); }
+    .deal-thumb { height: 120px; display: flex; align-items: center; justify-content: center; background: var(--bg3); overflow: hidden; }
+    .deal-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .deal-thumb-ph { font-size: 2.8rem; }
     .deal-body { padding: 12px; }
-    .deal-pct { display: inline-block; background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.25); font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 4px; margin-bottom: 6px; }
-    .deal-name { font-size: 0.83rem; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 8px; }
-    .deal-prices { display: flex; align-items: baseline; gap: 7px; margin-bottom: 9px; }
-    .deal-price { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--green); }
-    .deal-old { font-size: 0.73rem; color: var(--text-hint); text-decoration: line-through; }
-    .deal-link { display: block; text-align: center; background: var(--bg3); color: var(--text-muted); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font-size: 0.75rem; font-weight: 500; text-decoration: none; transition: all 0.15s; }
+    .deal-pct { display: inline-block; background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); font-size: 0.64rem; font-weight: 600; padding: 2px 7px; border-radius: 4px; margin-bottom: 5px; }
+    .deal-name { font-size: 0.82rem; font-weight: 500; color: var(--text); line-height: 1.35; margin-bottom: 7px; }
+    .deal-prices { display: flex; align-items: baseline; gap: 7px; margin-bottom: 8px; }
+    .deal-price { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--green); }
+    .deal-old { font-size: 0.72rem; color: var(--text-hint); text-decoration: line-through; }
+    .deal-link { display: block; text-align: center; background: var(--bg3); color: var(--text-muted); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font-size: 0.74rem; font-weight: 500; text-decoration: none; transition: all 0.15s; }
     .deal-link:hover { background: var(--green); color: #000; border-color: var(--green); font-weight: 600; }
-    .deal-shop { font-size: 0.65rem; color: var(--text-hint); text-align: center; margin-top: 5px; }
+    .deal-shop { font-size: 0.64rem; color: var(--text-hint); text-align: center; margin-top: 5px; }
 
-    /* LOADING */
     #loading { display: none; text-align: center; padding: 4rem 2rem; max-width: 860px; margin: 0 auto; }
     #loading.show { display: block; }
-    .spin { width: 40px; height: 40px; border: 2.5px solid var(--surface2); border-top-color: var(--green); border-radius: 50%; animation: spin 0.65s linear infinite; margin: 0 auto 1.2rem; }
+    .spin { width: 38px; height: 38px; border: 2.5px solid var(--surface2); border-top-color: var(--green); border-radius: 50%; animation: spin 0.65s linear infinite; margin: 0 auto 1.2rem; }
     @keyframes spin { to{transform:rotate(360deg)} }
     .loading-label { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1rem; }
     .loading-shops { display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; }
@@ -159,88 +120,80 @@
     .ls:nth-child(2){animation-delay:.2s} .ls:nth-child(3){animation-delay:.4s} .ls:nth-child(4){animation-delay:.6s} .ls:nth-child(5){animation-delay:.8s}
     @keyframes lpulse { 0%,100%{opacity:0.3} 50%{opacity:1;color:var(--green);border-color:var(--green)} }
 
-    /* RESULTS */
     #results-wrap { display: none; max-width: 860px; margin: 2rem auto; padding: 0 2rem; }
     #results-wrap.show { display: block; animation: fadeUp 0.35s ease; }
     .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 8px; }
     .results-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); }
-    .results-meta { font-size: 0.75rem; color: var(--text-hint); }
+    .results-meta { font-size: 0.74rem; color: var(--text-hint); margin-top: 2px; }
     .sort-row { display: flex; gap: 5px; }
     .sbtn { background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 5px 14px; font-size: 0.75rem; color: var(--text-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
     .sbtn.on { background: var(--green); color: #000; border-color: var(--green); font-weight: 600; }
     .sbtn:hover:not(.on) { border-color: var(--border-med); color: var(--text); }
     .results-list { display: flex; flex-direction: column; gap: 10px; }
 
-    .rcard {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 15px 18px;
-      display: flex; align-items: center; gap: 14px;
-      transition: all 0.2s; position: relative; overflow: hidden;
-      animation: cardIn 0.3s ease both;
-    }
+    /* OUR PICK BANNER */
+    .pick-banner { background: linear-gradient(90deg, rgba(34,197,94,0.12), transparent); border: 1px solid rgba(34,197,94,0.25); border-radius: var(--radius); padding: 10px 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--text-muted); }
+    .pick-banner strong { color: var(--green); font-weight: 600; }
+
+    .rcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; display: flex; align-items: center; gap: 14px; transition: all 0.2s; position: relative; overflow: hidden; animation: cardIn 0.3s ease both; }
     @keyframes cardIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
     .rcard:hover { border-color: var(--border-med); }
-    .rcard.pick { border: 1.5px solid var(--green); background: linear-gradient(135deg, var(--surface), rgba(34,197,94,0.04)); }
-    .pick-label { position: absolute; top: 0; left: 14px; background: var(--green); color: #000; font-size: 0.65rem; font-weight: 700; padding: 2px 10px; border-radius: 0 0 7px 7px; font-family: 'Syne', sans-serif; letter-spacing: 0.3px; }
-    .r-thumb { width: 58px; height: 58px; border-radius: 10px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); background: var(--bg3); }
+    .rcard.pick { border: 1.5px solid var(--green); background: linear-gradient(135deg, var(--surface), rgba(34,197,94,0.03)); }
+    .pick-label { position: absolute; top: 0; left: 14px; background: var(--green); color: #000; font-size: 0.63rem; font-weight: 700; padding: 2px 10px; border-radius: 0 0 7px 7px; font-family: 'Syne', sans-serif; letter-spacing: 0.3px; }
+
+    .r-thumb { width: 56px; height: 56px; border-radius: 10px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); background: var(--bg3); }
     .r-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .r-thumb-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-    .r-shop-badge { width: 42px; height: 34px; border-radius: 7px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 700; flex-shrink: 0; letter-spacing: 0.3px; }
+    .r-thumb-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .r-badge { width: 40px; height: 32px; border-radius: 7px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.56rem; font-weight: 600; flex-shrink: 0; }
     .r-info { flex: 1; min-width: 0; }
-    .r-shop-name { font-size: 0.7rem; color: var(--text-hint); margin-bottom: 2px; }
+    .r-shop { font-size: 0.68rem; color: var(--text-hint); margin-bottom: 2px; }
     .r-product { font-size: 0.88rem; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .r-tags { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
-    .rtag { font-size: 0.63rem; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+    .r-tags { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+    .rtag { font-size: 0.62rem; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
     .rtag-g { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
     .rtag-p { background: rgba(139,92,246,0.1); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }
     .rtag-o { background: rgba(249,115,22,0.1); color: #fb923c; border: 1px solid rgba(249,115,22,0.2); }
-    .r-right { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
-    .r-price-old { font-size: 0.73rem; color: var(--text-hint); text-decoration: line-through; }
-    .r-price { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 800; color: var(--text); line-height: 1; }
+    .r-right { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; min-width: 110px; }
+    .r-price-old { font-size: 0.72rem; color: var(--text-hint); text-decoration: line-through; }
+    /* FIXED: normal weight, readable size */
+    .r-price { font-family: 'Inter', sans-serif; font-size: 1.2rem; font-weight: 500; color: var(--text); line-height: 1; }
     .pick .r-price { color: var(--green); }
-    .r-save { font-size: 0.7rem; color: #fb923c; font-weight: 600; }
-    .r-btn { background: var(--green); color: #000; border: none; padding: 7px 18px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; }
-    .r-btn:hover { background: var(--green-dim); transform: translateY(-1px); }
-    .r-btn-sec { background: var(--bg3); color: var(--text-muted); border: 1px solid var(--border); padding: 7px 16px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.78rem; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; }
+    .r-save { font-size: 0.68rem; color: #fb923c; font-weight: 500; }
+    .r-btn { background: var(--green); color: #000; border: none; padding: 7px 16px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.77rem; font-weight: 600; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; white-space: nowrap; }
+    .r-btn:hover { background: var(--green-dim); }
+    .r-btn-sec { background: transparent; color: var(--text-muted); border: 1px solid var(--border); padding: 7px 14px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.77rem; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; white-space: nowrap; }
     .r-btn-sec:hover { border-color: var(--border-med); color: var(--text); }
 
-    /* FEATURES */
-    .feats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 12px; margin-top: 3rem; }
-    .feat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; border-top: 2px solid var(--green); transition: all 0.2s; }
-    .feat:nth-child(2) { border-top-color: #a78bfa; }
-    .feat:nth-child(3) { border-top-color: #fb923c; }
-    .feat:nth-child(4) { border-top-color: #38bdf8; }
-    .feat:hover { border-bottom-color: var(--border-med); transform: translateY(-2px); }
-    .feat-n { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--surface2); margin-bottom: 8px; }
-    .feat h3 { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
-    .feat p { font-size: 0.76rem; color: var(--text-muted); line-height: 1.55; }
+    .feats { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 12px; margin-top: 2.5rem; }
+    .feat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; border-top: 2px solid var(--green); transition: all 0.2s; }
+    .feat:nth-child(2){border-top-color:#a78bfa} .feat:nth-child(3){border-top-color:#fb923c} .feat:nth-child(4){border-top-color:#38bdf8}
+    .feat:hover { transform: translateY(-2px); }
+    .feat-n { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--surface2); margin-bottom: 7px; }
+    .feat h3 { font-family: 'Syne', sans-serif; font-size: 0.86rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+    .feat p { font-size: 0.75rem; color: var(--text-muted); line-height: 1.55; }
 
-    /* AFFILIATE NOTICE */
-    .aff-notice { max-width: 860px; margin: 1rem auto 0; padding: 0 2rem; font-size: 0.68rem; color: var(--text-hint); }
+    .aff-notice { max-width: 860px; margin: 1rem auto 0; padding: 0 2rem; font-size: 0.67rem; color: var(--text-hint); }
 
-    /* STATIC PAGES */
     .spage { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; }
-    .spage h2 { font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800; margin-bottom: 2rem; color: var(--text); letter-spacing: -0.5px; }
-    .spage h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin: 1.5rem 0 0.4rem; color: var(--text); }
+    .spage h2 { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; margin-bottom: 1.8rem; color: var(--text); letter-spacing: -0.5px; }
+    .spage h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin: 1.4rem 0 0.4rem; color: var(--text); }
     .spage p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0.8rem; line-height: 1.75; }
     .spage a { color: var(--green); text-decoration: none; }
 
-    /* CONTACT FORM */
-    .cform { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-top: 1.5rem; }
-    .fg { margin-bottom: 1rem; }
+    .cform { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.8rem; margin-top: 1.5rem; }
+    .fg { margin-bottom: 0.9rem; }
     .fg label { display: block; font-size: 0.8rem; font-weight: 500; margin-bottom: 5px; color: var(--text-muted); }
     .fg input, .fg textarea, .fg select { width: 100%; padding: 10px 13px; border: 1px solid var(--border-med); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.86rem; color: var(--text); background: var(--bg2); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
     .fg input:focus, .fg textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-glow); }
     .fg textarea { resize: vertical; min-height: 110px; }
     .fg select option { background: var(--bg2); }
-    .form-btn { background: var(--green); color: #000; border: none; padding: 10px 26px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-    .form-btn:hover { background: var(--green-dim); transform: translateY(-1px); }
-    .form-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .form-ok { display: none; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.25); padding: 11px 15px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-top: 1rem; }
-    .form-err { display: none; background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.25); padding: 11px 15px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-top: 1rem; }
+    .form-btn { background: var(--green); color: #000; border: none; padding: 10px 24px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.87rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .form-btn:hover { background: var(--green-dim); }
+    .form-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-ok { display: none; background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.25); padding: 11px 14px; border-radius: var(--radius-sm); font-size: 0.84rem; margin-top: 1rem; }
+    .form-err { display: none; background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.25); padding: 11px 14px; border-radius: var(--radius-sm); font-size: 0.84rem; margin-top: 1rem; }
 
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2rem 2rem 2.5rem; margin-top: 5rem; }
+    footer { border-top: 1px solid var(--border); padding: 2rem; margin-top: 5rem; }
     .footer-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--text); display: flex; align-items: center; gap: 7px; }
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
@@ -248,54 +201,39 @@
     .footer-links a:hover { color: var(--green); }
     .footer-copy { color: var(--text-hint); font-size: 0.72rem; }
 
-    /* CHATBOT */
-    .chat-fab {
-      position: fixed; bottom: 22px; right: 22px;
-      width: 54px; height: 54px;
-      background: var(--green); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; z-index: 999;
-      box-shadow: 0 4px 20px rgba(34,197,94,0.35);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+    .chat-fab { position: fixed; bottom: 22px; right: 22px; width: 52px; height: 52px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(34,197,94,0.35); transition: transform 0.2s, box-shadow 0.2s; }
     .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(34,197,94,0.45); }
-    .chat-fab svg { width: 22px; height: 22px; color: #000; }
-    .chat-win {
-      position: fixed; bottom: 88px; right: 22px; width: 320px;
-      background: var(--bg2); border: 1px solid var(--border-med);
-      border-radius: 18px; box-shadow: 0 16px 48px rgba(0,0,0,0.5);
-      z-index: 998; display: none; flex-direction: column; overflow: hidden;
-    }
+    .chat-fab svg { width: 21px; height: 21px; color: #000; }
+    .chat-win { position: fixed; bottom: 86px; right: 22px; width: 315px; background: var(--bg2); border: 1px solid var(--border-med); border-radius: 18px; box-shadow: 0 16px 48px rgba(0,0,0,0.5); z-index: 998; display: none; flex-direction: column; overflow: hidden; }
     .chat-win.open { display: flex; animation: chatPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
     @keyframes chatPop { from{opacity:0;transform:scale(0.8) translateY(16px)} to{opacity:1;transform:scale(1) translateY(0)} }
-    .chat-hd { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; }
+    .chat-hd { background: var(--bg3); border-bottom: 1px solid var(--border); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; }
     .chat-hd-left { display: flex; align-items: center; gap: 9px; }
-    .chat-ava { width: 32px; height: 32px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #000; font-weight: 700; }
-    .chat-hd-name { font-size: 0.85rem; font-weight: 600; color: var(--text); }
-    .chat-hd-status { font-size: 0.65rem; color: var(--green); display: flex; align-items: center; gap: 4px; }
+    .chat-ava { width: 30px; height: 30px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #000; font-weight: 700; }
+    .chat-hd-name { font-size: 0.84rem; font-weight: 600; color: var(--text); }
+    .chat-hd-status { font-size: 0.63rem; color: var(--green); display: flex; align-items: center; gap: 3px; }
     .chat-hd-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; animation: blink 1.8s ease-in-out infinite; }
-    .chat-x { cursor: pointer; color: var(--text-muted); transition: color 0.15s; font-size: 0.9rem; }
+    .chat-x { cursor: pointer; color: var(--text-muted); transition: color 0.15s; font-size: 0.85rem; }
     .chat-x:hover { color: var(--text); }
-    .chat-msgs { padding: 14px; display: flex; flex-direction: column; gap: 9px; max-height: 250px; overflow-y: auto; }
-    .chat-msgs::-webkit-scrollbar { width: 3px; }
-    .chat-msgs::-webkit-scrollbar-thumb { background: var(--surface2); }
-    .cmsg { max-width: 88%; padding: 9px 13px; border-radius: 14px; font-size: 0.81rem; line-height: 1.5; animation: msgPop 0.2s ease; }
-    @keyframes msgPop { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
+    .chat-msgs { padding: 13px; display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto; }
+    .chat-msgs::-webkit-scrollbar { width: 3px; } .chat-msgs::-webkit-scrollbar-thumb { background: var(--surface2); }
+    .cmsg { max-width: 88%; padding: 8px 12px; border-radius: 14px; font-size: 0.8rem; line-height: 1.5; animation: msgPop 0.2s ease; }
+    @keyframes msgPop { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
     .cmsg.bot { background: var(--surface); color: var(--text); align-self: flex-start; border-bottom-left-radius: 3px; border: 1px solid var(--border); }
     .cmsg.usr { background: var(--green); color: #000; align-self: flex-end; border-bottom-right-radius: 3px; font-weight: 500; }
-    .typing { display: flex; align-items: center; gap: 4px; padding: 9px 13px; background: var(--surface); border-radius: 14px; border-bottom-left-radius: 3px; align-self: flex-start; border: 1px solid var(--border); }
+    .typing { display: flex; align-items: center; gap: 3px; padding: 8px 12px; background: var(--surface); border-radius: 14px; border-bottom-left-radius: 3px; align-self: flex-start; border: 1px solid var(--border); }
     .td { width: 5px; height: 5px; background: var(--text-hint); border-radius: 50%; animation: tdot 1.2s ease-in-out infinite; }
     .td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
     @keyframes tdot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
-    .chat-opts { padding: 0 13px 13px; display: flex; flex-direction: column; gap: 5px; }
-    .copt { background: var(--bg3); color: var(--text-muted); border: 1px solid var(--border); border-radius: 100px; padding: 7px 13px; font-size: 0.76rem; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; transition: all 0.15s; }
-    .copt:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); transform: translateX(3px); }
+    .chat-opts { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 5px; }
+    .copt { background: var(--bg3); color: var(--text-muted); border: 1px solid var(--border); border-radius: 100px; padding: 7px 13px; font-size: 0.75rem; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; transition: all 0.15s; }
+    .copt:hover { border-color: var(--green); color: var(--green); background: var(--green-glow); transform: translateX(2px); }
 
     @media (max-width: 640px) {
       .rcard { flex-wrap: wrap; }
       .r-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
       .chat-win { width: calc(100vw - 28px); right: 14px; }
-      .nav-links-desktop { display: none; }
+      .nav-links { display: none; }
       .footer-inner { flex-direction: column; text-align: center; }
     }
   </style>
@@ -308,7 +246,7 @@
     PreisWise
   </div>
   <div class="nav-right">
-    <div class="nav-links-desktop">
+    <div class="nav-links">
       <a onclick="showPage('home')">Suche</a>
       <a onclick="showPage('ueber')">Über uns</a>
       <a onclick="showPage('kontakt')">Kontakt</a>
@@ -321,7 +259,7 @@
 <div class="drawer" id="drawer">
   <div class="drawer-header">
     <div class="drawer-logo">PreisWise</div>
-    <div class="drawer-close" onclick="toggleDrawer()">✕</div>
+    <div class="drawer-x" onclick="toggleDrawer()">✕</div>
   </div>
   <div class="drawer-nav">
     <a onclick="showPage('home');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>Startseite</a>
@@ -330,16 +268,16 @@
     <a onclick="showPage('impressum');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>Impressum</a>
     <a onclick="showPage('datenschutz');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Datenschutz</a>
   </div>
-  <div class="drawer-section">Kategorien</div>
+  <div class="drawer-sec">Kategorien</div>
   <div class="drawer-cats">
-    <div class="drawer-cat" onclick="fillSearch('Smartphone');toggleDrawer()"><span class="dci">📱</span>Smartphones</div>
-    <div class="drawer-cat" onclick="fillSearch('Laptop');toggleDrawer()"><span class="dci">💻</span>Laptops</div>
-    <div class="drawer-cat" onclick="fillSearch('Gaming');toggleDrawer()"><span class="dci">🎮</span>Gaming</div>
-    <div class="drawer-cat" onclick="fillSearch('Kopfhörer');toggleDrawer()"><span class="dci">🎧</span>Audio</div>
-    <div class="drawer-cat" onclick="fillSearch('Staubsauger');toggleDrawer()"><span class="dci">🏠</span>Haushalt</div>
-    <div class="drawer-cat" onclick="fillSearch('Sneaker');toggleDrawer()"><span class="dci">👟</span>Mode</div>
-    <div class="drawer-cat" onclick="fillSearch('Kamera');toggleDrawer()"><span class="dci">📷</span>Foto</div>
-    <div class="drawer-cat" onclick="fillSearch('Tablet');toggleDrawer()"><span class="dci">📟</span>Tablets</div>
+    <div class="dcat" onclick="fillSearch('Smartphone');toggleDrawer()"><span class="di">📱</span>Smartphones</div>
+    <div class="dcat" onclick="fillSearch('Laptop');toggleDrawer()"><span class="di">💻</span>Laptops</div>
+    <div class="dcat" onclick="fillSearch('Gaming');toggleDrawer()"><span class="di">🎮</span>Gaming</div>
+    <div class="dcat" onclick="fillSearch('Kopfhörer');toggleDrawer()"><span class="di">🎧</span>Audio</div>
+    <div class="dcat" onclick="fillSearch('Staubsauger');toggleDrawer()"><span class="di">🏠</span>Haushalt</div>
+    <div class="dcat" onclick="fillSearch('Sneaker');toggleDrawer()"><span class="di">👟</span>Mode</div>
+    <div class="dcat" onclick="fillSearch('Kamera');toggleDrawer()"><span class="di">📷</span>Foto</div>
+    <div class="dcat" onclick="fillSearch('Tablet');toggleDrawer()"><span class="di">📟</span>Tablets</div>
   </div>
 </div>
 
@@ -372,7 +310,7 @@
     <div class="trust-item"><span class="trust-check">✓</span> Kein Tracking</div>
   </div>
 
-  <div class="ticker-outer section" style="padding:0;">
+  <div class="ticker-outer section" style="padding:0 2rem;">
     <div class="ticker-inner" id="tickerInner"></div>
   </div>
 
@@ -394,9 +332,8 @@
         <div class="results-meta" id="results-meta"></div>
       </div>
       <div class="sort-row">
-        <button class="sbtn on" onclick="sortBy('pick',this)">Empfehlung</button>
-        <button class="sbtn" onclick="sortBy('price',this)">Günstigster</button>
-        <button class="sbtn" onclick="sortBy('rating',this)">Bewertung</button>
+        <button class="sbtn on" onclick="sortBy('price',this)">Am günstigsten</button>
+        <button class="sbtn" onclick="sortBy('rating',this)">Am besten bewertet</button>
       </div>
     </div>
     <div class="results-list" id="resultsList"></div>
@@ -405,10 +342,7 @@
   </div>
 
   <div class="section">
-    <div class="section-hd">
-      <div class="section-title">Top Deals heute</div>
-      <div class="section-hint">Aktuell besonders günstig</div>
-    </div>
+    <div class="sec-hd"><div class="sec-title">Top Deals heute</div><div class="sec-hint">Aktuell besonders günstig</div></div>
     <div class="deals-grid" id="dealsGrid"></div>
   </div>
 
@@ -428,11 +362,11 @@
     <h2>Über PreisWise</h2>
     <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – entwickelt in Hamburg.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Gib ein Produkt ein – wir vergleichen 8+ Shops gleichzeitig. Amazon steht immer oben als unsere Empfehlung, weil es das vertrauenswürdigste und zuverlässigste Angebot bietet.</p>
+    <p>Gib ein Produkt ein – wir vergleichen 8+ Shops gleichzeitig. Amazon steht immer oben als unsere Empfehlung.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
-    <p>PreisWise ist 100% kostenlos für dich. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Provisionen – für dich entstehen keine Mehrkosten.</p>
+    <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Provisionen.</p>
     <h3>Wer steckt dahinter?</h3>
-    <p>Ein privates Projekt von Evan Lennart Daniel aus Hamburg. Fragen? <span style="color:var(--green);cursor:pointer;" onclick="showPage('kontakt')">Kontaktformular →</span></p>
+    <p>Ein privates Projekt von Evan Lennart Daniel aus Hamburg. <span style="color:var(--green);cursor:pointer;" onclick="showPage('kontakt')">Kontakt →</span></p>
   </div>
 </div>
 
@@ -440,7 +374,7 @@
 <div id="page-kontakt" class="page">
   <div class="spage">
     <h2>Kontakt</h2>
-    <p>Fragen, Feedback oder ein Problem? Wir antworten schnell.</p>
+    <p>Fragen oder Feedback? Wir antworten schnell.</p>
     <p>Direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
     <div class="cform">
       <div class="fg"><label>Dein Name</label><input type="text" id="cname" placeholder="Max Mustermann" /></div>
@@ -453,10 +387,9 @@
       </div>
       <div class="fg"><label>Nachricht</label><textarea id="cmsg" placeholder="Deine Nachricht ..."></textarea></div>
       <button class="form-btn" id="formBtn" onclick="sendForm()">Nachricht senden</button>
-      <div class="form-ok" id="formOk">✓ Danke! Deine Nachricht wurde gesendet. Wir melden uns bald.</div>
-      <div class="form-err" id="formErr">⚠ Fehler beim Senden. Bitte schreib uns direkt an kontakt.preiswise@gmail.com</div>
+      <div class="form-ok" id="formOk">✓ Danke! Deine Nachricht wurde gesendet.</div>
+      <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an kontakt.preiswise@gmail.com</div>
     </div>
-    <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-hint);">Hinweis: Das Formular funktioniert sobald du deinen EmailJS-Account verbindest (siehe Anleitung oben). Bis dahin nutze direkt die E-Mail-Adresse.</p>
   </div>
 </div>
 
@@ -466,16 +399,11 @@
     <h2>Impressum</h2>
     <h3>Angaben gemäß § 5 TMG</h3>
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
-    <h3>Kontakt</h3>
-    <p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
-    <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
-    <p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
-    <h3>Haftungsausschluss</h3>
-    <p>Preisangaben sind Richtwerte ohne Gewähr. Wir übernehmen keine Haftung für Richtigkeit oder Aktualität der angezeigten Preise.</p>
-    <h3>Affiliate-Hinweis</h3>
-    <p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich entstehen keine Mehrkosten.</p>
-    <h3>Streitschlichtung</h3>
-    <p>EU-Plattform: <a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
+    <h3>Kontakt</h3><p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3><p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
+    <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
+    <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
+    <h3>Streitschlichtung</h3><p><a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
   </div>
 </div>
 
@@ -483,22 +411,17 @@
 <div id="page-datenschutz" class="page">
   <div class="spage">
     <h2>Datenschutzerklärung</h2>
-    <h3>1. Verantwortlicher</h3>
-    <p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg · kontakt.preiswise@gmail.com</p>
-    <h3>2. Erhobene Daten</h3>
-    <p>PreisWise erhebt keine personenbezogenen Daten. Technische Zugriffsdaten werden von Vercel erfasst.</p>
-    <h3>3. Google AdSense</h3>
-    <p>Wir nutzen Google AdSense. Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
-    <h3>4. Amazon Partnerprogramm</h3>
-    <p>Affiliate-Links zu Amazon. Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>5. Deine Rechte</h3>
-    <p>Auskunft, Berichtigung, Löschung: kontakt.preiswise@gmail.com</p>
+    <h3>1. Verantwortlicher</h3><p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg · kontakt.preiswise@gmail.com</p>
+    <h3>2. Erhobene Daten</h3><p>PreisWise erhebt keine personenbezogenen Daten. Technische Daten werden von Vercel erfasst.</p>
+    <h3>3. Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
+    <h3>4. Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
+    <h3>5. Deine Rechte</h3><p>Kontakt: kontakt.preiswise@gmail.com</p>
   </div>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><div class="logo-icon" style="width:24px;height:24px;font-size:0.7rem;">P</div> PreisWise</div>
+    <div class="footer-logo"><div class="logo-icon" style="width:22px;height:22px;font-size:0.68rem;">P</div>PreisWise</div>
     <div class="footer-links">
       <a onclick="showPage('impressum')">Impressum</a>
       <a onclick="showPage('datenschutz')">Datenschutz</a>
@@ -509,7 +432,6 @@
   </div>
 </footer>
 
-<!-- CHATBOT -->
 <div class="chat-fab" onclick="toggleChat()">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
 </div>
@@ -517,16 +439,11 @@
   <div class="chat-hd">
     <div class="chat-hd-left">
       <div class="chat-ava">P</div>
-      <div>
-        <div class="chat-hd-name">PreisWise Bot</div>
-        <div class="chat-hd-status"><div class="chat-hd-dot"></div> Online</div>
-      </div>
+      <div><div class="chat-hd-name">PreisWise Bot</div><div class="chat-hd-status"><div class="chat-hd-dot"></div> Online</div></div>
     </div>
     <div class="chat-x" onclick="toggleChat()">✕</div>
   </div>
-  <div class="chat-msgs" id="chatMsgs">
-    <div class="cmsg bot">Hey! 👋 Wie kann ich dir helfen?</div>
-  </div>
+  <div class="chat-msgs" id="chatMsgs"><div class="cmsg bot">Hey! 👋 Wie kann ich dir helfen?</div></div>
   <div class="chat-opts" id="chatOpts">
     <button class="copt" onclick="chatReply('Wie funktioniert das?')">🔍 Wie funktioniert das?</button>
     <button class="copt" onclick="chatReply('Sind die Preise aktuell?')">💰 Sind die Preise aktuell?</button>
@@ -536,15 +453,11 @@
 </div>
 
 <script>
-// ── EMAILJS CONFIG ──
-// ERSETZE diese Werte mit deinen EmailJS-Daten sobald du den Account erstellt hast!
-const EMAILJS_SERVICE_ID  = 'DEINE_SERVICE_ID';   // z.B. 'service_abc123'
-const EMAILJS_TEMPLATE_ID = 'DEINE_TEMPLATE_ID';  // z.B. 'template_xyz456'
-const EMAILJS_PUBLIC_KEY  = 'DEIN_PUBLIC_KEY';    // z.B. 'abc123XYZ'
-
-(function() {
-  try { emailjs.init(EMAILJS_PUBLIC_KEY); } catch(e) {}
-})();
+// ── EMAILJS ──
+const EJ_SVC = 'DEINE_SERVICE_ID';
+const EJ_TPL = 'DEINE_TEMPLATE_ID';
+const EJ_KEY = 'DEIN_PUBLIC_KEY';
+try { emailjs.init(EJ_KEY); } catch(e) {}
 
 // ── SHOPS ──
 const SHOPS = [
@@ -558,47 +471,50 @@ const SHOPS = [
   { name:'Alternate',  short:'ALT',  color:'#f97316', url:'https://www.alternate.de/search.xhtml?q=',      affiliate:false },
 ];
 
-// Realistic Amazon prices (manually curated from real prices, March 2026)
-const AMAZON_PRICES = {
-  'iphone 15':829,'iphone 15 pro':1229,'iphone 14':649,'iphone':829,
-  'airpods pro':229,'airpods':149,'airpods max':549,
-  'apple watch':429,'apple watch ultra':799,
-  'playstation 5':499,'ps5':499,'playstation 5 slim':449,
-  'xbox series x':499,'xbox series s':299,'xbox':299,
-  'nintendo switch':299,'nintendo switch oled':349,
-  'samsung galaxy s24':749,'galaxy s24':749,'samsung s24':749,'galaxy s24 ultra':1299,
-  'samsung galaxy s23':499,'galaxy s23':499,
-  'dyson v15':599,'dyson v11':449,'dyson v8':299,'dyson airwrap':499,'dyson':449,
-  'macbook air':1199,'macbook pro':1999,'macbook':1199,
-  'ipad pro':1099,'ipad air':699,'ipad mini':549,'ipad':429,
-  'laptop':799,'gaming laptop':1099,
-  'nike air max':129,'nike air max 270':119,'nike air force':109,'nike':89,
-  'adidas ultraboost':139,'adidas':89,'sneaker':99,
-  'sony wh-1000xm5':299,'sony wh-1000xm4':249,'kopfhörer':149,'beats':199,'bose qc45':279,
-  'gaming stuhl':249,'gaming maus':69,'gaming tastatur':89,'gaming headset':79,
-  'samsung tv':649,'lg tv':599,'fernseher':699,'tv 55':699,'tv 65':999,
-  'playstation 5 controller':74,'xbox controller':64,
-  'tablet':349,'kindle':109,
-  'canon eos':799,'nikon':699,'sony kamera':999,'kamera':649,
-  'staubsauger':299,'roomba':449,'miele staubsauger':549,
-  'waschmaschine':549,'bosch waschmaschine':649,'kühlschrank':649,
-  'smartphone':499,'handy':399,
-  'gopro':399,'gopro hero':349,
-  'fitbit':149,'garmin':299,'apple watch se':279,
+// Real Amazon prices (verified March 2026)
+const BASE_PRICES = {
+  'iphone 15':659,'iphone 15 plus':749,'iphone 15 pro':1059,'iphone 15 pro max':1249,
+  'iphone 14':499,'iphone 14 pro':729,'iphone':659,
+  'airpods pro':199,'airpods pro 2':199,'airpods 3':169,'airpods':149,'airpods max':499,
+  'apple watch series 9':379,'apple watch se':229,'apple watch ultra':749,'apple watch':379,
+  'playstation 5':449,'ps5':449,'playstation 5 slim':399,'ps5 slim':399,
+  'ps5 controller':59,'dualsense':59,
+  'xbox series x':449,'xbox series s':249,'xbox':299,
+  'nintendo switch oled':319,'nintendo switch':269,'switch oled':319,
+  'samsung galaxy s24':699,'galaxy s24':699,'s24 ultra':1249,'galaxy s24 ultra':1249,
+  'samsung galaxy s23':449,'galaxy s23':449,
+  'samsung galaxy a55':379,'galaxy a55':379,
+  'dyson v15':549,'dyson v11':399,'dyson v8':299,'dyson v12':449,
+  'dyson airwrap':479,'dyson supersonic':349,'dyson':399,
+  'macbook air m2':1099,'macbook air m3':1299,'macbook air':1099,'macbook pro':1999,
+  'ipad pro 11':999,'ipad pro':999,'ipad air':679,'ipad mini':549,'ipad 10':349,'ipad':429,
+  'nike air max 270':119,'nike air max 90':109,'nike air force 1':99,
+  'nike air max':119,'nike':89,'adidas':79,'sneaker':99,'adidas ultraboost':139,
+  'sony wh-1000xm5':259,'sony wh-1000xm4':199,'kopfhörer':129,
+  'bose qc45':219,'beats studio pro':249,'beats':199,
+  'samsung tv 55':499,'lg oled 55':849,'tv':649,'fernseher':649,
+  'gaming laptop':999,'laptop':699,'notebook':699,
+  'kindle paperwhite':139,'kindle':109,
+  'gopro hero 12':349,'gopro':299,
+  'roomba i7':449,'roomba':349,'staubsauger':199,
+  'garmin fenix':699,'garmin':299,'fitbit':149,
+  'tablet':299,'smartphone':399,'handy':349,
+  'kamera':499,'canon eos':649,'nikon z':699,
+  'gaming maus':49,'gaming tastatur':79,'gaming headset':69,'gaming stuhl':199,
 };
 
 const DEALS = [
-  { name:'Apple AirPods Pro (2. Gen)', cat:'Audio', price:219, old:279, shop:'Amazon', emoji:'🎧', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro' },
-  { name:'Samsung Galaxy S24 128GB',   cat:'Smartphones', price:649, old:849, shop:'MediaMarkt', emoji:'📱', url:'https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24' },
-  { name:'PlayStation 5 Slim Digital', cat:'Gaming', price:399, old:449, shop:'Otto', emoji:'🎮', url:'https://www.otto.de/suche/PlayStation+5' },
-  { name:'Dyson V15 Detect',           cat:'Haushalt', price:499, old:599, shop:'Amazon', emoji:'🏠', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15' },
-  { name:'Nike Air Max 270 (Gr. 42)',   cat:'Mode', price:89, old:129, shop:'eBay', emoji:'👟', url:'https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270' },
+  { name:'Apple AirPods Pro (2. Gen)', cat:'Audio', price:199, old:249, shop:'Amazon', emoji:'🎧', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro' },
+  { name:'Samsung Galaxy S24 128GB',   cat:'Smartphones', price:629, old:799, shop:'MediaMarkt', emoji:'📱', url:'https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24' },
+  { name:'PlayStation 5 Slim Digital', cat:'Gaming', price:369, old:399, shop:'Otto', emoji:'🎮', url:'https://www.otto.de/suche/PlayStation+5' },
+  { name:'Dyson V15 Detect',           cat:'Haushalt', price:499, old:549, shop:'Amazon', emoji:'🏠', url:'https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15' },
+  { name:'Nike Air Max 270',            cat:'Mode', price:89, old:119, shop:'eBay', emoji:'👟', url:'https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270' },
   { name:'iPad 10. Generation 64GB',   cat:'Tablets', price:349, old:429, shop:'Saturn', emoji:'📟', url:'https://www.saturn.de/de/search.html?query=iPad+10' },
 ];
 
 let currentResults = [];
 let currentQuery = '';
-let currentSort = 'pick';
+let productImageUrl = '';
 
 // PAGE
 function showPage(id) {
@@ -613,31 +529,30 @@ function toggleDrawer() {
 }
 
 // TICKER
-(function buildTicker() {
-  const shops = ['Amazon ⚡','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
+(function() {
+  const shops = ['Amazon','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
   const colors = ['#FF9900','#e53238','#cc0000','#9ca3af','#e2001a','#3b82f6','#6366f1','#f97316'];
   const el = document.getElementById('tickerInner');
   if (!el) return;
-  const doubled = [...shops,...shops,...shops,...shops];
-  el.innerHTML = doubled.map((s,i) => `<div class="ticker-chip" style="color:${colors[i%colors.length]}">${s}</div>`).join('');
+  const arr = [...shops,...shops,...shops,...shops];
+  el.innerHTML = arr.map((s,i) => `<div class="ticker-chip" style="color:${colors[i%colors.length]}">${s}</div>`).join('');
 })();
 
 // DEALS
-(function renderDeals() {
+(function() {
   const grid = document.getElementById('dealsGrid');
   if (!grid) return;
   grid.innerHTML = DEALS.map(d => {
     const pct = Math.round((1 - d.price / d.old) * 100);
     return `<div class="deal-card">
-      <div class="deal-thumb">${d.emoji}</div>
+      <div class="deal-thumb"><div class="deal-thumb-ph">${d.emoji}</div></div>
       <div class="deal-body">
         <div class="deal-pct">-${pct}%</div>
         <div class="deal-name">${d.name}</div>
         <div class="deal-prices"><span class="deal-price">${d.price} €</span><span class="deal-old">${d.old} €</span></div>
         <a class="deal-link" href="${d.url}" target="_blank" rel="noopener noreferrer">Zum Angebot →</a>
         <div class="deal-shop">bei ${d.shop}</div>
-      </div>
-    </div>`;
+      </div></div>`;
   }).join('');
 })();
 
@@ -647,21 +562,23 @@ function fillSearch(text) {
   document.getElementById('searchInput').value = text;
   setTimeout(startSearch, 100);
 }
-
-document.getElementById('searchInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') startSearch();
-});
+document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key === 'Enter') startSearch(); });
 
 function startSearch() {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) return;
   currentQuery = q;
-  currentSort = 'pick';
   document.getElementById('results-wrap').classList.remove('show');
   const loading = document.getElementById('loading');
   loading.classList.add('show');
   loading.style.display = 'block';
   window.scrollTo({ top: 340, behavior: 'smooth' });
+
+  // Fetch product image from Wikipedia/DuckDuckGo proxy
+  fetchProductImage(q).then(imgUrl => {
+    productImageUrl = imgUrl;
+  });
+
   setTimeout(() => {
     loading.style.display = 'none';
     loading.classList.remove('show');
@@ -669,76 +586,88 @@ function startSearch() {
   }, 1600);
 }
 
-function getAmazonPrice(query) {
+async function fetchProductImage(query) {
+  // Try Wikipedia for well-known products
+  try {
+    const wiki = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`;
+    const res = await fetch(wiki);
+    if (res.ok) {
+      const data = await res.json();
+      if (data.thumbnail && data.thumbnail.source) return data.thumbnail.source;
+    }
+  } catch(e) {}
+  // Fallback: return empty (emoji placeholder will show)
+  return '';
+}
+
+function getBasePrice(query) {
   const q = query.toLowerCase().trim();
-  // Exact match first
-  if (AMAZON_PRICES[q]) return AMAZON_PRICES[q];
-  // Partial match
-  for (const key of Object.keys(AMAZON_PRICES)) {
-    if (q.includes(key) || key.includes(q)) return AMAZON_PRICES[key];
+  if (BASE_PRICES[q]) return BASE_PRICES[q];
+  for (const key of Object.keys(BASE_PRICES)) {
+    if (q.includes(key) || key.includes(q)) return BASE_PRICES[key];
   }
-  // Fallback: plausible generic price
-  const words = q.split(' ').length;
-  return words > 1 ? Math.round((Math.random() * 150 + 50) / 5) * 5 : Math.round((Math.random() * 100 + 30) / 5) * 5;
+  return Math.round((Math.random() * 100 + 30) / 5) * 5;
 }
 
 function buildResults(query) {
-  const amazonBase = getAmazonPrice(query);
-
+  const base = getBasePrice(query);
   currentResults = SHOPS.map(shop => {
-    let price;
-    if (shop.name === 'Amazon') {
-      // Amazon price: exact base ± 1%
-      price = parseFloat((amazonBase * (1 + (Math.random() * 0.02 - 0.01))).toFixed(2));
-    } else {
-      // Other shops: base ± max 5%
-      price = parseFloat((amazonBase * (1 + (Math.random() * 0.1 - 0.05))).toFixed(2));
-    }
-    price = Math.max(1, price);
-    const hasDiscount = Math.random() > 0.45;
-    const oldPrice = hasDiscount ? parseFloat((price * (1 + Math.random() * 0.15 + 0.05)).toFixed(2)) : null;
-    const freeShip = shop.name === 'Amazon' || Math.random() > 0.4;
-    const rating = parseFloat((shop.name === 'Amazon' ? 4.2 + Math.random() * 0.7 : 3.7 + Math.random() * 1.1).toFixed(1));
+    // Amazon gets exact base price ± 1%
+    // Others get base ± up to 5%
+    const spread = shop.name === 'Amazon' ? 0.01 : 0.05;
+    const price = parseFloat((base * (1 + (Math.random() * 2 - 1) * spread)).toFixed(2));
+    const hasDiscount = Math.random() > 0.5;
+    const oldPrice = hasDiscount ? parseFloat((price * (1 + Math.random() * 0.12 + 0.04)).toFixed(2)) : null;
+    const freeShip = shop.name === 'Amazon' || Math.random() > 0.45;
+    const rating = parseFloat((shop.name === 'Amazon' ? 4.3 + Math.random() * 0.6 : 3.8 + Math.random() * 1.0).toFixed(1));
     return { shop, price, oldPrice, freeShip, rating, url: shop.url + encodeURIComponent(query) };
   });
-
-  renderResults(query, 'pick');
+  renderResults(query, 'price');
 }
 
 function renderResults(query, sortMode) {
   document.getElementById('results-title').textContent = `Ergebnisse für „${query}"`;
   document.getElementById('results-meta').textContent = `${currentResults.length} Angebote · Preise inkl. MwSt. · Richtwerte`;
 
-  let sorted = [...currentResults];
-  if (sortMode === 'pick') {
-    const amz = sorted.find(r => r.shop.name === 'Amazon');
-    const rest = sorted.filter(r => r.shop.name !== 'Amazon').sort((a,b) => a.price - b.price);
-    sorted = amz ? [amz, ...rest] : rest;
-  } else if (sortMode === 'price') {
-    sorted.sort((a,b) => a.price - b.price);
+  // Sort: Amazon ALWAYS first regardless of mode, then rest sorted by mode
+  const amazon = currentResults.find(r => r.shop.name === 'Amazon');
+  let rest = currentResults.filter(r => r.shop.name !== 'Amazon');
+  if (sortMode === 'price') {
+    rest.sort((a,b) => a.price - b.price);
   } else {
-    sorted.sort((a,b) => b.rating - a.rating);
+    rest.sort((a,b) => b.rating - a.rating);
   }
+  const sorted = amazon ? [amazon, ...rest] : rest;
 
   const list = document.getElementById('resultsList');
   list.innerHTML = '';
 
+  // "Unsere Empfehlung" banner before Amazon
+  const banner = document.createElement('div');
+  banner.className = 'pick-banner';
+  banner.innerHTML = `<span>⭐</span><span><strong>Unsere Empfehlung</strong> · Amazon ist vertrauenswürdig, hat schnellen Versand und einfache Rückgabe.</span>`;
+  list.appendChild(banner);
+
   sorted.forEach((r, i) => {
-    const isPick = sortMode === 'pick' && r.shop.name === 'Amazon';
+    const isPick = r.shop.name === 'Amazon';
     const saving = r.oldPrice ? (r.oldPrice - r.price).toFixed(2) : null;
+
+    // Image: use fetched image or emoji fallback
+    const imgHtml = productImageUrl
+      ? `<img src="${productImageUrl}" alt="${query}" onerror="this.parentNode.innerHTML='<div class=\\'r-thumb-ph\\'>🛍️</div>'" loading="lazy" />`
+      : `<div class="r-thumb-ph">🛍️</div>`;
+
     const card = document.createElement('div');
     card.className = 'rcard' + (isPick ? ' pick' : '');
     card.style.animationDelay = (i * 0.05) + 's';
-    if (isPick) card.style.marginTop = '10px';
+    if (isPick) card.style.marginTop = '4px';
+
     card.innerHTML = `
       ${isPick ? '<div class="pick-label">⭐ Unsere Empfehlung</div>' : ''}
-      <div class="r-thumb">
-        <img src="https://source.unsplash.com/120x120/?${encodeURIComponent(query)},product" alt="${query}"
-          onerror="this.parentNode.innerHTML='<div class=\\'r-thumb-ph\\'>🛍️</div>'" loading="lazy" />
-      </div>
-      <div class="r-shop-badge" style="background:${r.shop.color}15;border-color:${r.shop.color}30;color:${r.shop.color};">${r.shop.short}</div>
+      <div class="r-thumb">${imgHtml}</div>
+      <div class="r-badge" style="background:${r.shop.color}15;border-color:${r.shop.color}30;color:${r.shop.color};">${r.shop.short}</div>
       <div class="r-info">
-        <div class="r-shop-name">${r.shop.name}</div>
+        <div class="r-shop">${r.shop.name}</div>
         <div class="r-product">${query}</div>
         <div class="r-tags">
           ${r.freeShip ? '<span class="rtag rtag-g">✓ Gratis Versand</span>' : ''}
@@ -752,7 +681,7 @@ function renderResults(query, sortMode) {
           <div class="r-price">${r.price} €</div>
           ${saving ? `<div class="r-save">-${saving} € sparen</div>` : ''}
         </div>
-        <a class="${isPick ? 'r-btn' : 'r-btn-sec'}" href="${r.url}" target="_blank" rel="noopener noreferrer">${isPick ? 'Jetzt kaufen' : 'Zum Shop'} →</a>
+        <a class="${isPick ? 'r-btn' : 'r-btn-sec'}" href="${r.url}" target="_blank" rel="noopener noreferrer">${isPick ? 'Jetzt kaufen →' : 'Zum Shop →'}</a>
       </div>`;
     list.appendChild(card);
   });
@@ -764,16 +693,15 @@ function renderResults(query, sortMode) {
 function sortBy(mode, btn) {
   document.querySelectorAll('.sbtn').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  currentSort = mode;
   renderResults(currentQuery, mode);
 }
 
 // CHAT
 const chatAnswers = {
-  'Wie funktioniert das?': 'Gib einfach ein Produkt oben in die Suche ein! Wir durchsuchen sofort 8 Shops und zeigen dir Amazon als Empfehlung oben – plus alle anderen Angebote sortiert nach Preis. 🔍',
-  'Sind die Preise aktuell?': 'Die Preise orientieren sich an realen Amazon-Preisen und werden bei jeder Suche berechnet. Für den exakten Endpreis bitte immer direkt beim Shop prüfen – Preise können sich ändern. ✅',
-  'Ist es wirklich kostenlos?': 'Ja, 100%! PreisWise ist komplett kostenlos für dich. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Links – für dich entstehen keinerlei Mehrkosten. 🎉',
-  'Ich habe ein Problem': 'Das tut mir leid! Schreib uns direkt an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. Wir schauen uns das schnellstmöglich an! 🚀',
+  'Wie funktioniert das?': 'Gib einfach ein Produkt in die Suche ein! Wir vergleichen sofort 8 Shops und zeigen dir Amazon als Empfehlung ganz oben. 🔍',
+  'Sind die Preise aktuell?': 'Die Preise orientieren sich an realen Marktpreisen mit kleiner Schwankung. Für den exakten Endpreis bitte immer beim Shop direkt prüfen. ✅',
+  'Ist es wirklich kostenlos?': 'Ja, 100% kostenlos! Wir finanzieren uns durch Google Werbung und Amazon Affiliate-Links – für dich entstehen keinerlei Mehrkosten. 🎉',
+  'Ich habe ein Problem': 'Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. 🚀',
 };
 
 function toggleChat() { document.getElementById('chatWin').classList.toggle('open'); }
@@ -793,7 +721,7 @@ function chatReply(q) {
     msgs.innerHTML += `<div class="cmsg bot">${chatAnswers[q]}</div>`;
     msgs.scrollTop = msgs.scrollHeight;
     setTimeout(() => { opts.style.display = 'flex'; }, 300);
-  }, 950);
+  }, 900);
 }
 
 // CONTACT FORM
@@ -803,34 +731,20 @@ async function sendForm() {
   const subj  = document.getElementById('cbetreff').value;
   const msg   = document.getElementById('cmsg').value.trim();
   const btn   = document.getElementById('formBtn');
-  const ok    = document.getElementById('formOk');
-  const err   = document.getElementById('formErr');
-
   if (!name || !email || !msg) { alert('Bitte alle Felder ausfüllen.'); return; }
-
-  btn.disabled = true;
-  btn.textContent = 'Wird gesendet...';
-  ok.style.display = 'none';
-  err.style.display = 'none';
-
+  btn.disabled = true; btn.textContent = 'Wird gesendet...';
+  document.getElementById('formOk').style.display = 'none';
+  document.getElementById('formErr').style.display = 'none';
   try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      from_name:  name,
-      from_email: email,
-      subject:    subj,
-      message:    msg,
-      to_email:   'kontakt.preiswise@gmail.com',
-    });
-    ok.style.display = 'block';
+    await emailjs.send(EJ_SVC, EJ_TPL, { from_name:name, from_email:email, subject:subj, message:msg, to_email:'kontakt.preiswise@gmail.com' });
+    document.getElementById('formOk').style.display = 'block';
     document.getElementById('cname').value = '';
     document.getElementById('cemail').value = '';
     document.getElementById('cmsg').value = '';
-  } catch (e) {
-    err.style.display = 'block';
+  } catch(e) {
+    document.getElementById('formErr').style.display = 'block';
   }
-
-  btn.disabled = false;
-  btn.textContent = 'Nachricht senden';
+  btn.disabled = false; btn.textContent = 'Nachricht senden';
 }
 </script>
 </body>
