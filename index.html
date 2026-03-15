@@ -8,6 +8,8 @@
   <link rel="icon" id="fav" href="favicon.svg" type="image/svg+xml">
   <link rel="shortcut icon" href="favicon.svg">
   <meta name="theme-color" content="#16a34a">
+  <!-- Disable Cloudflare email obfuscation -->
+  <meta name="cf-2fa-verify" content="disable-email-obfuscation">
   <script data-cfasync="false">var emailjs=function(e){"use strict";class t{constructor(){let e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:0,t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"Network Error";this.status=e,this.text=t}}const i={origin:"https://api.emailjs.com",blockHeadless:!1,storageProvider:(()=>{if("undefined"!=typeof localStorage)return{get:e=>Promise.resolve(localStorage.getItem(e)),set:(e,t)=>Promise.resolve(localStorage.setItem(e,t)),remove:e=>Promise.resolve(localStorage.removeItem(e))}})()},r=e=>e?"string"==typeof e?{publicKey:e}:"[object Object]"===e.toString()?e:{}:{},o=function(e){let t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"https://api.emailjs.com";if(!e)return;const o=r(e);i.publicKey=o.publicKey,i.blockHeadless=o.blockHeadless,i.storageProvider=o.storageProvider,i.blockList=o.blockList,i.limitRate=o.limitRate,i.origin=o.origin||t},a=async function(e,r){let o=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};const a=await fetch(i.origin+e,{method:"POST",headers:o,body:r}),s=await a.text(),n=new t(a.status,s);if(a.ok)return n;throw n},s=(e,t,i)=>{if(!e||"string"!=typeof e)throw"The public key is required. Visit https://dashboard.emailjs.com/admin/account";if(!t||"string"!=typeof t)throw"The service ID is required. Visit https://dashboard.emailjs.com/admin";if(!i||"string"!=typeof i)throw"The template ID is required. Visit https://dashboard.emailjs.com/admin/templates"},n=e=>e.webdriver||!e.languages||0===e.languages.length,l=()=>new t(451,"Unavailable For Headless Browser"),c=(e,t)=>{if((e=>!e.list?.length||!e.watchVariable)(e))return!1;((e,t)=>{if(!Array.isArray(e))throw"The BlockList list has to be an array";if("string"!=typeof t)throw"The BlockList watchVariable has to be a string"})(e.list,e.watchVariable);const i=(r=t,o=e.watchVariable,r instanceof FormData?r.get(o):r[o]);var r,o;return"string"==typeof i&&e.list.includes(i)},d=()=>new t(403,"Forbidden"),m=async(e,t,i)=>{if(!t.throttle||!i)return!1;((e,t)=>{if("number"!=typeof e||e<0)throw"The LimitRate throttle has to be a positive number";if(t&&"string"!=typeof t)throw"The LimitRate ID has to be a non-empty string"})(t.throttle,t.id);const r=t.id||e,o=await(async(e,t,i)=>{const r=Number(await i.get(e)||0);return t-Date.now()+r})(r,t.throttle,i);return o>0||(await i.set(r,Date.now().toString()),!1)},h=()=>new t(429,"Too Many Requests"),p=async(e,t,o,p)=>{const u=r(p),b=u.publicKey||i.publicKey,g=u.blockHeadless||i.blockHeadless,f=u.storageProvider||i.storageProvider,w={...i.blockList,...u.blockList},y={...i.limitRate,...u.limitRate};if(g&&n(navigator))return Promise.reject(l());if(s(b,e,t),(e=>{if(e&&"[object Object]"!==e.toString())throw"The template params have to be the object. Visit https://www.emailjs.com/docs/sdk/send/"})(o),o&&c(w,o))return Promise.reject(d());if(await m(location.pathname,y,f))return Promise.reject(h());const v={lib_version:"4.4.1",user_id:b,service_id:e,template_id:t,template_params:o};return a("/api/v1.0/email/send",JSON.stringify(v),{"Content-type":"application/json"})},u=async(e,t,o,p)=>{const u=r(p),b=u.publicKey||i.publicKey,g=u.blockHeadless||i.blockHeadless,f=i.storageProvider||u.storageProvider,w={...i.blockList,...u.blockList},y={...i.limitRate,...u.limitRate};if(g&&n(navigator))return Promise.reject(l());const v=(e=>"string"==typeof e?document.querySelector(e):e)(o);s(b,e,t),(e=>{if(!e||"FORM"!==e.nodeName)throw"The 3rd parameter is expected to be the HTML form element or the style selector of the form"})(v);const j=new FormData(v);return c(w,j)?Promise.reject(d()):await m(location.pathname,y,f)?Promise.reject(h()):(j.append("lib_version","4.4.1"),j.append("service_id",e),j.append("template_id",t),j.append("user_id",b),a("/api/v1.0/email/send-form",j))};var b={init:o,send:p,sendForm:u,EmailJSResponseStatus:t};return e.EmailJSResponseStatus=t,e.default=b,e.init=o,e.send=p,e.sendForm=u,Object.defineProperty(e,"__esModule",{value:!0}),e}({});</script>
   <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -530,7 +532,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h3>Wie verdient PreisWise Geld?</h3>
     <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
     <h3>Fragen?</h3>
-    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <a href="/cdn-cgi/l/email-protection#33585c5d475258471d4341565a40445a405673545e525a5f1d505c5e"><span class="__cf_email__" data-cfemail="8de6e2e3f9ece6f9a3fdffe8e4fefae4fee8cdeae0ece4e1a3eee2e0">[email&#160;protected]</span></a>.</p>
+    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <span id="show-email" style="cursor:pointer;color:var(--gr);text-decoration:underline;" onclick="mailMe()">E-Mail laden...</span>.</p>
   </div>
 </div>
 
@@ -538,7 +540,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   <div class="sp">
     <h2>Kontakt</h2>
     <p>Fragen oder Feedback? Wir antworten schnell.</p>
-    <p>Direkt: <a href="/cdn-cgi/l/email-protection#650e0a0b11040e114b1517000c16120c1600250208040c094b060a08"><span class="__cf_email__" data-cfemail="660d090812070d12481614030f15110f150326010b070f0a4805090b">[email&#160;protected]</span></a></p>
+    <p>Direkt: <span id="show-email" style="cursor:pointer;color:var(--gr);text-decoration:underline;font-weight:500;" onclick="mailMe()">E-Mail anzeigen ↗</span></p>
     <div class="cf">
       <div class="fg2"><label>Dein Name</label><input type="text" id="cn" placeholder="Max Mustermann"></div>
       <div class="fg2"><label>Deine E-Mail</label><input type="email" id="ce" placeholder="deine-email@beispiel.de"></div>
@@ -548,7 +550,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
       <div class="fg2"><label>Nachricht</label><textarea id="cm" placeholder="Deine Nachricht ..."></textarea></div>
       <button class="fbtn" id="fb" onclick="sendForm()">Nachricht senden</button>
       <div class="fok" id="fok">✓ Danke! Deine Nachricht wurde gesendet.</div>
-      <div class="ferr" id="ferr">⚠ Fehler. Bitte schreib direkt an <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c575352485d5748124c4e59554f4b554f597c5b515d5550125f5351">[email&#160;protected]</a></div>
+      <div class="ferr" id="ferr">⚠ Fehler beim Senden. Schreib uns direkt – klick <span style="cursor:pointer;text-decoration:underline;" onclick="mailMe()">hier</span>.</div>
     </div>
   </div>
 </div>
@@ -558,7 +560,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h2>Impressum</h2>
     <h3>Angaben gemäß § 5 TMG</h3>
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
-    <h3>Kontakt</h3><p>E-Mail: <a href="/cdn-cgi/l/email-protection#f3989c9d87929887dd8381969a80849a8096b3949e929a9fdd909c9e"><span class="__cf_email__" data-cfemail="e3888c8d97828897cd9391868a90948a9086a3848e828a8fcd808c8e">[email&#160;protected]</span></a></p>
+    <h3>Kontakt</h3><p>E-Mail: <span id="show-email" style="cursor:pointer;color:var(--gr);text-decoration:underline;" onclick="mailMe()">E-Mail laden...</span></p>
     <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
     <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
     <h3>Streitschlichtung</h3><p><a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a></p>
@@ -571,7 +573,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h3>Verantwortlicher</h3><p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg</p>
     <h3>Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>Deine Rechte</h3><p>Kontakt: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dab1b5b4aebbb1aef4aaa8bfb3a9adb3a9bf9abdb7bbb3b6f4b9b5b7">[email&#160;protected]</a></p>
+    <h3>Deine Rechte</h3><p>Kontakt: <span id="show-email2" style="cursor:pointer;color:var(--gr);text-decoration:underline;" onclick="mailMe()">E-Mail laden...</span></p>
   </div>
 </div>
 
@@ -620,9 +622,10 @@ function mailMe() {
 }
 function getEmail() { return _e; }
 document.addEventListener("DOMContentLoaded", function() {
-  // Reveal email links - set real address
-  document.querySelectorAll("a[onclick*='mailMe']").forEach(function(el) {
-    el.textContent = _e;
+  // Fill all email display elements
+  ["show-email","show-email2"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.textContent = _e; }
   });
 });
 
@@ -912,15 +915,24 @@ async function sendForm() {
   document.getElementById("fok").style.display = "none";
   document.getElementById("ferr").style.display = "none";
   try {
-    var ejs = (emailjs.send ? emailjs : emailjs.default);
+    var ejs = (typeof emailjs !== "undefined" && emailjs.send) ? emailjs : 
+              (typeof emailjs !== "undefined" && emailjs.default) ? emailjs.default : null;
+    if (!ejs) { throw new Error("EmailJS nicht geladen"); }
+    console.log("Sending with:", "preiswise_gmail", "template_b9eyrow");
     await ejs.send("preiswise_gmail", "template_b9eyrow", {from_name:n, from_email:e, subject:s, message:m, to_email:_e});
     document.getElementById("fok").style.display = "block";
     document.getElementById("cn").value = "";
     document.getElementById("ce").value = "";
     document.getElementById("cm").value = "";
-  } catch(err) { document.getElementById("ferr").style.display = "block"; }
+  } catch(err) { console.error("EmailJS Error:", err); document.getElementById("ferr").style.display = "block"; document.getElementById("ferr").textContent = "Fehler: " + (err.text || err.message || JSON.stringify(err)); }
   btn.disabled = false; btn.textContent = "Nachricht senden";
 }
+</script>
+<script data-cfasync="false">
+// Suppress Cloudflare email-decode 404 error (harmless when not behind CF properly)
+window.addEventListener("error", function(e) {
+  if (e.filename && e.filename.indexOf("email-decode") !== -1) e.preventDefault();
+}, true);
 </script>
 </body>
 </html>
