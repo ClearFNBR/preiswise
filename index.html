@@ -532,7 +532,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h3>Wie verdient PreisWise Geld?</h3>
     <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
     <h3>Fragen?</h3>
-    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <span id="show-email" style="cursor:pointer;color:var(--gr);text-decoration:underline;" onclick="mailMe()">E-Mail laden...</span>.</p>
+    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <span id="show-email" style="cursor:pointer;color:var(--gr);text-decoration:underline;font-weight:500;" onclick="mailMe()">E-Mail anzeigen ↗</span>.</p>
   </div>
 </div>
 
@@ -560,7 +560,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h2>Impressum</h2>
     <h3>Angaben gemäß § 5 TMG</h3>
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
-    <h3>Kontakt</h3><p>E-Mail: <span id="show-email" style="cursor:pointer;color:var(--gr);text-decoration:underline;" onclick="mailMe()">E-Mail laden...</span></p>
+    <h3>Kontakt</h3><p>E-Mail: <span id="show-email" style="cursor:pointer;color:var(--gr);text-decoration:underline;font-weight:500;" onclick="mailMe()">E-Mail anzeigen ↗</span></p>
     <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
     <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
     <h3>Streitschlichtung</h3><p><a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a></p>
@@ -612,20 +612,27 @@ try {
 } catch(ex) { console.log("EmailJS init:", ex); }
 
 // Email built from parts so Vercel can not intercept it
-var _a = String.fromCharCode(107,111,110,116,97,107,116);
-var _b = String.fromCharCode(112,114,101,105,115,119,105,115,101);
-var _c = String.fromCharCode(103,109,97,105,108);
-var _e = _a + String.fromCharCode(64) + _b + String.fromCharCode(46) + _c + String.fromCharCode(46,99,111,109);
+var _e = String.fromCharCode(107,111,110,116,97,107,116,46,112,114,101,105,115,119,105,115,101) + String.fromCharCode(64) + String.fromCharCode(103,109,97,105,108,46,99,111,109);
 function mailMe() {
   var p = "mail" + "to:";
-  window.location.href = p + _e;
+  try {
+    window.location.href = p + _e;
+  } catch(ex) {
+    prompt("E-Mail Adresse:", _e);
+  }
 }
 function getEmail() { return _e; }
 document.addEventListener("DOMContentLoaded", function() {
   // Fill all email display elements
-  ["show-email","show-email2"].forEach(function(id) {
+  ["show-email","show-email2","show-email3","show-email4"].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) { el.textContent = _e; }
+  });
+  // Also find any spans with "E-Mail" placeholder text
+  document.querySelectorAll("span[onclick*='mailMe']").forEach(function(el) {
+    if (el.textContent.indexOf("E-Mail") !== -1 || el.textContent.indexOf("laden") !== -1) {
+      el.textContent = _e;
+    }
   });
 });
 
