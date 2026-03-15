@@ -1,18 +1,7 @@
 {
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "index, follow"
-        }
-      ]
-    }
-  ],
-  "build": {
-    "env": {
-      "DISABLE_CLOUDFLARE_EMAIL_OBFUSCATION": "true"
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 10
     }
   }
 }
