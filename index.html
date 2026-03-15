@@ -611,12 +611,9 @@ var _e = ["kontakt","preiswise.gmail.com"].join(String.fromCharCode(64));
 function mailMe() { window.location.href = "mailto:" + _e; }
 function getEmail() { return _e; }
 document.addEventListener("DOMContentLoaded", function() {
-  // Reveal email spans
-  document.querySelectorAll(".em-reveal").forEach(function(el) {
+  // Reveal email links - set real address
+  document.querySelectorAll("a[onclick*='mailMe']").forEach(function(el) {
     el.textContent = _e;
-    el.style.cursor = "pointer";
-    el.style.color = "var(--gr)";
-    el.style.textDecoration = "underline";
   });
 });
 
@@ -828,7 +825,7 @@ var CA = {
   "Wie funktioniert das?": "Gib ein Produkt in die Suche ein – wir vergleichen sofort 8 Shops und zeigen dir das günstigste Angebot. Günstigstes Angebot steht immer ganz oben! 🔍",
   "Sind die Preise aktuell?": "Die Preise orientieren sich an realen Marktpreisen. Für den genauen Endpreis bitte immer beim Shop direkt prüfen. ✅",
   "Wirklich kostenlos?": "Ja, 100% kostenlos! Wir finanzieren uns durch Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. 🎉",
-  "Ich habe ein Problem": "Das tut mir leid! Schreib uns an <span class="em-reveal" onclick="mailMe()"></span> – wir helfen schnell! 🚀"
+  "Ich habe ein Problem": "Das tut mir leid! Schreib uns eine E-Mail – wir helfen schnell! 🚀"
 };
 function toggleChat() {
   document.getElementById("cw").classList.toggle("open");
@@ -843,7 +840,7 @@ function cr(q) {
   msgs.scrollTop = msgs.scrollHeight;
   setTimeout(function() {
     var el = document.getElementById(tid); if (el) el.remove();
-    msgs.innerHTML += "<div class='cm bot'>" + (CA[q] || "Gute Frage! Schreib uns: <span class="em-reveal" onclick="mailMe()"></span> 📧") + "</div>";
+    msgs.innerHTML += "<div class='cm bot'>" + (CA[q] || "Gute Frage! Schreib uns einfach eine E-Mail! 📧") + "</div>";
     msgs.scrollTop = msgs.scrollHeight;
     setTimeout(function() { opts.style.display = "flex"; }, 300);
   }, 1000);
@@ -906,7 +903,7 @@ async function sendForm() {
   document.getElementById("fok").style.display = "none";
   document.getElementById("ferr").style.display = "none";
   try {
-    await emailjs.send("preiswise_gmail", "template_b9eyrow", {from_name:n, from_email:e, subject:s, message:m, to_email:"<span class="em-reveal" onclick="mailMe()"></span>"});
+    await emailjs.send("preiswise_gmail", "template_b9eyrow", {from_name:n, from_email:e, subject:s, message:m, to_email:_e});
     document.getElementById("fok").style.display = "block";
     document.getElementById("cn").value = "";
     document.getElementById("ce").value = "";
