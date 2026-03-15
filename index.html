@@ -511,7 +511,7 @@
     <h3>Wie verdient PreisWise Geld?</h3>
     <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
     <h3>Fragen?</h3>
-    <p>Nutze unseren Live-Chat unten rechts oder schreib uns direkt an <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a>.</p>
+    <p>Nutze unseren Live-Chat unten rechts oder schreib uns direkt an <a href="/cdn-cgi/l/email-protection#e2898d8c96838996cc9290878b91958b9187a2858f838b8ecc818d8f"><span class="__cf_email__" data-cfemail="ef8480819b8e849bc19f9d8a869c98869c8aaf88828e8683c18c8082">[email&#160;protected]</span></a>.</p>
   </div>
 </div>
 
@@ -520,7 +520,7 @@
   <div class="spage">
     <h2>Kontakt</h2>
     <p>Fragen oder Feedback? Wir antworten schnell.</p>
-    <p>Direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <p>Direkt per E-Mail: <a href="/cdn-cgi/l/email-protection#95fefafbe1f4fee1bbe5e7f0fce6e2fce6f0d5f2f8f4fcf9bbf6faf8"><span class="__cf_email__" data-cfemail="e98286879d88829dc7999b8c809a9e809a8ca98e84888085c78a8684">[email&#160;protected]</span></a></p>
     <div class="cform">
       <div class="fg"><label>Dein Name</label><input type="text" id="cname" placeholder="Max Mustermann" /></div>
       <div class="fg"><label>Deine E-Mail</label><input type="email" id="cemail" placeholder="max@beispiel.de" /></div>
@@ -530,7 +530,7 @@
       <div class="fg"><label>Nachricht</label><textarea id="cmsg" placeholder="Deine Nachricht ..."></textarea></div>
       <button class="form-btn" id="formBtn" onclick="sendForm()">Nachricht senden</button>
       <div class="form-ok" id="formOk">✓ Danke! Deine Nachricht wurde gesendet.</div>
-      <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an kontakt.preiswise@gmail.com</div>
+      <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bfd4d0d1cbded4cb91cfcddad6ccc8d6ccdaffd8d2ded6d391dcd0d2">[email&#160;protected]</a></div>
     </div>
   </div>
 </div>
@@ -541,7 +541,7 @@
     <h2>Impressum</h2>
     <h3>Angaben gemäß § 5 TMG</h3>
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
-    <h3>Kontakt</h3><p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <h3>Kontakt</h3><p>E-Mail: <a href="/cdn-cgi/l/email-protection#056e6a6b71646e712b7577606c76726c7660456268646c692b666a68"><span class="__cf_email__" data-cfemail="42292d2c362329366c3230272b31352b312702252f232b2e6c212d2f">[email&#160;protected]</span></a></p>
     <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3><p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
     <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
     <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
@@ -557,7 +557,7 @@
     <h3>2. Erhobene Daten</h3><p>PreisWise erhebt keine personenbezogenen Daten. Technische Daten werden von Vercel erfasst.</p>
     <h3>3. Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>4. Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>5. Deine Rechte</h3><p>Kontakt: kontakt.preiswise@gmail.com</p>
+    <h3>5. Deine Rechte</h3><p>Kontakt: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b2024253f2a203f653b392e22383c22382e0b2c262a222765282426">[email&#160;protected]</a></p>
   </div>
 </div>
 
@@ -598,9 +598,9 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── EMAILJS ──
-const EJ_SVC='DEINE_SERVICE_ID', EJ_TPL='DEINE_TEMPLATE_ID', EJ_KEY='DEIN_PUBLIC_KEY';
+const EJ_SVC='preiswise_gmail', EJ_TPL='template_b9eyrow', EJ_KEY='N-hB2ZIwauIqYATsA';
 try{emailjs.init(EJ_KEY);}catch(e){}
 
 // ── TAB FAVICON & TITLE SWITCH (Foxy misses you) ──
@@ -857,17 +857,4 @@ function chatReply(q){
   setTimeout(()=>{ const el=document.getElementById(tid); if(el)el.remove(); msgs.innerHTML+=`<div class="cmsg bot">${CA[q]}</div>`; msgs.scrollTop=msgs.scrollHeight; setTimeout(()=>{opts.style.display='flex';},300); },1000);
 }
 async function sendForm(){
-  const name=document.getElementById('cname').value.trim(),email=document.getElementById('cemail').value.trim(),subj=document.getElementById('cbetreff').value,msg=document.getElementById('cmsg').value.trim(),btn=document.getElementById('formBtn');
-  if(!name||!email||!msg){alert('Bitte alle Felder ausfüllen.');return;}
-  btn.disabled=true; btn.textContent='Wird gesendet...';
-  document.getElementById('formOk').style.display='none'; document.getElementById('formErr').style.display='none';
-  try{
-    await emailjs.send(EJ_SVC,EJ_TPL,{from_name:name,from_email:email,subject:subj,message:msg,to_email:'kontakt.preiswise@gmail.com'});
-    document.getElementById('formOk').style.display='block';
-    document.getElementById('cname').value=''; document.getElementById('cemail').value=''; document.getElementById('cmsg').value='';
-  }catch(e){ document.getElementById('formErr').style.display='block'; }
-  btn.disabled=false; btn.textContent='Nachricht senden';
-}
-</script>
-</body>
-</html>
+  const name=document.getElementById('cname').value.trim(),email=document.getElementById('cemail').value.trim(),subj=document.getElementById('cbetreff').value,msg=documen
