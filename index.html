@@ -394,12 +394,12 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <div class="dg" id="dg"></div>
   </div>
 
-  <div class="sec" id="hw">
+  <div class="sec" id="hw-sec">
     <div class="sh"><div class="st2">So funktioniert's</div></div>
     <div class="hw">
       <div class="hc" data-s="1"><div class="hico">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein was du suchst – egal ob iPhone, Sneaker oder Kaffeemaschine.</p></div>
       <div class="hc" data-s="2"><div class="hico">⚡</div><h3>Wir vergleichen</h3><p>In Sekunden vergleichen wir 8+ Shops gleichzeitig und sortieren nach Preis.</p></div>
-      <div class="hc" data-s="3"><div class="hico">⭐</div><h3>Beste Empfehlung</h3><p>Amazon steht immer oben – vertrauenswürdig, schnelle Lieferung, einfache Rückgabe.</p></div>
+      <div class="hc" data-s="3"><div class="hico">⭐</div><h3>Bestes Angebot</h3><p>Wir zeigen dir automatisch das günstigste Angebot ganz oben – du sparst ohne Aufwand.</p></div>
       <div class="hc" data-s="4"><div class="hico">💰</div><h3>Einfach kaufen</h3><p>Ein Klick bringt dich direkt zum günstigsten Angebot – fertig!</p></div>
     </div>
   </div>
@@ -410,7 +410,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h2>Über PreisWise</h2>
     <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – entwickelt in Hamburg von Evan Lennart Daniel.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Gib ein Produkt ein und wir vergleichen sofort 8+ Shops. Amazon steht immer oben als vertrauenswürdigste Empfehlung.</p>
+    <p>Gib ein Produkt ein und wir vergleichen sofort 8+ Shops. Wir sortieren automatisch nach dem günstigsten Preis.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
     <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
     <h3>Fragen?</h3>
@@ -567,8 +567,7 @@ function toggleDrawer() {
   ["drw","ov","bg"].forEach(function(id) { document.getElementById(id).classList.toggle("open"); });
 }
 
-// Ticker
-(function() {
+function renderTicker() {
   var shops = ["Amazon","eBay","MediaMarkt","Saturn","Otto","Idealo","Galaxus","Alternate"];
   var cols  = ["#FF9900","#e53238","#cc0000","#6b6b68","#e2001a","#2563eb","#4f46e5","#ea580c"];
   var el = document.getElementById("tki"); if (!el) return;
@@ -576,10 +575,9 @@ function toggleDrawer() {
   el.innerHTML = arr.map(function(s,i) {
     return "<div class='tc2' style='color:" + cols[i % cols.length] + "'>" + s + "</div>";
   }).join("");
-})();
+}
 
-// Deals
-(function() {
+function renderDeals() {
   var g = document.getElementById("dg"); if (!g) return;
   g.innerHTML = DEALS.map(function(d) {
     var pct = Math.round((1 - d.p / d.o) * 100);
@@ -590,7 +588,7 @@ function toggleDrawer() {
       "<a class='dlnk' href='" + d.u + "' target='_blank' rel='noopener noreferrer'>Zum Angebot →</a>" +
       "<div class='dsh'>bei " + d.s + "</div></div></div>";
   }).join("");
-})();
+}
 
 function isCatQ(q) { return CATS.indexOf(q.toLowerCase().trim()) !== -1; }
 function go(t) { showPage("home"); document.getElementById("qi").value = t; setTimeout(startSearch, 100); }
@@ -599,7 +597,7 @@ document.getElementById("qi").addEventListener("keydown", function(e) { if (e.ke
 function startSearch() {
   var q = document.getElementById("qi").value.trim(); if (!q) return;
   curQ = q; curImg = ""; isCat = isCatQ(q);
-  ["cs","ds","hw"].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.display = "none"; });
+  ["cs","ds","hw-sec"].forEach(function(id) { var el = document.getElementById(id); if (el) el.style.display = "none"; });
   document.getElementById("rw").classList.remove("show");
   var ld = document.getElementById("ld"); ld.classList.add("show"); ld.style.display = "block";
   window.scrollTo({top: 320, behavior: "smooth"});
@@ -644,7 +642,7 @@ function buildRes(q) {
 }
 
 function render(q, mode) {
-  document.getElementById("rtit").textContent = "Ergebnisse für „" + q + """;
+  document.getElementById("rtit").textContent = "Ergebnisse für: " + q + "";
   document.getElementById("rmeta").textContent = curRes.length + " Angebote" + (isCat ? " · Kategorie" : " · inkl. MwSt.");
   var amz = null, rest = [];
   curRes.forEach(function(r) { if (r.sh.n === "Amazon") amz = r; else rest.push(r); });
@@ -652,20 +650,20 @@ function render(q, mode) {
   else rest.sort(function(a,b) { return b.rat - a.rat; });
   var sorted = amz ? [amz].concat(rest) : rest;
   var list = document.getElementById("rl");
-  list.innerHTML = "<div class='pb'><span>⭐</span><span><strong>Unsere Empfehlung</strong> · Amazon bietet den günstigsten Preis mit schnellem Versand und einfacher Rückgabe.</span></div>";
+  list.innerHTML = "";
   sorted.forEach(function(r, i) {
-    var isPick = r.sh.n === "Amazon";
+    
     var saving = r.old && !isCat ? (r.old - r.price).toFixed(2) : null;
     var card = document.createElement("div");
-    card.className = "rc" + (isPick ? " pk" : "");
+    card.className = "rc";
     card.style.animationDelay = (i * 0.05) + "s";
-    if (isPick) card.style.marginTop = "4px";
+    
     var priceHtml = isCat
       ? "<div class='rfr'>ab</div><span class='rp'>" + r.price + " €</span>"
       : "<span class='rp'>" + r.price + " €</span>";
     var oldHtml = r.old && !isCat ? "<div class='ro'>" + r.old + " €</div>" : "";
     card.innerHTML =
-      (isPick ? "<div class='pl'>⭐ Unsere Empfehlung</div>" : "") +
+      "" +
       "<div class='rth' id='th" + i + "'>" + (isCat ? "🛒" : "🛍️") + "</div>" +
       "<div class='rbdg' style='background:" + r.sh.c + "18;border-color:" + r.sh.c + "40;color:" + r.sh.c + "'>" + r.sh.s + "</div>" +
       "<div class='ri'><div class='rsp'>" + r.sh.n + "</div><div class='rpd'>" + q + "</div>" +
@@ -673,7 +671,7 @@ function render(q, mode) {
       "<span class='tg tgp'>★ " + r.rat + "</span>" + (r.sh.a ? "<span class='tg tgo'>Affiliate</span>" : "") +
       "</div></div>" +
       "<div class='rr'><div style='text-align:right'>" + oldHtml + priceHtml + (saving ? "<div class='rsv'>-" + saving + " € sparen</div>" : "") + "</div>" +
-      "<a class='" + (isPick ? "rbtn" : "rbtn2") + "' href='" + r.url + "' target='_blank' rel='noopener noreferrer'>" + (isPick ? "Jetzt kaufen →" : "Zum Shop →") + "</a></div>";
+      "<a class='" + "rbtn2" + "' href='" + r.url + "' target='_blank' rel='noopener noreferrer'>" + "Zum Shop →" + "</a></div>";
     list.appendChild(card);
     if (!isCat && curImg) {
       var img = new Image();
@@ -697,7 +695,7 @@ function srt(mode, btn) {
 
 // Chat
 var CA = {
-  "Wie funktioniert das?": "Gib ein Produkt in die Suche ein – wir vergleichen sofort 8 Shops und zeigen dir das günstigste Angebot. Amazon steht immer oben! 🔍",
+  "Wie funktioniert das?": "Gib ein Produkt in die Suche ein – wir vergleichen sofort 8 Shops und zeigen dir das günstigste Angebot. Günstigstes Angebot steht immer ganz oben! 🔍",
   "Sind die Preise aktuell?": "Die Preise orientieren sich an realen Marktpreisen. Für den genauen Endpreis bitte immer beim Shop direkt prüfen. ✅",
   "Wirklich kostenlos?": "Ja, 100% kostenlos! Wir finanzieren uns durch Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. 🎉",
   "Ich habe ein Problem": "Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com – wir helfen schnell! 🚀"
@@ -717,6 +715,11 @@ function cr(q) {
     setTimeout(function() { opts.style.display = "flex"; }, 300);
   }, 1000);
 }
+document.addEventListener("DOMContentLoaded", function() {
+  renderTicker();
+  renderDeals();
+});
+
 async function sendForm() {
   var n = document.getElementById("cn").value.trim(),
       e = document.getElementById("ce").value.trim(),
