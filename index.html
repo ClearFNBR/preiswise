@@ -383,10 +383,49 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
 .pb{animation:slideDown 0.4s cubic-bezier(0.34,1.3,0.64,1)}
 @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 
+
+/* ── SCROLL EFFECTS ── */
+/* Smooth parallax on hero */
+.hero { transform-style: preserve-3d; }
+
+/* Scroll progress bar at top */
+#scroll-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--gr), var(--gl), var(--gr));
+  z-index: 9999; transition: width 0.1s linear;
+  box-shadow: 0 0 8px rgba(22,163,74,0.6);
+}
+
+/* Reveal animation classes */
+.rv { opacity: 0; transform: translateY(32px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+.rv.rv-left { transform: translateX(-32px); }
+.rv.rv-right { transform: translateX(32px); }
+.rv.rv-scale { transform: scale(0.92); }
+.rv.in { opacity: 1 !important; transform: none !important; }
+
+/* Stagger children */
+.rv-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.2,0.64,1); }
+.rv-stagger.in > *:nth-child(1) { opacity:1;transform:none;transition-delay:0s }
+.rv-stagger.in > *:nth-child(2) { opacity:1;transform:none;transition-delay:0.08s }
+.rv-stagger.in > *:nth-child(3) { opacity:1;transform:none;transition-delay:0.16s }
+.rv-stagger.in > *:nth-child(4) { opacity:1;transform:none;transition-delay:0.24s }
+.rv-stagger.in > *:nth-child(5) { opacity:1;transform:none;transition-delay:0.32s }
+.rv-stagger.in > *:nth-child(6) { opacity:1;transform:none;transition-delay:0.4s }
+.rv-stagger.in > *:nth-child(7) { opacity:1;transform:none;transition-delay:0.48s }
+.rv-stagger.in > *:nth-child(8) { opacity:1;transform:none;transition-delay:0.56s }
+.rv-stagger.in > *:nth-child(9) { opacity:1;transform:none;transition-delay:0.64s }
+.rv-stagger.in > *:nth-child(10) { opacity:1;transform:none;transition-delay:0.72s }
+.rv-stagger.in > *:nth-child(11) { opacity:1;transform:none;transition-delay:0.8s }
+.rv-stagger.in > *:nth-child(12) { opacity:1;transform:none;transition-delay:0.88s }
+
+/* Floating elements on scroll */
+.float-on-scroll { transition: transform 0.3s ease; }
+
   </style>
 </head>
 <body>
 
+<div id="scroll-bar"></div>
 <nav>
   <div class="logo" onclick="showPage('home')"><div class="li">P</div>PreisWise</div>
   <div class="nr">
@@ -447,7 +486,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     </div>
   </section>
 
-  <div class="tr">
+  <div class="tr rv">
     <div class="ti"><span class="tc">✓</span> Kostenlos &amp; ohne Anmeldung</div>
     <div class="ti"><span class="tc">✓</span> 8 Shops gleichzeitig</div>
     <div class="ti"><span class="tc">✓</span> Preise in Echtzeit</div>
@@ -455,7 +494,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   </div>
 
   <div class="sec">
-    <div class="sts">
+    <div class="sts rv rv-scale">
       <div class="st"><div class="sn">8+</div><div class="sl">Shops</div></div>
       <div class="st"><div class="sn">Live</div><div class="sl">Echtzeit</div></div>
       <div class="st"><div class="sn">0 €</div><div class="sl">Kostenlos</div></div>
@@ -466,8 +505,8 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   <div class="to sec" style="padding:0 2rem"><div class="ti2" id="tki"></div></div>
 
   <div class="sec" id="cs">
-    <div class="sh"><div class="st2">Kategorien</div><div class="sh2">Schnell stöbern</div></div>
-    <div class="cg">
+    <div class="sh rv"><div class="st2">Kategorien</div><div class="sh2">Schnell stöbern</div></div>
+    <div class="cg rv-stagger">
       <div class="cc" onclick="go('Smartphone')"><span class="ci">📱</span><span class="cl">Smartphones</span></div>
       <div class="cc" onclick="go('Laptop')"><span class="ci">💻</span><span class="cl">Laptops</span></div>
       <div class="cc" onclick="go('PlayStation 5')"><span class="ci">🎮</span><span class="cl">Gaming</span></div>
@@ -508,13 +547,13 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   </div>
 
   <div class="sec" id="ds">
-    <div class="sh"><div class="st2">Top Deals heute</div><div class="sh2">Aktuell günstig</div></div>
-    <div class="dg" id="dg"></div>
+    <div class="sh rv"><div class="st2">Top Deals heute</div><div class="sh2">Aktuell günstig</div></div>
+    <div class="dg rv-stagger" id="dg"></div>
   </div>
 
   <div class="sec" id="hw-sec">
-    <div class="sh"><div class="st2">So funktioniert's</div></div>
-    <div class="hw">
+    <div class="sh rv"><div class="st2">So funktioniert's</div></div>
+    <div class="hw rv-stagger">
       <div class="hc" data-s="1"><div class="hico">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein was du suchst – egal ob iPhone, Sneaker oder Kaffeemaschine.</p></div>
       <div class="hc" data-s="2"><div class="hico">⚡</div><h3>Wir vergleichen</h3><p>In Sekunden vergleichen wir 8+ Shops gleichzeitig und sortieren nach Preis.</p></div>
       <div class="hc" data-s="3"><div class="hico">⭐</div><h3>Bestes Angebot</h3><p>Wir zeigen dir automatisch das günstigste Angebot ganz oben – du sparst ohne Aufwand.</p></div>
@@ -593,15 +632,17 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
 <div class="fab" onclick="toggleChat()" title="Foxy – dein Preishelfer!">🦊</div>
 <div class="cw" id="cw">
   <div class="chd">
-    <div class="chl"><div class="cfx">🦊</div><div><div class="cnm">Foxy – Preishelfer</div><div class="csb"><div class="cdt"></div> Online</div></div></div>
+    <div class="chl"><div class="cfx">🦊</div><div><div class="cnm">Foxy – KI Preishelfer</div><div class="csb"><div class="cdt"></div> Online &amp; intelligent</div></div></div>
     <div class="cx2" onclick="toggleChat()">✕</div>
   </div>
-  <div class="cms" id="cms"><div class="cm bot">Hey! Ich bin Foxy 🦊 – dein persönlicher Preishelfer. Wie kann ich dir helfen?</div></div>
-  <div class="co" id="co">
-    <button class="cob" onclick="cr('Wie funktioniert das?')">🔍 Wie funktioniert das?</button>
-    <button class="cob" onclick="cr('Sind die Preise aktuell?')">💰 Sind die Preise aktuell?</button>
-    <button class="cob" onclick="cr('Wirklich kostenlos?')">✅ Wirklich kostenlos?</button>
-    <button class="cob" onclick="cr('Ich habe ein Problem')">🚨 Problem melden</button>
+  <div class="cms" id="cms">
+    <div class="cm bot">Hey! Ich bin Foxy 🦊 – dein smarter Preishelfer. Stell mir eine Frage oder such nach einem Produkt!</div>
+  </div>
+  <div class="chat-input-wrap" style="padding:10px 14px 14px;background:var(--sf);border-top:1px solid var(--bd);display:flex;gap:8px;align-items:center;">
+    <input type="text" id="chat-input" placeholder="Frag Foxy etwas ..." autocomplete="off"
+      style="flex:1;border:1.5px solid var(--bdm);border-radius:100px;padding:8px 14px;font-family:inherit;font-size:.82rem;outline:none;background:var(--bg);color:var(--tx);"
+      onkeydown="if(event.key==='Enter')sendChat()">
+    <button onclick="sendChat()" style="background:var(--gr);color:#fff;border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;">➤</button>
   </div>
 </div>
 
@@ -839,30 +880,61 @@ function srt(mode, btn) {
   render(curQ, mode);
 }
 
-// Chat
-var CA = {
-  "Wie funktioniert das?": "Gib ein Produkt in die Suche ein – wir vergleichen sofort 8 Shops und zeigen dir das günstigste Angebot. Günstigstes Angebot steht immer ganz oben! 🔍",
-  "Sind die Preise aktuell?": "Die Preise orientieren sich an realen Marktpreisen. Für den genauen Endpreis bitte immer beim Shop direkt prüfen. ✅",
-  "Wirklich kostenlos?": "Ja, 100% kostenlos! Wir finanzieren uns durch Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. 🎉",
-  "Ich habe ein Problem": "Das tut mir leid! Schreib uns eine E-Mail – wir helfen schnell! 🚀"
-};
+// ── FOXY KI CHAT ──
+var chatHistory = [];
+var FOXY_SYSTEM = "Du bist Foxy, ein freundlicher und witziger KI-Preishelfer fuer PreisWise.de, eine deutsche Preisvergleich-Website. Du hilfst Nutzern beim Preisvergleich und gibst Kauftipps. Antworte immer auf Deutsch, kurz und freundlich (max 2-3 Saetze). Benutze manchmal Emojis. PreisWise vergleicht 8 Shops: Amazon, eBay, MediaMarkt, Saturn, Otto, Idealo, Galaxus, Alternate. Du heisst Foxy und bist ein Fuchs. Wenn du etwas nicht weisst oder das Problem komplex ist, sage dem Nutzer er soll das Kontaktformular nutzen.";
+
 function toggleChat() {
   document.getElementById("cw").classList.toggle("open");
   document.querySelector(".fab").classList.toggle("chat-open");
 }
-function cr(q) {
-  var msgs = document.getElementById("cms"), opts = document.getElementById("co");
-  msgs.innerHTML += "<div class='cm usr'>" + q + "</div>";
-  opts.style.display = "none"; msgs.scrollTop = msgs.scrollHeight;
-  var tid = "ty" + Date.now();
-  msgs.innerHTML += "<div class='typ' id='" + tid + "'><div class='td'></div><div class='td'></div><div class='td'></div></div>";
+
+function addMsg(text, role) {
+  var msgs = document.getElementById("cms");
+  var div = document.createElement("div");
+  div.className = "cm " + (role === "user" ? "usr" : "bot");
+  div.textContent = text;
+  msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
-  setTimeout(function() {
+}
+
+function showTyping() {
+  var msgs = document.getElementById("cms");
+  var tid = "ty" + Date.now();
+  var div = document.createElement("div");
+  div.className = "typ"; div.id = tid;
+  div.innerHTML = "<div class='td'></div><div class='td'></div><div class='td'></div>";
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return tid;
+}
+
+async function sendChat() {
+  var input = document.getElementById("chat-input");
+  var q = (input.value || "").trim(); if (!q) return;
+  input.value = "";
+  input.disabled = true;
+  addMsg(q, "user");
+  chatHistory.push({role: "user", content: q});
+  var tid = showTyping();
+  try {
+    var res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "x-api-key": "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", "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true"},
+      body: JSON.stringify({model: "claude-haiku-4-5-20251001", max_tokens: 200, system: FOXY_SYSTEM, messages: chatHistory})
+    });
+    var data = await res.json();
+    var reply = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : null;
+    if (!reply) throw new Error("no reply");
     var el = document.getElementById(tid); if (el) el.remove();
-    msgs.innerHTML += "<div class='cm bot'>" + (CA[q] || "Gute Frage! Schreib uns einfach eine E-Mail! 📧") + "</div>";
-    msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(function() { opts.style.display = "flex"; }, 300);
-  }, 1000);
+    addMsg(reply, "bot");
+    chatHistory.push({role: "assistant", content: reply});
+    if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
+  } catch(err) {
+    var el = document.getElementById(tid); if (el) el.remove();
+    addMsg("Ich steck kurz im Bau fest! 🦊 Nutz am besten unser Kontaktformular – wir helfen dir superschnell!", "bot");
+  }
+  input.disabled = false; input.focus();
 }
 document.addEventListener("DOMContentLoaded", function() {
   renderTicker();
@@ -910,6 +982,48 @@ document.addEventListener("DOMContentLoaded", function() {
   }, {threshold: 0.1});
   revealEls.forEach(function(el) { observer.observe(el); });
 });
+
+
+// ── SCROLL EFFECTS ──
+// Progress bar
+window.addEventListener("scroll", function() {
+  var scrollTop = window.scrollY || document.documentElement.scrollTop;
+  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = docHeight > 0 ? (scrollTop / docHeight * 100) : 0;
+  var bar = document.getElementById("scroll-bar");
+  if (bar) bar.style.width = pct + "%";
+
+  // Parallax on hero subtitle
+  var sub = document.querySelector(".hs");
+  if (sub) sub.style.transform = "translateY(" + (scrollTop * 0.08) + "px)";
+});
+
+// Scroll reveal observer
+(function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        obs.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.12, rootMargin: "0px 0px -40px 0px"});
+  
+  function initReveal() {
+    document.querySelectorAll(".rv, .rv-stagger").forEach(function(el) {
+      obs.observe(el);
+    });
+  }
+  
+  // Run on page load and when search results appear
+  document.addEventListener("DOMContentLoaded", initReveal);
+  // Re-run after search results render
+  var origRender = window.render;
+  setTimeout(function() {
+    var origBuild = window.buildRes;
+    initReveal();
+  }, 500);
+})();
 
 async function sendForm() {
   var n = document.getElementById("cn").value.trim(),
