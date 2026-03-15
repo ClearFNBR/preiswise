@@ -6,6 +6,8 @@
   <title>PreisWise – Smarter Preisvergleich</title>
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden.">
   <link rel="icon" id="fav" href="favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="favicon.svg">
+  <meta name="theme-color" content="#16a34a">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
@@ -268,6 +270,101 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   .cw{width:calc(100vw - 32px);right:16px}.nl{display:none}
   .fi{flex-direction:column;text-align:center}.sts{flex-wrap:wrap}
 }
+
+/* ── MODERN INTERACTIONS ── */
+
+/* Hover lift on all cards */
+.cc,.dd,.hc,.rc,.sts .st{transition:all 0.22s cubic-bezier(0.34,1.3,0.64,1)}
+
+/* Animated gradient hero background */
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(22,163,74,0.1) 0%, transparent 70%);
+  animation:hglow 4s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+@keyframes hglow{from{opacity:0.5;transform:scale(1)}to{opacity:1;transform:scale(1.05)}}
+
+/* Search button pulse */
+.sbt{position:relative;overflow:hidden}
+.sbt::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,0);transition:background 0.2s}
+.sbt:hover::after{background:rgba(255,255,255,0.1)}
+
+/* Pill hover pop */
+.pill{transition:all 0.18s cubic-bezier(0.34,1.5,0.64,1)}
+.pill:hover{transform:translateY(-3px) scale(1.05)}
+
+/* Stat boxes count-up feel */
+.sn{animation:countUp 0.6s cubic-bezier(0.34,1.3,0.64,1) both}
+@keyframes countUp{from{opacity:0;transform:scale(0.5) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.st:nth-child(1) .sn{animation-delay:0.1s}
+.st:nth-child(2) .sn{animation-delay:0.2s}
+.st:nth-child(3) .sn{animation-delay:0.3s}
+.st:nth-child(4) .sn{animation-delay:0.4s}
+
+/* Category cards: icon bounce on hover */
+.cc:hover .ci{animation:iconBounce 0.4s cubic-bezier(0.34,1.8,0.64,1)}
+@keyframes iconBounce{0%{transform:scale(1)}50%{transform:scale(1.35) rotate(-8deg)}100%{transform:scale(1.1) rotate(0)}}
+
+/* Deal cards: shimmer effect */
+.dd{position:relative;overflow:hidden}
+.dd::before{
+  content:"";position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);
+  transition:left 0.5s ease;z-index:1;pointer-events:none;
+}
+.dd:hover::before{left:150%}
+
+/* Result cards slide-in stagger */
+.rc{opacity:0;animation:slideIn 0.35s ease forwards}
+@keyframes slideIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+
+/* Smooth button click */
+.rbtn,.rbtn2,.dlnk,.sbt,.fbtn{
+  transition:all 0.15s cubic-bezier(0.34,1.3,0.64,1);
+}
+.rbtn:active,.rbtn2:active,.dlnk:active,.sbt:active{transform:scale(0.95)!important}
+
+/* Trust row items */
+.ti{transition:all 0.2s ease;cursor:default}
+.ti:hover{color:var(--gr);transform:translateY(-2px)}
+.ti:hover .tc{transform:scale(1.3);display:inline-block}
+
+/* How cards: number reveals on hover */
+.hc .hico{transition:all 0.25s cubic-bezier(0.34,1.5,0.64,1)}
+.hc:hover .hico{transform:scale(1.15) rotate(-5deg)}
+
+/* Footer links */
+.fli a{position:relative}
+.fli a::after{content:"";position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--gr);transition:width 0.2s ease}
+.fli a:hover::after{width:100%}
+
+/* Nav links underline */
+.nl a{position:relative}
+.nl a::after{content:"";position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gr);transition:width 0.2s ease}
+.nl a:hover::after{width:100%}
+
+/* Chat button: notification dot when not open */
+.fab::after{
+  content:"";position:absolute;top:4px;right:4px;
+  width:12px;height:12px;background:#ef4444;border-radius:50%;
+  border:2px solid var(--bg);
+  animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+}
+.fab.chat-open::after{display:none}
+@keyframes ping{75%,100%{transform:scale(1.8);opacity:0}}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Search box: typing indicator */
+.sb input:focus ~ .sbt{box-shadow:0 0 0 3px rgba(22,163,74,0.2)}
+
+/* Results banner */
+.pb{animation:slideDown 0.4s cubic-bezier(0.34,1.3,0.64,1)}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+
   </style>
 </head>
 <body>
@@ -700,7 +797,10 @@ var CA = {
   "Wirklich kostenlos?": "Ja, 100% kostenlos! Wir finanzieren uns durch Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. 🎉",
   "Ich habe ein Problem": "Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com – wir helfen schnell! 🚀"
 };
-function toggleChat() { document.getElementById("cw").classList.toggle("open"); }
+function toggleChat() {
+  document.getElementById("cw").classList.toggle("open");
+  document.querySelector(".fab").classList.toggle("chat-open");
+}
 function cr(q) {
   var msgs = document.getElementById("cms"), opts = document.getElementById("co");
   msgs.innerHTML += "<div class='cm usr'>" + q + "</div>";
@@ -718,6 +818,13 @@ function cr(q) {
 document.addEventListener("DOMContentLoaded", function() {
   renderTicker();
   renderDeals();
+  // Scroll reveal
+  var revealEls = document.querySelectorAll(".sec,.stats,.tr");
+  revealEls.forEach(function(el) { el.classList.add("reveal"); });
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add("visible"); });
+  }, {threshold: 0.1});
+  revealEls.forEach(function(el) { observer.observe(el); });
 });
 
 async function sendForm() {
