@@ -541,7 +541,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <p>Direkt: <a href="/cdn-cgi/l/email-protection#650e0a0b11040e114b1517000c16120c1600250208040c094b060a08"><span class="__cf_email__" data-cfemail="660d090812070d12481614030f15110f150326010b070f0a4805090b">[email&#160;protected]</span></a></p>
     <div class="cf">
       <div class="fg2"><label>Dein Name</label><input type="text" id="cn" placeholder="Max Mustermann"></div>
-      <div class="fg2"><label>Deine E-Mail</label><input type="email" id="ce" placeholder="max@beispiel.de"></div>
+      <div class="fg2"><label>Deine E-Mail</label><input type="email" id="ce" placeholder="deine-email@beispiel.de"></div>
       <div class="fg2"><label>Betreff</label>
         <select id="cb"><option>Allgemeine Frage</option><option>Fehler melden</option><option>Verbesserungsvorschlag</option><option>Kooperation</option><option>Sonstiges</option></select>
       </div>
@@ -607,8 +607,14 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
 try { emailjs.init("N-hB2ZIwauIqYATsA"); } catch(e) {}
 
 // Email built from parts so Vercel can not intercept it
-var _e = ["kontakt","preiswise.gmail.com"].join(String.fromCharCode(64));
-function mailMe() { window.location.href = "mailto:" + _e; }
+var _a = String.fromCharCode(107,111,110,116,97,107,116);
+var _b = String.fromCharCode(112,114,101,105,115,119,105,115,101);
+var _c = String.fromCharCode(103,109,97,105,108);
+var _e = _a + String.fromCharCode(64) + _b + String.fromCharCode(46) + _c + String.fromCharCode(46,99,111,109);
+function mailMe() {
+  var p = "mail" + "to:";
+  window.location.href = p + _e;
+}
 function getEmail() { return _e; }
 document.addEventListener("DOMContentLoaded", function() {
   // Reveal email links - set real address
