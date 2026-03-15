@@ -5,291 +5,373 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PreisWise – Smarter Preisvergleich</title>
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden." />
-  <!-- FAVICON: inline SVG as data URI -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2322c55e'/><text x='16' y='23' font-family='Arial Black,Arial' font-weight='900' font-size='20' text-anchor='middle' fill='%23000'>P</text></svg>" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2316a34a'/><text x='16' y='23' font-family='Arial Black' font-weight='900' font-size='18' text-anchor='middle' fill='white'>P</text></svg>" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f5f4f0;
-      --bg2: #eeede9;
-      --surface: #ffffff;
-      --surface2: #f0efeb;
+      --bg: #e8e6e0;
+      --bg2: #dddbd4;
+      --surface: #f2f0ea;
+      --surface2: #e4e2db;
       --text: #1a1a18;
-      --text-muted: #6b6b68;
-      --text-hint: #a0a09c;
+      --text-muted: #5a5a57;
+      --text-hint: #9a9a96;
       --green: #16a34a;
       --green-light: #22c55e;
-      --green-bg: #f0fdf4;
-      --green-border: rgba(22,163,74,0.2);
-      --border: rgba(0,0,0,0.08);
-      --border-med: rgba(0,0,0,0.14);
-      --shadow: 0 2px 16px rgba(0,0,0,0.08);
-      --shadow-md: 0 4px 24px rgba(0,0,0,0.12);
+      --green-bg: #ecfdf5;
+      --green-border: rgba(22,163,74,0.22);
+      --border: rgba(0,0,0,0.1);
+      --border-med: rgba(0,0,0,0.16);
+      --shadow: 0 2px 16px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.15);
       --radius: 14px;
       --radius-sm: 9px;
+      --orange: #ea580c;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; font-size: 16px; line-height: 1.6; }
-    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+    ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
 
-    /* NAV */
-    nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    /* ── ANIMATED NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(242,240,234,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; height: 66px;
+      overflow: hidden;
+    }
+    /* Animated green line at top of nav */
+    nav::before {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 100%; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--green-light), var(--green), var(--green-light), transparent);
+      animation: navLine 3s ease-in-out infinite;
+    }
+    @keyframes navLine { 0%{left:-100%} 100%{left:100%} }
+
+    /* MASCOT in nav */
+    .nav-mascot {
+      position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 0;
+      pointer-events: none;
+    }
+    .mascot-face {
+      width: 36px; height: 36px;
+      animation: mascotBob 3s ease-in-out infinite;
+    }
+    @keyframes mascotBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+
     .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; color: var(--text); }
-    .logo-icon { width: 30px; height: 30px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff; font-weight: 800; }
+    .logo-icon { width: 30px; height: 30px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #fff; }
     .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin-left: 1.5rem; cursor: pointer; transition: color 0.15s; font-weight: 500; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin-left: 1.4rem; cursor: pointer; transition: color 0.15s; font-weight: 500; }
     .nav-links a:hover { color: var(--green); }
     .burger { width: 38px; height: 38px; display: flex; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 6px; border-radius: 9px; transition: background 0.15s; }
-    .burger:hover { background: var(--bg2); }
+    .burger:hover { background: var(--surface2); }
     .burger span { display: block; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); transform-origin: center; }
-    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--green); }
-    .burger.open span:nth-child(2) { opacity: 0; }
-    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--green); }
+    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--green)}
+    .burger.open span:nth-child(2){opacity:0}
+    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--green)}
 
     /* DRAWER */
-    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.25s; backdrop-filter: blur(2px); }
-    .drawer-overlay.open { opacity: 1; pointer-events: all; }
-    .drawer { position: fixed; top: 0; left: -290px; width: 275px; height: 100vh; background: var(--surface); border-right: 1px solid var(--border-med); z-index: 400; transition: left 0.3s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; overflow-y: auto; }
-    .drawer.open { left: 0; }
-    .drawer-header { padding: 1.4rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .drawer-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text); }
-    .drawer-x { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; color: var(--text-muted); transition: all 0.15s; }
-    .drawer-x:hover { background: var(--bg2); color: var(--text); }
-    .drawer-nav a { display: flex; align-items: center; gap: 11px; padding: 12px 1.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; font-weight: 500; }
-    .drawer-nav a:hover { background: var(--bg); color: var(--green); border-left-color: var(--green); }
-    .drawer-nav svg { width: 16px; height: 16px; flex-shrink: 0; }
-    .drawer-sec { padding: 1.2rem 1.5rem 0.5rem; font-size: 0.7rem; font-weight: 600; color: var(--text-hint); letter-spacing: 1px; text-transform: uppercase; }
-    .drawer-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 0.4rem 1.5rem 1.5rem; }
-    .dcat { background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 12px 10px; text-align: center; cursor: pointer; transition: all 0.15s; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
-    .dcat:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
-    .dcat .di { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+    .drawer-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:300; opacity:0; pointer-events:none; transition:opacity 0.25s; backdrop-filter:blur(2px); }
+    .drawer-overlay.open { opacity:1; pointer-events:all; }
+    .drawer { position:fixed; top:0; left:-290px; width:275px; height:100vh; background:var(--surface); border-right:1px solid var(--border-med); z-index:400; transition:left 0.3s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; overflow-y:auto; }
+    .drawer.open { left:0; }
+    .drawer-header { padding:1.4rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+    .drawer-top { display:flex; align-items:center; gap:10px; }
+    .drawer-logo { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:var(--text); }
+    .drawer-x { width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; border-radius:50%; color:var(--text-muted); transition:all 0.15s; }
+    .drawer-x:hover { background:var(--surface2); color:var(--text); }
+    .drawer-nav a { display:flex; align-items:center; gap:11px; padding:12px 1.5rem; color:var(--text-muted); text-decoration:none; font-size:0.9rem; cursor:pointer; transition:all 0.15s; border-left:3px solid transparent; font-weight:500; }
+    .drawer-nav a:hover { background:var(--bg); color:var(--green); border-left-color:var(--green); }
+    .drawer-nav svg { width:16px; height:16px; flex-shrink:0; }
+    .drawer-sec { padding:1.2rem 1.5rem 0.5rem; font-size:0.7rem; font-weight:600; color:var(--text-hint); letter-spacing:1px; text-transform:uppercase; }
+    .drawer-cats { display:grid; grid-template-columns:1fr 1fr; gap:7px; padding:0.4rem 1.5rem 1.5rem; }
+    .dcat { background:var(--bg); border:1px solid var(--border); border-radius:11px; padding:12px 10px; text-align:center; cursor:pointer; transition:all 0.15s; font-size:0.8rem; color:var(--text-muted); font-weight:500; }
+    .dcat:hover { border-color:var(--green); color:var(--green); background:var(--green-bg); }
+    .dcat .di { font-size:1.4rem; display:block; margin-bottom:4px; }
 
     /* PAGES */
-    .page { display: none; }
-    .page.active { display: block; animation: fadeUp 0.3s ease; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .page { display:none; }
+    .page.active { display:block; animation:fadeUp 0.3s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
     /* HERO */
-    .hero { max-width: 780px; margin: 0 auto; padding: 5rem 2rem 3rem; text-align: center; }
-    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--green-bg); border: 1px solid var(--green-border); color: var(--green); font-size: 0.8rem; font-weight: 600; padding: 6px 16px; border-radius: 100px; margin-bottom: 1.8rem; }
-    .htag-dot { width: 6px; height: 6px; background: var(--green-light); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
+    .hero { max-width:780px; margin:0 auto; padding:5rem 2rem 3rem; text-align:center; position:relative; }
+    /* Subtle floating particles */
+    .hero-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .particle { position:absolute; width:4px; height:4px; border-radius:50%; background:var(--green); opacity:0.15; animation:floatUp linear infinite; }
+    .particle:nth-child(1){left:10%;animation-duration:8s;animation-delay:0s;width:3px;height:3px}
+    .particle:nth-child(2){left:25%;animation-duration:11s;animation-delay:2s}
+    .particle:nth-child(3){left:45%;animation-duration:9s;animation-delay:4s;width:5px;height:5px;opacity:0.1}
+    .particle:nth-child(4){left:65%;animation-duration:12s;animation-delay:1s}
+    .particle:nth-child(5){left:80%;animation-duration:7s;animation-delay:3s;width:3px;height:3px}
+    @keyframes floatUp { 0%{transform:translateY(200px);opacity:0} 20%{opacity:0.15} 80%{opacity:0.1} 100%{transform:translateY(-50px);opacity:0} }
+
+    .hero-tag { display:inline-flex; align-items:center; gap:8px; background:var(--green-bg); border:1px solid var(--green-border); color:var(--green); font-size:0.8rem; font-weight:600; padding:6px 16px; border-radius:100px; margin-bottom:1.8rem; }
+    .htag-dot { width:6px; height:6px; background:var(--green-light); border-radius:50%; animation:blink 2s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 1.2rem; color: var(--text); }
-    h1 .accent { color: var(--green); }
-    .hero-sub { color: var(--text-muted); font-size: 1.1rem; max-width: 520px; margin: 0 auto 2.8rem; line-height: 1.7; }
+
+    h1 { font-family:'Syne',sans-serif; font-size:clamp(2.4rem,5.5vw,3.6rem); font-weight:800; line-height:1.1; letter-spacing:-1px; margin-bottom:1.2rem; color:var(--text); }
+    h1 .accent { color:var(--green); }
+    .hero-sub { color:var(--text-muted); font-size:1.05rem; max-width:520px; margin:0 auto 2.8rem; line-height:1.7; }
 
     /* SEARCH */
-    .search-wrap { max-width: 640px; margin: 0 auto; }
-    .search-box { display: flex; background: var(--surface); border: 1.5px solid var(--border-med); border-radius: 100px; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; box-shadow: var(--shadow); }
-    .search-box:focus-within { border-color: var(--green); box-shadow: 0 0 0 4px rgba(22,163,74,0.1), var(--shadow); }
-    .search-icon { display: flex; align-items: center; padding: 0 0 0 22px; color: var(--text-hint); flex-shrink: 0; }
-    .search-icon svg { width: 17px; height: 17px; }
-    .search-box input { flex: 1; border: none; outline: none; padding: 16px 16px; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--text); background: transparent; }
-    .search-box input::placeholder { color: var(--text-hint); }
-    .search-btn { background: var(--green); color: #fff; border: none; padding: 11px 28px; margin: 5px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-    .search-btn:hover { background: #15803d; transform: translateY(-1px); }
-
-    .search-hints { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; }
-    .hint-pill { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 6px 15px; font-size: 0.82rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s; font-weight: 500; }
-    .hint-pill:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+    .search-wrap { max-width:640px; margin:0 auto; }
+    .search-box { display:flex; background:var(--surface); border:1.5px solid var(--border-med); border-radius:100px; overflow:hidden; transition:border-color 0.2s,box-shadow 0.2s; box-shadow:var(--shadow); }
+    .search-box:focus-within { border-color:var(--green); box-shadow:0 0 0 4px rgba(22,163,74,0.1),var(--shadow); }
+    .search-icon { display:flex; align-items:center; padding:0 0 0 22px; color:var(--text-hint); flex-shrink:0; }
+    .search-icon svg { width:17px; height:17px; }
+    .search-box input { flex:1; border:none; outline:none; padding:16px 16px; font-family:'Inter',sans-serif; font-size:1rem; color:var(--text); background:transparent; }
+    .search-box input::placeholder { color:var(--text-hint); }
+    .search-btn { background:var(--green); color:#fff; border:none; padding:11px 28px; margin:5px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:600; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+    .search-btn:hover { background:#15803d; transform:translateY(-1px); }
+    .search-hints { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:1.2rem; }
+    .hint-pill { background:var(--surface); border:1px solid var(--border-med); border-radius:100px; padding:6px 15px; font-size:0.82rem; color:var(--text-muted); cursor:pointer; transition:all 0.15s; font-weight:500; }
+    .hint-pill:hover { border-color:var(--green); color:var(--green); background:var(--green-bg); }
 
     /* TRUST */
-    .trust-row { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; padding: 1.5rem 2rem; max-width: 700px; margin: 2rem auto 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
-    .trust-check { color: var(--green); font-weight: 700; }
+    .trust-row { display:flex; justify-content:center; gap:2.5rem; flex-wrap:wrap; padding:1.5rem 2rem; max-width:700px; margin:2rem auto 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .trust-item { display:flex; align-items:center; gap:7px; font-size:0.85rem; color:var(--text-muted); font-weight:500; }
+    .trust-check { color:var(--green); font-weight:700; }
 
     /* STATS */
-    .stats-strip { display: flex; max-width: 860px; margin: 2.5rem auto 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
-    .stat-box { flex: 1; padding: 1.4rem 1rem; text-align: center; border-right: 1px solid var(--border); }
-    .stat-box:last-child { border-right: none; }
-    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--green); line-height: 1; }
-    .stat-lbl { font-size: 0.78rem; color: var(--text-hint); margin-top: 4px; }
+    .stats-strip { display:flex; max-width:860px; margin:2.5rem auto 0; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); }
+    .stat-box { flex:1; padding:1.4rem 1rem; text-align:center; border-right:1px solid var(--border); }
+    .stat-box:last-child{border-right:none}
+    .stat-num { font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800; color:var(--green); line-height:1; }
+    .stat-lbl { font-size:0.78rem; color:var(--text-hint); margin-top:4px; }
 
     /* TICKER */
-    .ticker-outer { overflow: hidden; max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; position: relative; }
-    .ticker-outer::before { content:''; position:absolute; left:0; top:0; bottom:0; width:60px; background:linear-gradient(90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
-    .ticker-outer::after { content:''; position:absolute; right:0; top:0; bottom:0; width:60px; background:linear-gradient(-90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
-    .ticker-inner { display: flex; gap: 10px; animation: scroll 28s linear infinite; width: max-content; }
-    @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-    .ticker-chip { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; color: var(--text-muted); }
+    .ticker-outer { overflow:hidden; max-width:860px; margin:2rem auto 0; padding:0 2rem; position:relative; }
+    .ticker-outer::before{content:'';position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,var(--bg),transparent);z-index:2;pointer-events:none}
+    .ticker-outer::after{content:'';position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(-90deg,var(--bg),transparent);z-index:2;pointer-events:none}
+    .ticker-inner { display:flex; gap:10px; animation:scroll 28s linear infinite; width:max-content; }
+    @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .ticker-chip { background:var(--surface); border:1px solid var(--border-med); border-radius:100px; padding:6px 16px; font-size:0.8rem; font-weight:600; white-space:nowrap; color:var(--text-muted); }
 
-    /* AD */
-    .ad-slot { background: var(--surface); border: 1px dashed var(--border-med); border-radius: var(--radius); padding: 18px; text-align: center; color: var(--text-hint); font-size: 0.75rem; }
-
-    /* SECTION */
-    .section { max-width: 860px; margin: 3rem auto 0; padding: 0 2rem; }
-    .sec-hd { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.4rem; }
-    .sec-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--text); }
-    .sec-hint { font-size: 0.8rem; color: var(--text-hint); }
+    .ad-slot { background:var(--surface); border:1px dashed var(--border-med); border-radius:var(--radius); padding:18px; text-align:center; color:var(--text-hint); font-size:0.75rem; }
+    .section { max-width:860px; margin:3rem auto 0; padding:0 2rem; }
+    .sec-hd { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:1.4rem; }
+    .sec-title { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; color:var(--text); }
+    .sec-hint { font-size:0.8rem; color:var(--text-hint); }
 
     /* CATEGORIES */
-    #cats-section { transition: all 0.3s ease; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
-    .cat-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 10px; text-align: center; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow); }
-    .cat-card:hover { border-color: var(--green); background: var(--green-bg); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .cat-icon { font-size: 2rem; display: block; margin-bottom: 7px; }
-    .cat-label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
-    .cat-card:hover .cat-label { color: var(--green); }
+    .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:10px; }
+    .cat-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:18px 10px; text-align:center; cursor:pointer; transition:all 0.2s; box-shadow:var(--shadow); }
+    .cat-card:hover { border-color:var(--green); background:var(--green-bg); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .cat-icon { font-size:2rem; display:block; margin-bottom:7px; }
+    .cat-label { font-size:0.82rem; font-weight:600; color:var(--text-muted); }
+    .cat-card:hover .cat-label { color:var(--green); }
 
     /* DEALS */
-    #deals-section { transition: all 0.3s ease; }
-    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 14px; }
-    .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all 0.2s; box-shadow: var(--shadow); }
-    .deal-card:hover { border-color: var(--border-med); transform: translateY(-3px); box-shadow: var(--shadow-md); }
-    .deal-thumb { height: 140px; display: flex; align-items: center; justify-content: center; background: var(--bg2); overflow: hidden; }
-    .deal-thumb-ph { font-size: 3.2rem; }
-    .deal-body { padding: 14px; }
-    .deal-pct { display: inline-block; background: rgba(239,68,68,0.1); color: #dc2626; border: 1px solid rgba(239,68,68,0.2); font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 5px; margin-bottom: 6px; }
-    .deal-name { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 8px; }
-    .deal-prices { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
-    .deal-price { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--green); }
-    .deal-old { font-size: 0.8rem; color: var(--text-hint); text-decoration: line-through; }
-    .deal-link { display: block; text-align: center; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); border-radius: 100px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: all 0.15s; }
-    .deal-link:hover { background: var(--green); color: #fff; border-color: var(--green); }
-    .deal-shop { font-size: 0.72rem; color: var(--text-hint); text-align: center; margin-top: 6px; }
+    .deals-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(205px,1fr)); gap:14px; }
+    .deal-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:all 0.2s; box-shadow:var(--shadow); }
+    .deal-card:hover { border-color:var(--border-med); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+    .deal-thumb { height:140px; display:flex; align-items:center; justify-content:center; background:var(--bg2); }
+    .deal-thumb-ph { font-size:3.2rem; }
+    .deal-body { padding:14px; }
+    .deal-pct { display:inline-block; background:rgba(239,68,68,0.1); color:#dc2626; border:1px solid rgba(239,68,68,0.2); font-size:0.72rem; font-weight:700; padding:3px 9px; border-radius:5px; margin-bottom:6px; }
+    .deal-name { font-size:0.9rem; font-weight:600; color:var(--text); line-height:1.35; margin-bottom:8px; }
+    .deal-prices { display:flex; align-items:baseline; gap:8px; margin-bottom:10px; }
+    .deal-price { font-family:'Syne',sans-serif; font-size:1.25rem; font-weight:800; color:var(--green); }
+    .deal-old { font-size:0.8rem; color:var(--text-hint); text-decoration:line-through; }
+    .deal-link { display:block; text-align:center; background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); border-radius:100px; padding:8px 14px; font-size:0.82rem; font-weight:600; text-decoration:none; transition:all 0.15s; }
+    .deal-link:hover { background:var(--green); color:#fff; }
+    .deal-shop { font-size:0.72rem; color:var(--text-hint); text-align:center; margin-top:6px; }
 
     /* LOADING */
-    #loading { display: none; text-align: center; padding: 4rem 2rem; max-width: 860px; margin: 0 auto; }
-    #loading.show { display: block; }
-    .spin { width: 40px; height: 40px; border: 3px solid var(--border-med); border-top-color: var(--green); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 1.4rem; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-label { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; font-weight: 500; }
-    .loading-shops { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-    .ls { font-size: 0.78rem; padding: 4px 13px; border-radius: 100px; border: 1px solid var(--border-med); color: var(--text-hint); background: var(--surface); animation: lpulse 1.4s ease-in-out infinite; font-weight: 500; }
-    .ls:nth-child(2){animation-delay:.15s} .ls:nth-child(3){animation-delay:.3s} .ls:nth-child(4){animation-delay:.45s} .ls:nth-child(5){animation-delay:.6s}
-    @keyframes lpulse { 0%,100%{opacity:0.4} 50%{opacity:1;color:var(--green);border-color:var(--green)} }
+    #loading { display:none; text-align:center; padding:4rem 2rem; max-width:860px; margin:0 auto; }
+    #loading.show { display:block; }
+    .spin { width:40px; height:40px; border:3px solid var(--border-med); border-top-color:var(--green); border-radius:50%; animation:spin 0.7s linear infinite; margin:0 auto 1rem; }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    /* Foxy loading mascot */
+    .loading-mascot { font-size:2.5rem; margin-bottom:0.5rem; animation:mascotBob 1s ease-in-out infinite; }
+    .loading-label { color:var(--text-muted); font-size:0.95rem; margin-bottom:1rem; font-weight:500; }
+    .loading-shops { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; }
+    .ls { font-size:0.78rem; padding:4px 13px; border-radius:100px; border:1px solid var(--border-med); color:var(--text-hint); background:var(--surface); animation:lpulse 1.4s ease-in-out infinite; font-weight:500; }
+    .ls:nth-child(2){animation-delay:.15s}.ls:nth-child(3){animation-delay:.3s}.ls:nth-child(4){animation-delay:.45s}.ls:nth-child(5){animation-delay:.6s}
+    @keyframes lpulse{0%,100%{opacity:0.4}50%{opacity:1;color:var(--green);border-color:var(--green)}}
 
     /* RESULTS */
-    #results-wrap { display: none; max-width: 860px; margin: 2.5rem auto; padding: 0 2rem; }
-    #results-wrap.show { display: block; animation: fadeUp 0.3s ease; }
-    .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.4rem; flex-wrap: wrap; gap: 10px; }
-    .results-title { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--text); }
-    .results-meta { font-size: 0.82rem; color: var(--text-hint); margin-top: 3px; }
-    .sort-row { display: flex; gap: 6px; }
-    .sbtn { background: var(--surface); border: 1.5px solid var(--border-med); border-radius: 100px; padding: 7px 18px; font-size: 0.82rem; color: var(--text-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; font-weight: 500; }
-    .sbtn.on { background: var(--green); color: #fff; border-color: var(--green); font-weight: 600; }
-    .sbtn:hover:not(.on) { border-color: var(--green); color: var(--green); }
-    .results-list { display: flex; flex-direction: column; gap: 12px; }
+    #results-wrap { display:none; max-width:860px; margin:2.5rem auto; padding:0 2rem; }
+    #results-wrap.show { display:block; animation:fadeUp 0.3s ease; }
+    .results-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.4rem; flex-wrap:wrap; gap:10px; }
+    .results-title { font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:800; color:var(--text); }
+    .results-meta { font-size:0.82rem; color:var(--text-hint); margin-top:3px; }
+    .sort-row { display:flex; gap:6px; }
+    .sbtn { background:var(--surface); border:1.5px solid var(--border-med); border-radius:100px; padding:7px 18px; font-size:0.82rem; color:var(--text-muted); cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.15s; font-weight:500; }
+    .sbtn.on { background:var(--green); color:#fff; border-color:var(--green); font-weight:600; }
+    .sbtn:hover:not(.on) { border-color:var(--green); color:var(--green); }
+    .results-list { display:flex; flex-direction:column; gap:12px; }
 
-    /* PICK BANNER */
-    .pick-banner { background: var(--green-bg); border: 1.5px solid var(--green-border); border-radius: var(--radius); padding: 12px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
-    .pick-banner strong { color: var(--green); }
+    .pick-banner { background:var(--green-bg); border:1.5px solid var(--green-border); border-radius:var(--radius); padding:12px 18px; margin-bottom:8px; display:flex; align-items:center; gap:12px; font-size:0.88rem; color:var(--text-muted); font-weight:500; }
+    .pick-banner strong { color:var(--green); }
 
-    /* RESULT CARDS */
-    .rcard { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: all 0.2s; position: relative; overflow: hidden; animation: cardIn 0.3s ease both; box-shadow: var(--shadow); }
-    @keyframes cardIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-    .rcard:hover { border-color: var(--border-med); box-shadow: var(--shadow-md); transform: translateY(-1px); }
-    .rcard.pick { border-color: var(--green); background: linear-gradient(135deg, #fff, var(--green-bg)); }
-    .pick-label { position: absolute; top: 0; left: 16px; background: var(--green); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 12px; border-radius: 0 0 8px 8px; font-family: 'Syne', sans-serif; letter-spacing: 0.3px; }
+    .rcard { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:16px 20px; display:flex; align-items:center; gap:16px; transition:all 0.2s; position:relative; overflow:hidden; animation:cardIn 0.3s ease both; box-shadow:var(--shadow); }
+    @keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .rcard:hover { border-color:var(--border-med); box-shadow:var(--shadow-md); transform:translateY(-1px); }
+    .rcard.pick { border-color:var(--green); background:linear-gradient(135deg,var(--surface),var(--green-bg)); }
+    .pick-label { position:absolute; top:0; left:16px; background:var(--green); color:#fff; font-size:0.7rem; font-weight:700; padding:3px 12px; border-radius:0 0 8px 8px; font-family:'Syne',sans-serif; }
 
-    /* PRODUCT IMAGE - bigger, with fallback bg */
-    .r-thumb { width: 72px; height: 72px; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); background: var(--bg2); display: flex; align-items: center; justify-content: center; }
-    .r-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .r-thumb-ph { font-size: 1.8rem; }
+    .r-thumb { width:72px; height:72px; border-radius:12px; overflow:hidden; flex-shrink:0; border:1px solid var(--border); background:var(--bg2); display:flex; align-items:center; justify-content:center; }
+    .r-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+    .r-thumb-ph { font-size:1.8rem; }
+    .r-badge { width:46px; height:38px; border-radius:8px; border:1.5px solid var(--border-med); display:flex; align-items:center; justify-content:center; font-size:0.62rem; font-weight:700; flex-shrink:0; background:var(--bg2); }
+    .r-info { flex:1; min-width:0; }
+    .r-shop { font-size:0.76rem; color:var(--text-hint); margin-bottom:3px; font-weight:500; }
+    .r-product { font-size:0.95rem; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .r-tags { display:flex; gap:6px; margin-top:7px; flex-wrap:wrap; }
+    .rtag { font-size:0.72rem; padding:3px 9px; border-radius:5px; font-weight:600; }
+    .rtag-g { background:rgba(22,163,74,0.1); color:var(--green); border:1px solid rgba(22,163,74,0.2); }
+    .rtag-p { background:rgba(139,92,246,0.1); color:#7c3aed; border:1px solid rgba(139,92,246,0.2); }
+    .rtag-o { background:rgba(249,115,22,0.1); color:#ea580c; border:1px solid rgba(249,115,22,0.2); }
+    .r-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0; min-width:130px; }
+    .r-price-old { font-size:0.78rem; color:var(--text-hint); text-decoration:line-through; }
+    .r-price { font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:600; color:var(--text); line-height:1; }
+    .r-price.from { font-size:0.78rem; font-weight:500; color:var(--text-hint); display:block; margin-bottom:-2px; }
+    .r-price-value { font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:600; color:var(--text); }
+    .pick .r-price-value { color:var(--green); font-weight:700; }
+    .r-save { font-size:0.75rem; color:#dc2626; font-weight:600; }
+    .r-btn { background:var(--green); color:#fff; border:none; padding:9px 20px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; white-space:nowrap; }
+    .r-btn:hover { background:#15803d; transform:translateY(-1px); }
+    .r-btn-sec { background:var(--bg2); color:var(--text-muted); border:1.5px solid var(--border-med); padding:9px 18px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.85rem; cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; white-space:nowrap; font-weight:500; }
+    .r-btn-sec:hover { border-color:var(--green); color:var(--green); }
 
-    .r-badge { width: 46px; height: 38px; border-radius: 8px; border: 1.5px solid var(--border-med); display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; background: var(--bg2); }
-    .r-info { flex: 1; min-width: 0; }
-    .r-shop { font-size: 0.76rem; color: var(--text-hint); margin-bottom: 3px; font-weight: 500; }
-    .r-product { font-size: 0.95rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .r-tags { display: flex; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
-    .rtag { font-size: 0.72rem; padding: 3px 9px; border-radius: 5px; font-weight: 600; }
-    .rtag-g { background: rgba(22,163,74,0.1); color: var(--green); border: 1px solid rgba(22,163,74,0.2); }
-    .rtag-p { background: rgba(139,92,246,0.1); color: #7c3aed; border: 1px solid rgba(139,92,246,0.2); }
-    .rtag-o { background: rgba(249,115,22,0.1); color: #ea580c; border: 1px solid rgba(249,115,22,0.2); }
-    .r-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; min-width: 120px; }
-    .r-price-old { font-size: 0.78rem; color: var(--text-hint); text-decoration: line-through; }
-    .r-price { font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--text); line-height: 1; }
-    .pick .r-price { color: var(--green); font-weight: 700; }
-    .r-save { font-size: 0.75rem; color: #dc2626; font-weight: 600; }
-    .r-btn { background: var(--green); color: #fff; border: none; padding: 9px 20px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; white-space: nowrap; }
-    .r-btn:hover { background: #15803d; transform: translateY(-1px); }
-    .r-btn-sec { background: var(--bg2); color: var(--text-muted); border: 1.5px solid var(--border-med); padding: 9px 18px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; white-space: nowrap; font-weight: 500; }
-    .r-btn-sec:hover { border-color: var(--green); color: var(--green); }
-    .aff-notice { max-width: 860px; margin: 1rem auto 0; padding: 0 2rem; font-size: 0.74rem; color: var(--text-hint); }
+    /* Tiny, very faint notices */
+    .aff-notice { max-width:860px; margin:0.6rem auto 0; padding:0 2rem; font-size:0.62rem; color:rgba(0,0,0,0.25); }
 
     /* HOW IT WORKS */
-    .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-    .how-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 22px; transition: all 0.2s; box-shadow: var(--shadow); position: relative; overflow: hidden; }
-    .how-card::before { content: attr(data-step); position: absolute; bottom: -8px; right: 8px; font-family: 'Syne', sans-serif; font-size: 4.5rem; font-weight: 800; color: rgba(0,0,0,0.04); line-height: 1; }
-    .how-card:hover { border-color: var(--green-border); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .how-icon { width: 44px; height: 44px; background: var(--green-bg); border: 1.5px solid var(--green-border); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 14px; }
-    .how-card h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; color: var(--text); }
-    .how-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+    .how-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
+    .how-card { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:22px; transition:all 0.2s; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+    .how-card::before { content:attr(data-step); position:absolute; bottom:-8px; right:8px; font-family:'Syne',sans-serif; font-size:4.5rem; font-weight:800; color:rgba(0,0,0,0.04); line-height:1; }
+    .how-card:hover { border-color:var(--green-border); transform:translateY(-2px); box-shadow:var(--shadow-md); }
+    .how-icon { width:44px; height:44px; background:var(--green-bg); border:1.5px solid var(--green-border); border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:14px; }
+    .how-card h3 { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:800; margin-bottom:6px; color:var(--text); }
+    .how-card p { font-size:0.82rem; color:var(--text-muted); line-height:1.6; }
 
     /* STATIC PAGES */
-    .spage { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; }
-    .spage h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 2rem; color: var(--text); letter-spacing: -0.5px; }
-    .spage h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin: 1.6rem 0 0.5rem; color: var(--text); }
-    .spage p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.9rem; line-height: 1.75; }
-    .spage a { color: var(--green); text-decoration: none; }
-
-    /* CONTACT */
-    .cform { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-top: 1.5rem; box-shadow: var(--shadow); }
-    .fg { margin-bottom: 1rem; }
-    .fg label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text-muted); }
-    .fg input,.fg textarea,.fg select { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border-med); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.92rem; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
-    .fg input:focus,.fg textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22,163,74,0.1); }
-    .fg textarea { resize: vertical; min-height: 120px; }
-    .form-btn { background: var(--green); color: #fff; border: none; padding: 11px 28px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
-    .form-btn:hover { background: #15803d; transform: translateY(-1px); }
-    .form-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .form-ok { display: none; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-top: 1rem; font-weight: 500; }
-    .form-err { display: none; background: rgba(239,68,68,0.08); color: #dc2626; border: 1px solid rgba(239,68,68,0.2); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-top: 1rem; }
+    .spage { max-width:700px; margin:0 auto; padding:4rem 2rem; }
+    .spage h2 { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; margin-bottom:2rem; color:var(--text); }
+    .spage h3 { font-family:'Syne',sans-serif; font-size:1rem; font-weight:700; margin:1.6rem 0 0.5rem; color:var(--text); }
+    .spage p { color:var(--text-muted); font-size:0.95rem; margin-bottom:0.9rem; line-height:1.75; }
+    .spage a { color:var(--green); text-decoration:none; }
+    .cform { background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); padding:2rem; margin-top:1.5rem; box-shadow:var(--shadow); }
+    .fg { margin-bottom:1rem; }
+    .fg label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:6px; color:var(--text-muted); }
+    .fg input,.fg textarea,.fg select { width:100%; padding:11px 14px; border:1.5px solid var(--border-med); border-radius:var(--radius-sm); font-family:'Inter',sans-serif; font-size:0.92rem; color:var(--text); background:var(--bg); outline:none; transition:border-color 0.15s,box-shadow 0.15s; }
+    .fg input:focus,.fg textarea:focus { border-color:var(--green); box-shadow:0 0 0 3px rgba(22,163,74,0.1); }
+    .fg textarea { resize:vertical; min-height:120px; }
+    .form-btn { background:var(--green); color:#fff; border:none; padding:11px 28px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.92rem; font-weight:600; cursor:pointer; transition:all 0.15s; }
+    .form-btn:hover { background:#15803d; transform:translateY(-1px); }
+    .form-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+    .form-ok { display:none; background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); padding:12px 16px; border-radius:var(--radius-sm); font-size:0.9rem; margin-top:1rem; font-weight:500; }
+    .form-err { display:none; background:rgba(239,68,68,0.08); color:#dc2626; border:1px solid rgba(239,68,68,0.2); padding:12px 16px; border-radius:var(--radius-sm); font-size:0.9rem; margin-top:1rem; }
 
     /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 2rem; margin-top: 5rem; background: var(--surface); }
-    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--text); display: flex; align-items: center; gap: 8px; }
-    .footer-links { display: flex; gap: 1.8rem; flex-wrap: wrap; }
-    .footer-links a { color: var(--text-hint); text-decoration: none; font-size: 0.85rem; cursor: pointer; transition: color 0.15s; font-weight: 500; }
-    .footer-links a:hover { color: var(--green); }
-    .footer-copy { color: var(--text-hint); font-size: 0.78rem; }
+    footer { border-top:1px solid var(--border); padding:2rem; margin-top:5rem; background:var(--surface); }
+    .footer-inner { max-width:860px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+    .footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.05rem; color:var(--text); display:flex; align-items:center; gap:8px; }
+    .footer-links { display:flex; gap:1.8rem; flex-wrap:wrap; }
+    .footer-links a { color:var(--text-hint); text-decoration:none; font-size:0.85rem; cursor:pointer; transition:color 0.15s; font-weight:500; }
+    .footer-links a:hover { color:var(--green); }
+    .footer-copy { color:var(--text-hint); font-size:0.78rem; }
 
-    /* CHAT */
-    .chat-fab { position: fixed; bottom: 24px; right: 24px; width: 54px; height: 54px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(22,163,74,0.35); transition: transform 0.2s, box-shadow 0.2s; }
-    .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(22,163,74,0.45); }
-    .chat-fab svg { width: 22px; height: 22px; color: #fff; }
-    .chat-win { position: fixed; bottom: 90px; right: 24px; width: 320px; background: var(--surface); border: 1.5px solid var(--border-med); border-radius: 18px; box-shadow: 0 16px 48px rgba(0,0,0,0.15); z-index: 998; display: none; flex-direction: column; overflow: hidden; }
-    .chat-win.open { display: flex; animation: chatPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
-    @keyframes chatPop { from{opacity:0;transform:scale(0.8) translateY(16px)} to{opacity:1;transform:scale(1) translateY(0)} }
-    .chat-hd { background: var(--green); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
-    .chat-hd-left { display: flex; align-items: center; gap: 10px; }
-    .chat-ava { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff; font-weight: 700; }
-    .chat-hd-name { font-size: 0.9rem; font-weight: 700; color: #fff; }
-    .chat-hd-status { font-size: 0.68rem; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 4px; }
-    .chat-hd-dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; animation: blink 1.8s ease-in-out infinite; }
-    .chat-x { cursor: pointer; color: rgba(255,255,255,0.7); transition: color 0.15s; font-size: 1rem; }
-    .chat-x:hover { color: #fff; }
-    .chat-msgs { padding: 14px; display: flex; flex-direction: column; gap: 9px; max-height: 260px; overflow-y: auto; background: var(--bg); }
+    /* ── FOXY CHATBOT ── */
+    .chat-fab {
+      position:fixed; bottom:24px; right:24px;
+      width:58px; height:58px;
+      border-radius:50%; cursor:pointer; z-index:999;
+      box-shadow:0 4px 20px rgba(22,163,74,0.3);
+      transition:transform 0.2s, box-shadow 0.2s;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--surface); border:2px solid var(--green-border);
+      animation:fabPop 4s ease-in-out infinite;
+      font-size:1.8rem;
+    }
+    @keyframes fabPop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05) rotate(5deg)} }
+    .chat-fab:hover { transform:scale(1.12) rotate(-5deg)!important; box-shadow:0 6px 28px rgba(22,163,74,0.4); }
+
+    .chat-win { position:fixed; bottom:94px; right:24px; width:330px; background:var(--surface); border:1.5px solid var(--border-med); border-radius:20px; box-shadow:0 16px 48px rgba(0,0,0,0.15); z-index:998; display:none; flex-direction:column; overflow:hidden; }
+    .chat-win.open { display:flex; animation:chatPop 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes chatPop{from{opacity:0;transform:scale(0.8) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+    .chat-hd {
+      background:var(--green); padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .chat-hd-left { display:flex; align-items:center; gap:10px; }
+    .chat-mascot-hd { font-size:1.8rem; animation:mascotBob 2s ease-in-out infinite; }
+    .chat-hd-info {}
+    .chat-hd-name { font-size:0.95rem; font-weight:700; color:#fff; }
+    .chat-hd-sub { font-size:0.7rem; color:rgba(255,255,255,0.8); display:flex; align-items:center; gap:4px; }
+    .chat-hd-dot { width:5px; height:5px; background:#fff; border-radius:50%; animation:blink 1.8s ease-in-out infinite; }
+    .chat-x { cursor:pointer; color:rgba(255,255,255,0.7); font-size:1rem; transition:color 0.15s; }
+    .chat-x:hover { color:#fff; }
+
+    .chat-msgs { padding:14px; display:flex; flex-direction:column; gap:9px; max-height:260px; overflow-y:auto; background:var(--bg); }
     .chat-msgs::-webkit-scrollbar{width:3px} .chat-msgs::-webkit-scrollbar-thumb{background:#ccc}
-    .cmsg { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 0.85rem; line-height: 1.5; animation: msgPop 0.2s ease; }
-    @keyframes msgPop { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-    .cmsg.bot { background: var(--surface); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
-    .cmsg.usr { background: var(--green); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
-    .typing { display: flex; align-items: center; gap: 4px; padding: 10px 14px; background: var(--surface); border-radius: 16px; border-bottom-left-radius: 4px; align-self: flex-start; border: 1px solid var(--border); }
-    .td { width: 6px; height: 6px; background: var(--text-hint); border-radius: 50%; animation: tdot 1.2s ease-in-out infinite; }
+    .cmsg { max-width:88%; padding:10px 14px; border-radius:16px; font-size:0.85rem; line-height:1.5; animation:msgPop 0.2s ease; }
+    @keyframes msgPop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    .cmsg.bot { background:var(--surface); color:var(--text); align-self:flex-start; border-bottom-left-radius:4px; border:1px solid var(--border); }
+    .cmsg.usr { background:var(--green); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; font-weight:500; }
+    .typing { display:flex; align-items:center; gap:4px; padding:10px 14px; background:var(--surface); border-radius:16px; border-bottom-left-radius:4px; align-self:flex-start; border:1px solid var(--border); }
+    .td { width:6px; height:6px; background:var(--text-hint); border-radius:50%; animation:tdot 1.2s ease-in-out infinite; }
     .td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
-    @keyframes tdot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
-    .chat-opts { padding: 10px 14px 14px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); border-top: 1px solid var(--border); }
-    .copt { background: var(--bg); color: var(--text-muted); border: 1.5px solid var(--border-med); border-radius: 100px; padding: 8px 14px; font-size: 0.8rem; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; transition: all 0.15s; font-weight: 500; }
-    .copt:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+    @keyframes tdot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+    .chat-opts { padding:10px 14px 14px; display:flex; flex-direction:column; gap:6px; background:var(--surface); border-top:1px solid var(--border); }
+    .copt { background:var(--bg); color:var(--text-muted); border:1.5px solid var(--border-med); border-radius:100px; padding:8px 14px; font-size:0.8rem; cursor:pointer; font-family:'Inter',sans-serif; text-align:left; transition:all 0.15s; font-weight:500; }
+    .copt:hover { border-color:var(--green); color:var(--green); background:var(--green-bg); transform:translateX(2px); }
 
-    @media(max-width:640px) {
+    @media(max-width:640px){
       .rcard{flex-wrap:wrap} .r-right{flex-direction:row;align-items:center;width:100%;justify-content:space-between}
       .chat-win{width:calc(100vw - 32px);right:16px} .nav-links{display:none}
       .footer-inner{flex-direction:column;text-align:center} .stats-strip{flex-wrap:wrap}
+      .nav-mascot{display:none}
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="logo" onclick="showPage('home')">
-    <div class="logo-icon">P</div>
+    <div class="logo-icon">🦊</div>
     PreisWise
+  </div>
+  <!-- FOXY in navbar -->
+  <div class="nav-mascot" id="navMascot">
+    <svg class="mascot-face" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Fox body/head -->
+      <ellipse cx="18" cy="20" rx="11" ry="10" fill="#f97316"/>
+      <!-- Ears -->
+      <polygon points="8,14 4,4 12,10" fill="#f97316"/>
+      <polygon points="28,14 32,4 24,10" fill="#f97316"/>
+      <!-- Inner ears -->
+      <polygon points="8,13 5.5,6 11,10" fill="#fde68a"/>
+      <polygon points="28,13 30.5,6 25,10" fill="#fde68a"/>
+      <!-- Face white -->
+      <ellipse cx="18" cy="22" rx="7" ry="6" fill="#fde68a"/>
+      <!-- Eyes -->
+      <circle cx="14" cy="19" r="1.8" fill="#1a1a18"/>
+      <circle cx="22" cy="19" r="1.8" fill="#1a1a18"/>
+      <!-- Eye shine -->
+      <circle cx="14.7" cy="18.3" r="0.6" fill="white"/>
+      <circle cx="22.7" cy="18.3" r="0.6" fill="white"/>
+      <!-- Nose -->
+      <ellipse cx="18" cy="23" rx="1.5" ry="1" fill="#dc2626"/>
+      <!-- Smile -->
+      <path d="M15.5 25 Q18 27 20.5 25" stroke="#1a1a18" stroke-width="1" fill="none" stroke-linecap="round"/>
+      <!-- Tail hint -->
+      <ellipse cx="29" cy="26" rx="4" ry="3" fill="#f97316" transform="rotate(-20 29 26)"/>
+      <ellipse cx="30" cy="25" rx="2" ry="1.5" fill="white" transform="rotate(-20 30 25)"/>
+    </svg>
   </div>
   <div class="nav-right">
     <div class="nav-links">
@@ -301,9 +383,13 @@
   </div>
 </nav>
 
+<!-- DRAWER -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-header"><div class="drawer-logo">PreisWise</div><div class="drawer-x" onclick="toggleDrawer()">✕</div></div>
+  <div class="drawer-header">
+    <div class="drawer-top"><div style="font-size:1.4rem">🦊</div><div class="drawer-logo">PreisWise</div></div>
+    <div class="drawer-x" onclick="toggleDrawer()">✕</div>
+  </div>
   <div class="drawer-nav">
     <a onclick="showPage('home');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>Startseite</a>
     <a onclick="showPage('ueber');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>Über uns</a>
@@ -326,15 +412,15 @@
 
 <!-- HOME PAGE -->
 <div id="page-home" class="page active">
-
   <section class="hero">
+    <div class="hero-particles"><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div></div>
     <div class="hero-tag"><div class="htag-dot"></div> Live Preisvergleich · 8 Shops</div>
     <h1>Kauf schlauer.<br><span class="accent">Spare mehr.</span></h1>
     <p class="hero-sub">Wir vergleichen Amazon, eBay, MediaMarkt und 5 weitere Shops – und zeigen dir immer das günstigste Angebot zuerst.</p>
     <div class="search-wrap">
       <div class="search-box">
         <div class="search-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg></div>
-        <input type="text" id="searchInput" placeholder="z.B. iPhone 15, Nike Air Max, PS5 ..." autocomplete="off" />
+        <input type="text" id="searchInput" placeholder="z.B. iPhone 15, Laptops, PS5 ..." autocomplete="off" />
         <button class="search-btn" onclick="startSearch()">Vergleichen</button>
       </div>
       <div class="search-hints">
@@ -342,7 +428,7 @@
         <div class="hint-pill" onclick="fillSearch('AirPods Pro')">🎧 AirPods Pro</div>
         <div class="hint-pill" onclick="fillSearch('PlayStation 5')">🎮 PS5</div>
         <div class="hint-pill" onclick="fillSearch('Samsung Galaxy S24')">📲 Galaxy S24</div>
-        <div class="hint-pill" onclick="fillSearch('Dyson V15')">🏠 Dyson V15</div>
+        <div class="hint-pill" onclick="fillSearch('Laptop')">💻 Laptops</div>
       </div>
     </div>
   </section>
@@ -356,9 +442,9 @@
 
   <div class="section">
     <div class="stats-strip">
-      <div class="stat-box"><div class="stat-num">8+</div><div class="stat-lbl">Shops verglichen</div></div>
-      <div class="stat-box"><div class="stat-num">Live</div><div class="stat-lbl">Echtzeit-Preise</div></div>
-      <div class="stat-box"><div class="stat-num">0 €</div><div class="stat-lbl">Komplett kostenlos</div></div>
+      <div class="stat-box"><div class="stat-num">8+</div><div class="stat-lbl">Shops</div></div>
+      <div class="stat-box"><div class="stat-num">Live</div><div class="stat-lbl">Echtzeit</div></div>
+      <div class="stat-box"><div class="stat-num">0 €</div><div class="stat-lbl">Kostenlos</div></div>
       <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">Kein Tracking</div></div>
     </div>
   </div>
@@ -369,7 +455,6 @@
 
   <div class="section"><div class="ad-slot">Werbung · Google AdSense</div></div>
 
-  <!-- KATEGORIEN – hidden after search -->
   <div class="section" id="cats-section">
     <div class="sec-hd"><div class="sec-title">Kategorien</div><div class="sec-hint">Schnell stöbern</div></div>
     <div class="cat-grid">
@@ -388,17 +473,15 @@
     </div>
   </div>
 
-  <!-- LOADING -->
   <div id="loading">
-    <div class="spin"></div>
-    <p class="loading-label">Durchsuche 8 Shops live ...</p>
+    <div class="loading-mascot">🦊</div>
+    <div class="loading-label">Foxy sucht die besten Preise ...</div>
     <div class="loading-shops">
       <span class="ls">Amazon</span><span class="ls">eBay</span>
       <span class="ls">MediaMarkt</span><span class="ls">Idealo</span><span class="ls">Otto</span>
     </div>
   </div>
 
-  <!-- RESULTS -->
   <div id="results-wrap">
     <div class="results-bar">
       <div>
@@ -411,40 +494,37 @@
       </div>
     </div>
     <div class="results-list" id="resultsList"></div>
-    <div class="aff-notice">* Nur Amazon-Links sind Affiliate-Links. Preise sind Richtwerte – bitte beim Kauf direkt beim Shop prüfen.</div>
+    <div class="aff-notice">* Amazon-Links sind Affiliate-Links · Preise sind Richtwerte ohne Gewähr</div>
     <div class="ad-slot" style="margin-top:1.2rem;">Werbung · Google AdSense</div>
   </div>
 
-  <!-- DEALS – hidden after search -->
   <div class="section" id="deals-section">
     <div class="sec-hd"><div class="sec-title">Top Deals heute</div><div class="sec-hint">Aktuell günstig</div></div>
     <div class="deals-grid" id="dealsGrid"></div>
   </div>
 
-  <!-- HOW IT WORKS -->
   <div class="section" id="how-section">
     <div class="sec-hd"><div class="sec-title">So funktioniert's</div></div>
     <div class="how-grid">
       <div class="how-card" data-step="1"><div class="how-icon">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein, was du suchst – egal ob iPhone, Sneaker oder Kaffeemaschine.</p></div>
-      <div class="how-card" data-step="2"><div class="how-icon">⚡</div><h3>Wir vergleichen</h3><p>In Sekunden vergleichen wir 8+ Shops gleichzeitig und sortieren nach Preis.</p></div>
+      <div class="how-card" data-step="2"><div class="how-icon">🦊</div><h3>Foxy vergleicht</h3><p>Unser Maskottchen Foxy durchsucht sofort 8+ Shops und findet die besten Preise.</p></div>
       <div class="how-card" data-step="3"><div class="how-icon">⭐</div><h3>Amazon oben</h3><p>Amazon steht immer als günstigste Empfehlung oben – vertrauenswürdig und schnell.</p></div>
       <div class="how-card" data-step="4"><div class="how-icon">💰</div><h3>Einfach kaufen</h3><p>Ein Klick bringt dich direkt zum günstigsten Angebot – fertig!</p></div>
     </div>
   </div>
-
 </div>
 
 <!-- ÜBER UNS -->
 <div id="page-ueber" class="page">
   <div class="spage">
     <h2>Über PreisWise</h2>
-    <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – entwickelt in Hamburg.</p>
+    <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – entwickelt in Hamburg von Evan Lennart Daniel.</p>
+    <h3>Unser Maskottchen Foxy 🦊</h3>
+    <p>Foxy der Fuchs ist das Gesicht von PreisWise. Wie ein echter Fuchs – schlau, schnell und immer auf der Jagd nach dem besten Deal! Du findest Foxy im Chat unten rechts, wenn du Fragen hast.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Gib ein Produkt ein und wir vergleichen sofort 8+ Shops. Amazon steht immer oben als günstigste und vertrauenswürdigste Empfehlung.</p>
+    <p>Gib ein Produkt ein – Foxy vergleicht sofort 8+ Shops. Amazon steht immer oben als günstigste und vertrauenswürdigste Empfehlung.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
-    <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich entstehen keine Mehrkosten.</p>
-    <h3>Wer steckt dahinter?</h3>
-    <p>Ein privates Projekt von Evan Lennart Daniel aus Hamburg. <span style="color:var(--green);cursor:pointer;font-weight:600;" onclick="showPage('kontakt')">Kontakt →</span></p>
+    <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
   </div>
 </div>
 
@@ -452,7 +532,7 @@
 <div id="page-kontakt" class="page">
   <div class="spage">
     <h2>Kontakt</h2>
-    <p>Fragen oder Feedback? Wir antworten schnell.</p>
+    <p>Fragen oder Feedback? Foxy hilft! 🦊</p>
     <p>Direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
     <div class="cform">
       <div class="fg"><label>Dein Name</label><input type="text" id="cname" placeholder="Max Mustermann" /></div>
@@ -461,8 +541,8 @@
         <select id="cbetreff"><option>Allgemeine Frage</option><option>Fehler melden</option><option>Verbesserungsvorschlag</option><option>Kooperation / Werbung</option><option>Sonstiges</option></select>
       </div>
       <div class="fg"><label>Nachricht</label><textarea id="cmsg" placeholder="Deine Nachricht ..."></textarea></div>
-      <button class="form-btn" id="formBtn" onclick="sendForm()">Nachricht senden</button>
-      <div class="form-ok" id="formOk">✓ Danke! Deine Nachricht wurde gesendet.</div>
+      <button class="form-btn" id="formBtn" onclick="sendForm()">Absenden 🦊</button>
+      <div class="form-ok" id="formOk">🦊 Danke! Foxy hat deine Nachricht erhalten. Wir melden uns bald!</div>
       <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an kontakt.preiswise@gmail.com</div>
     </div>
   </div>
@@ -476,7 +556,7 @@
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
     <h3>Kontakt</h3><p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
     <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3><p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
-    <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr. Wir übernehmen keine Haftung für Richtigkeit oder Aktualität.</p>
+    <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
     <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
     <h3>Streitschlichtung</h3><p><a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
   </div>
@@ -486,43 +566,47 @@
 <div id="page-datenschutz" class="page">
   <div class="spage">
     <h2>Datenschutzerklärung</h2>
-    <h3>1. Verantwortlicher</h3><p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg · kontakt.preiswise@gmail.com</p>
+    <h3>1. Verantwortlicher</h3><p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg</p>
     <h3>2. Erhobene Daten</h3><p>PreisWise erhebt keine personenbezogenen Daten. Technische Daten werden von Vercel erfasst.</p>
     <h3>3. Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>4. Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>5. Deine Rechte</h3><p>Auskunft, Berichtigung, Löschung: kontakt.preiswise@gmail.com</p>
+    <h3>5. Deine Rechte</h3><p>Kontakt: kontakt.preiswise@gmail.com</p>
   </div>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><div class="logo-icon" style="width:24px;height:24px;font-size:0.72rem;">P</div>PreisWise</div>
+    <div class="footer-logo"><span style="font-size:1.2rem">🦊</span> PreisWise</div>
     <div class="footer-links">
       <a onclick="showPage('impressum')">Impressum</a>
       <a onclick="showPage('datenschutz')">Datenschutz</a>
       <a onclick="showPage('kontakt')">Kontakt</a>
       <a onclick="showPage('ueber')">Über uns</a>
     </div>
-    <div class="footer-copy">© 2026 PreisWise · Hamburg</div>
+    <div class="footer-copy">© 2026 PreisWise · Hamburg 🦊</div>
   </div>
 </footer>
 
-<div class="chat-fab" onclick="toggleChat()">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
-</div>
+<!-- FOXY CHATBOT -->
+<div class="chat-fab" onclick="toggleChat()" title="Foxy hilft!">🦊</div>
 <div class="chat-win" id="chatWin">
   <div class="chat-hd">
     <div class="chat-hd-left">
-      <div class="chat-ava">P</div>
-      <div><div class="chat-hd-name">PreisWise Hilfe</div><div class="chat-hd-status"><div class="chat-hd-dot"></div> Online</div></div>
+      <div class="chat-mascot-hd">🦊</div>
+      <div class="chat-hd-info">
+        <div class="chat-hd-name">Foxy · PreisWise</div>
+        <div class="chat-hd-sub"><div class="chat-hd-dot"></div> Online & hilfsbereit</div>
+      </div>
     </div>
     <div class="chat-x" onclick="toggleChat()">✕</div>
   </div>
-  <div class="chat-msgs" id="chatMsgs"><div class="cmsg bot">👋 Hallo! Wie kann ich dir helfen?</div></div>
+  <div class="chat-msgs" id="chatMsgs">
+    <div class="cmsg bot">Hey! Ich bin Foxy 🦊 – dein PreisWise Assistent. Wie kann ich dir helfen?</div>
+  </div>
   <div class="chat-opts" id="chatOpts">
     <button class="copt" onclick="chatReply('Wie funktioniert das?')">🔍 Wie funktioniert das?</button>
     <button class="copt" onclick="chatReply('Sind die Preise aktuell?')">💰 Sind die Preise aktuell?</button>
-    <button class="copt" onclick="chatReply('Ist es wirklich kostenlos?')">✅ Ist es wirklich kostenlos?</button>
+    <button class="copt" onclick="chatReply('Ist es wirklich kostenlos?')">✅ Wirklich kostenlos?</button>
     <button class="copt" onclick="chatReply('Ich habe ein Problem')">🚨 Ich habe ein Problem</button>
   </div>
 </div>
@@ -542,11 +626,13 @@ const SHOPS=[
   {name:'Alternate', short:'ALT',  color:'#ea580c',url:'https://www.alternate.de/search.xhtml?q=',     affiliate:false},
 ];
 
-// Accurate Amazon.de prices – March 2026
+// Category keywords – when matched, show "ab X€" instead of fixed price
+const CATEGORIES=new Set(['smartphone','smartphones','laptop','laptops','notebook','notebooks','tablet','tablets','kopfhörer','headphones','staubsauger','sneaker','kamera','kameras','fernseher','tv','gaming','headset','smartwatch','e-reader','kindle','drucker','monitor','computer','pc','drucker','kaffeemaschine','mikrowelle','kühlschrank','waschmaschine']);
+
 const BASE={
   'iphone 15':659,'iphone 15 plus':749,'iphone 15 pro':1059,'iphone 15 pro max':1249,
   'iphone 14':499,'iphone':659,'iphone 16':829,'iphone 16 pro':1199,
-  'airpods pro':199,'airpods pro 2':199,'airpods 3':169,'airpods':149,'airpods max':499,
+  'airpods pro':199,'airpods':149,'airpods max':499,
   'apple watch series 9':379,'apple watch se':229,'apple watch ultra':749,'apple watch':379,
   'playstation 5':449,'ps5':449,'playstation 5 slim':399,'ps5 slim':399,'ps5 controller':59,
   'xbox series x':449,'xbox series s':249,'xbox':299,
@@ -559,15 +645,15 @@ const BASE={
   'nike air max 270':119,'nike air max':119,'nike air force 1':99,'nike':89,
   'adidas ultraboost':139,'adidas':79,'sneaker':99,
   'sony wh-1000xm5':259,'sony wh-1000xm4':199,'kopfhörer':129,'bose qc45':219,'beats':199,
-  'gaming laptop':999,'laptop':699,'notebook':699,
+  'gaming laptop':999,'laptop':499,'notebook':499,
   'kindle paperwhite':139,'kindle':109,
   'gopro hero 12':349,'gopro':299,
   'roomba':349,'staubsauger':199,
-  'garmin':299,'fitbit':149,'apple watch se':229,
-  'tablet':299,'smartphone':399,'handy':349,
-  'kamera':499,'canon':649,'nikon':699,
+  'garmin':299,'fitbit':149,
+  'tablet':249,'smartphone':299,'handy':299,
+  'kamera':399,'canon':649,'nikon':699,
   'gaming maus':49,'gaming tastatur':79,'gaming headset':69,'gaming stuhl':199,
-  'fernseher':649,'tv':649,'samsung tv':549,
+  'fernseher':499,'tv':499,'samsung tv':549,
 };
 
 const DEALS=[
@@ -579,9 +665,8 @@ const DEALS=[
   {name:'iPad 10. Generation 64GB',cat:'Tablets',price:349,old:429,shop:'Saturn',emoji:'📟',url:'https://www.saturn.de/de/search.html?query=iPad+10'},
 ];
 
-// Product image cache
 const IMG_CACHE={};
-let currentResults=[], currentQuery='', productImg='';
+let currentResults=[], currentQuery='', productImg='', isCategory=false;
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -592,7 +677,7 @@ function toggleDrawer(){ ['drawer','drawerOverlay','burger'].forEach(id=>documen
 
 // TICKER
 (function(){
-  const shops=['Amazon','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
+  const shops=['Amazon 🦊','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
   const colors=['#FF9900','#e53238','#cc0000','#6b6b68','#e2001a','#2563eb','#4f46e5','#ea580c'];
   const el=document.getElementById('tickerInner'); if(!el)return;
   const arr=[...shops,...shops,...shops,...shops];
@@ -616,53 +701,42 @@ function toggleDrawer(){ ['drawer','drawerOverlay','burger'].forEach(id=>documen
   }).join('');
 })();
 
-// SEARCH
+function isCategorySearch(q){
+  return CATEGORIES.has(q.toLowerCase().trim());
+}
+
 function fillSearch(t){ showPage('home'); document.getElementById('searchInput').value=t; setTimeout(startSearch,100); }
 document.getElementById('searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter')startSearch(); });
 
 function startSearch(){
   const q=document.getElementById('searchInput').value.trim(); if(!q)return;
   currentQuery=q; productImg='';
-  // Hide categories and deals
-  document.getElementById('cats-section').style.display='none';
-  document.getElementById('deals-section').style.display='none';
-  document.getElementById('how-section').style.display='none';
+  isCategory=isCategorySearch(q);
+  ['cats-section','deals-section','how-section'].forEach(id=>{ const el=document.getElementById(id); if(el)el.style.display='none'; });
   document.getElementById('results-wrap').classList.remove('show');
   const loading=document.getElementById('loading');
   loading.classList.add('show'); loading.style.display='block';
   window.scrollTo({top:320,behavior:'smooth'});
-  // Fetch image
-  fetchImg(q).then(url=>{ productImg=url; });
+  if(!isCategory) fetchImg(q).then(url=>{ productImg=url; });
   setTimeout(()=>{ loading.style.display='none'; loading.classList.remove('show'); buildResults(q); },1600);
 }
 
 async function fetchImg(query){
   if(IMG_CACHE[query])return IMG_CACHE[query];
-  // Try Open Graph via public URL (product-specific)
-  // Use Wikipedia thumbnail API - most reliable for products
-  const terms=[query, query+' product'];
-  for(const term of terms){
+  for(const lang of['en','de']){
     try{
-      const r=await fetch(`https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(term)}&prop=pageimages&format=json&pithumbsize=300&origin=*`);
+      const r=await fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(query)}&prop=pageimages&format=json&pithumbsize=300&origin=*`);
       const d=await r.json();
       const p=Object.values(d.query.pages)[0];
-      if(p&&p.thumbnail&&p.thumbnail.source){ IMG_CACHE[query]=p.thumbnail.source; return p.thumbnail.source; }
+      if(p&&p.thumbnail){ IMG_CACHE[query]=p.thumbnail.source; return p.thumbnail.source; }
     }catch(e){}
   }
-  // German Wikipedia fallback
-  try{
-    const r=await fetch(`https://de.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(query)}&prop=pageimages&format=json&pithumbsize=300&origin=*`);
-    const d=await r.json();
-    const p=Object.values(d.query.pages)[0];
-    if(p&&p.thumbnail&&p.thumbnail.source){ IMG_CACHE[query]=p.thumbnail.source; return p.thumbnail.source; }
-  }catch(e){}
   IMG_CACHE[query]=''; return '';
 }
 
 function getBase(q){
   const lq=q.toLowerCase().trim();
   if(BASE[lq])return BASE[lq];
-  // Sort keys by length desc for best match
   const keys=Object.keys(BASE).sort((a,b)=>b.length-a.length);
   for(const k of keys){ if(lq.includes(k)||k.includes(lq))return BASE[k]; }
   return Math.round((Math.random()*150+30)/5)*5;
@@ -675,7 +749,6 @@ function buildResults(q){
     if(shop.name==='Amazon'){
       price=parseFloat((base*(1+(Math.random()*0.01-0.005))).toFixed(2));
     } else {
-      // Always more expensive: +3% to +7%
       const markup=0.03+Math.random()*0.04;
       price=parseFloat((base*(1+markup)).toFixed(2));
     }
@@ -691,25 +764,36 @@ function buildResults(q){
 
 function renderResults(q,sortMode){
   document.getElementById('results-title').textContent=`Ergebnisse für „${q}"`;
-  document.getElementById('results-meta').textContent=`${currentResults.length} Angebote · inkl. MwSt. · Richtwerte`;
+  const suffix=isCategory?' · Kategorie – viele Preise verfügbar':' · Preise inkl. MwSt.';
+  document.getElementById('results-meta').textContent=`${currentResults.length} Angebote${suffix}`;
+
   const amz=currentResults.find(r=>r.shop.name==='Amazon');
   let rest=currentResults.filter(r=>r.shop.name!=='Amazon');
   rest.sort(sortMode==='price'?(a,b)=>a.price-b.price:(a,b)=>b.rating-a.rating);
   const sorted=amz?[amz,...rest]:rest;
+
   const list=document.getElementById('resultsList');
-  list.innerHTML=`<div class="pick-banner"><span>⭐</span><span><strong>Unsere Empfehlung</strong> · Amazon bietet den günstigsten Preis mit schnellem Versand und einfacher Rückgabe.</span></div>`;
+  list.innerHTML=`<div class="pick-banner"><span>🦊</span><span><strong>Foxy empfiehlt Amazon</strong> · Günstigster Preis, schneller Versand, einfache Rückgabe.</span></div>`;
+
   sorted.forEach((r,i)=>{
     const isPick=r.shop.name==='Amazon';
-    const saving=r.oldPrice?(r.oldPrice-r.price).toFixed(2):null;
-    const thumbHtml=productImg
+    const saving=r.oldPrice&&!isCategory?(r.oldPrice-r.price).toFixed(2):null;
+    // For categories: show "ab X €", for specific products: fixed price
+    const priceDisplay=isCategory
+      ?`<span class="r-price from">ab</span><span class="r-price-value">${r.price} €</span>`
+      :`<span class="r-price-value">${r.price} €</span>`;
+    const oldDisplay=r.oldPrice&&!isCategory?`<div class="r-price-old">${r.oldPrice} €</div>`:'';
+
+    const thumbHtml=(!isCategory&&productImg)
       ?`<img src="${productImg}" alt="${q}" onerror="this.parentNode.innerHTML='<div class=\\'r-thumb-ph\\'>🛍️</div>'" loading="lazy"/>`
-      :`<div class="r-thumb-ph">🛍️</div>`;
+      :`<div class="r-thumb-ph">${isCategory?'🛒':'🛍️'}</div>`;
+
     const card=document.createElement('div');
     card.className='rcard'+(isPick?' pick':'');
     card.style.animationDelay=(i*0.05)+'s';
     if(isPick)card.style.marginTop='4px';
     card.innerHTML=`
-      ${isPick?'<div class="pick-label">⭐ Unsere Empfehlung</div>':''}
+      ${isPick?'<div class="pick-label">🦊 Unsere Empfehlung</div>':''}
       <div class="r-thumb">${thumbHtml}</div>
       <div class="r-badge" style="background:${r.shop.color}18;border-color:${r.shop.color}40;color:${r.shop.color};">${r.shop.short}</div>
       <div class="r-info">
@@ -723,22 +807,18 @@ function renderResults(q,sortMode){
       </div>
       <div class="r-right">
         <div style="text-align:right;">
-          ${r.oldPrice?`<div class="r-price-old">${r.oldPrice} €</div>`:''}
-          <div class="r-price">${r.price} €</div>
+          ${oldDisplay}
+          <div>${priceDisplay}</div>
           ${saving?`<div class="r-save">-${saving} € sparen</div>`:''}
         </div>
         <a class="${isPick?'r-btn':'r-btn-sec'}" href="${r.url}" target="_blank" rel="noopener noreferrer">${isPick?'Jetzt kaufen →':'Zum Shop →'}</a>
       </div>`;
     list.appendChild(card);
   });
+
   document.getElementById('results-wrap').classList.add('show');
   window.scrollTo({top:350,behavior:'smooth'});
-  // Re-render with image once loaded
-  setTimeout(()=>{
-    if(productImg&&document.querySelectorAll('.r-thumb-ph').length>0){
-      renderResults(q,sortMode);
-    }
-  },2500);
+  setTimeout(()=>{ if(!isCategory&&productImg&&document.querySelectorAll('.r-thumb-ph').length>0)renderResults(q,sortMode); },2500);
 }
 
 function sortBy(mode,btn){
@@ -747,12 +827,12 @@ function sortBy(mode,btn){
   renderResults(currentQuery,mode);
 }
 
-// CHAT
+// FOXY CHAT
 const CA={
-  'Wie funktioniert das?':'Gib einfach ein Produkt in die Suche ein! Wir vergleichen sofort 8 Shops und zeigen dir Amazon als günstigste Empfehlung ganz oben. 🔍',
-  'Sind die Preise aktuell?':'Die Preise orientieren sich an realen Marktpreisen. Für den genauen Endpreis bitte immer direkt beim Shop prüfen. ✅',
-  'Ist es wirklich kostenlos?':'Ja, 100% kostenlos! Wir finanzieren uns durch Google Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. 🎉',
-  'Ich habe ein Problem':'Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. 🚀',
+  'Wie funktioniert das?':'Ganz einfach! 🦊 Gib ein Produkt in die Suche ein – ich durchsuche sofort 8 Shops und zeige dir Amazon als günstigste Empfehlung ganz oben!',
+  'Sind die Preise aktuell?':'Die Preise orientieren sich an realen Marktpreisen. 🦊 Für den genauen Endpreis bitte immer direkt beim Shop prüfen – Preise können sich ändern!',
+  'Ist es wirklich kostenlos?':'Ja, 100% kostenlos! 🦊 Ich finanziere PreisWise durch Google Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. Versprochen!',
+  'Ich habe ein Problem':'Oh nein! 🦊 Schreib uns an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. Ich kümmere mich persönlich darum!',
 };
 function toggleChat(){ document.getElementById('chatWin').classList.toggle('open'); }
 function chatReply(q){
@@ -762,19 +842,19 @@ function chatReply(q){
   const tid='ty'+Date.now();
   msgs.innerHTML+=`<div class="typing" id="${tid}"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
   msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(()=>{ const el=document.getElementById(tid); if(el)el.remove(); msgs.innerHTML+=`<div class="cmsg bot">${CA[q]}</div>`; msgs.scrollTop=msgs.scrollHeight; setTimeout(()=>{opts.style.display='flex';},300); },900);
+  setTimeout(()=>{ const el=document.getElementById(tid); if(el)el.remove(); msgs.innerHTML+=`<div class="cmsg bot">${CA[q]}</div>`; msgs.scrollTop=msgs.scrollHeight; setTimeout(()=>{opts.style.display='flex';},300); },1000);
 }
 async function sendForm(){
   const name=document.getElementById('cname').value.trim(),email=document.getElementById('cemail').value.trim(),subj=document.getElementById('cbetreff').value,msg=document.getElementById('cmsg').value.trim(),btn=document.getElementById('formBtn');
   if(!name||!email||!msg){alert('Bitte alle Felder ausfüllen.');return;}
-  btn.disabled=true; btn.textContent='Wird gesendet...';
+  btn.disabled=true; btn.textContent='Foxy sendet ...';
   document.getElementById('formOk').style.display='none'; document.getElementById('formErr').style.display='none';
   try{
     await emailjs.send(EJ_SVC,EJ_TPL,{from_name:name,from_email:email,subject:subj,message:msg,to_email:'kontakt.preiswise@gmail.com'});
     document.getElementById('formOk').style.display='block';
     document.getElementById('cname').value=''; document.getElementById('cemail').value=''; document.getElementById('cmsg').value='';
   }catch(e){ document.getElementById('formErr').style.display='block'; }
-  btn.disabled=false; btn.textContent='Nachricht senden';
+  btn.disabled=false; btn.textContent='Absenden 🦊';
 }
 </script>
 </body>
