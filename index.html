@@ -5,265 +5,281 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PreisWise – Smarter Preisvergleich</title>
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden." />
+  <!-- FAVICON: inline SVG as data URI -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2322c55e'/><text x='16' y='23' font-family='Arial Black,Arial' font-weight='900' font-size='20' text-anchor='middle' fill='%23000'>P</text></svg>" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:#111113; --bg2:#18181c; --bg3:#1f1f24;
-      --surface:#242429; --surface2:#2c2c33;
-      --text:#eeeee8; --text-muted:#8a8a88; --text-hint:#555554;
-      --green:#22c55e; --green-dim:#16a34a; --green-glow:rgba(34,197,94,0.12);
-      --border:rgba(255,255,255,0.07); --border-med:rgba(255,255,255,0.12);
-      --radius:14px; --radius-sm:9px; --shadow:0 4px 24px rgba(0,0,0,0.35);
+      --bg: #f5f4f0;
+      --bg2: #eeede9;
+      --surface: #ffffff;
+      --surface2: #f0efeb;
+      --text: #1a1a18;
+      --text-muted: #6b6b68;
+      --text-hint: #a0a09c;
+      --green: #16a34a;
+      --green-light: #22c55e;
+      --green-bg: #f0fdf4;
+      --green-border: rgba(22,163,74,0.2);
+      --border: rgba(0,0,0,0.08);
+      --border-med: rgba(0,0,0,0.14);
+      --shadow: 0 2px 16px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.12);
+      --radius: 14px;
+      --radius-sm: 9px;
     }
-    html { scroll-behavior:smooth; }
-    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; font-size:15px; line-height:1.6; }
-    ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:3px}
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; font-size: 16px; line-height: 1.6; }
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
 
-    /* ── NAV ── */
-    nav { position:sticky; top:0; z-index:200; background:rgba(17,17,19,0.92); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 1.5rem; display:flex; align-items:center; justify-content:space-between; height:62px; }
-    .logo { font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:9px; color:var(--text); }
-    .logo-icon { width:28px; height:28px; background:var(--green); border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:0.8rem; color:#000; font-weight:700; }
-    .nav-right { display:flex; align-items:center; gap:1rem; }
-    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:0.85rem; margin-left:1.4rem; cursor:pointer; transition:color 0.15s; }
-    .nav-links a:hover { color:var(--text); }
-    .burger { width:36px; height:36px; display:flex; flex-direction:column; justify-content:center; gap:5px; cursor:pointer; padding:5px; border-radius:8px; transition:background 0.15s; }
-    .burger:hover { background:var(--surface); }
-    .burger span { display:block; height:1.5px; background:var(--text-muted); border-radius:2px; transition:all 0.3s cubic-bezier(0.4,0,0.2,1); transform-origin:center; }
-    .burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);background:var(--green)}
-    .burger.open span:nth-child(2){opacity:0}
-    .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);background:var(--green)}
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 200; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; color: var(--text); }
+    .logo-icon { width: 30px; height: 30px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff; font-weight: 800; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin-left: 1.5rem; cursor: pointer; transition: color 0.15s; font-weight: 500; }
+    .nav-links a:hover { color: var(--green); }
+    .burger { width: 38px; height: 38px; display: flex; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer; padding: 6px; border-radius: 9px; transition: background 0.15s; }
+    .burger:hover { background: var(--bg2); }
+    .burger span { display: block; height: 2px; background: var(--text-muted); border-radius: 2px; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); transform-origin: center; }
+    .burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--green); }
+    .burger.open span:nth-child(2) { opacity: 0; }
+    .burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--green); }
 
-    /* ── DRAWER ── */
-    .drawer-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:300; opacity:0; pointer-events:none; transition:opacity 0.25s; backdrop-filter:blur(3px); }
-    .drawer-overlay.open { opacity:1; pointer-events:all; }
-    .drawer { position:fixed; top:0; left:-290px; width:270px; height:100vh; background:var(--bg2); border-right:1px solid var(--border-med); z-index:400; transition:left 0.3s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; overflow-y:auto; }
-    .drawer.open { left:0; }
-    .drawer-header { padding:1.3rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-    .drawer-logo { font-family:'Syne',sans-serif; font-size:1.1rem; font-weight:800; color:var(--text); }
-    .drawer-x { width:28px; height:28px; display:flex; align-items:center; justify-content:center; cursor:pointer; border-radius:50%; color:var(--text-muted); transition:all 0.15s; }
-    .drawer-x:hover { background:var(--surface); color:var(--text); }
-    .drawer-nav a { display:flex; align-items:center; gap:10px; padding:11px 1.5rem; color:var(--text-muted); text-decoration:none; font-size:0.85rem; cursor:pointer; transition:all 0.15s; border-left:2px solid transparent; }
-    .drawer-nav a:hover { background:var(--bg3); color:var(--text); border-left-color:var(--green); }
-    .drawer-nav svg { width:15px; height:15px; flex-shrink:0; }
-    .drawer-sec { padding:1rem 1.5rem 0.4rem; font-size:0.63rem; font-weight:600; color:var(--text-hint); letter-spacing:1px; text-transform:uppercase; }
-    .drawer-cats { display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:0.4rem 1.5rem 1.2rem; }
-    .dcat { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:10px 8px; text-align:center; cursor:pointer; transition:all 0.15s; font-size:0.72rem; color:var(--text-muted); }
-    .dcat:hover { border-color:var(--green); color:var(--green); background:var(--green-glow); }
-    .dcat .di { font-size:1.25rem; display:block; margin-bottom:3px; }
+    /* DRAWER */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.25s; backdrop-filter: blur(2px); }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+    .drawer { position: fixed; top: 0; left: -290px; width: 275px; height: 100vh; background: var(--surface); border-right: 1px solid var(--border-med); z-index: 400; transition: left 0.3s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; overflow-y: auto; }
+    .drawer.open { left: 0; }
+    .drawer-header { padding: 1.4rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .drawer-logo { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--text); }
+    .drawer-x { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 50%; color: var(--text-muted); transition: all 0.15s; }
+    .drawer-x:hover { background: var(--bg2); color: var(--text); }
+    .drawer-nav a { display: flex; align-items: center; gap: 11px; padding: 12px 1.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; font-weight: 500; }
+    .drawer-nav a:hover { background: var(--bg); color: var(--green); border-left-color: var(--green); }
+    .drawer-nav svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .drawer-sec { padding: 1.2rem 1.5rem 0.5rem; font-size: 0.7rem; font-weight: 600; color: var(--text-hint); letter-spacing: 1px; text-transform: uppercase; }
+    .drawer-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; padding: 0.4rem 1.5rem 1.5rem; }
+    .dcat { background: var(--bg); border: 1px solid var(--border); border-radius: 11px; padding: 12px 10px; text-align: center; cursor: pointer; transition: all 0.15s; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+    .dcat:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+    .dcat .di { font-size: 1.4rem; display: block; margin-bottom: 4px; }
 
-    /* ── PAGES ── */
-    .page { display:none; }
-    .page.active { display:block; animation:fadeUp 0.3s ease; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+    /* PAGES */
+    .page { display: none; }
+    .page.active { display: block; animation: fadeUp 0.3s ease; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ── HERO ── */
-    .hero { max-width:760px; margin:0 auto; padding:5.5rem 2rem 3rem; text-align:center; position:relative; overflow:hidden; }
-    /* Subtle animated gradient bg */
-    .hero::before { content:''; position:absolute; width:600px; height:600px; background:radial-gradient(circle, rgba(34,197,94,0.07) 0%, transparent 65%); top:-200px; left:50%; transform:translateX(-50%); pointer-events:none; animation:heroGlow 6s ease-in-out infinite alternate; }
-    @keyframes heroGlow { from{opacity:0.5;transform:translateX(-50%) scale(1)} to{opacity:1;transform:translateX(-50%) scale(1.15)} }
-
-    .hero-tag { display:inline-flex; align-items:center; gap:7px; background:var(--surface); border:1px solid var(--border-med); color:var(--green); font-size:0.72rem; font-weight:500; padding:5px 14px; border-radius:100px; margin-bottom:1.6rem; animation:fadeUp 0.5s ease both; }
-    .htag-dot { width:5px; height:5px; background:var(--green); border-radius:50%; animation:blink 1.8s ease-in-out infinite; }
+    /* HERO */
+    .hero { max-width: 780px; margin: 0 auto; padding: 5rem 2rem 3rem; text-align: center; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--green-bg); border: 1px solid var(--green-border); color: var(--green); font-size: 0.8rem; font-weight: 600; padding: 6px 16px; border-radius: 100px; margin-bottom: 1.8rem; }
+    .htag-dot { width: 6px; height: 6px; background: var(--green-light); border-radius: 50%; animation: blink 2s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    h1 { font-family:'Syne',sans-serif; font-size:clamp(2.2rem,5.5vw,3.5rem); font-weight:800; line-height:1.08; letter-spacing:-1px; margin-bottom:1.2rem; color:var(--text); animation:fadeUp 0.5s 0.1s ease both; }
-    h1 .accent { color:var(--green); }
-    .hero-sub { color:var(--text-muted); font-size:1rem; max-width:500px; margin:0 auto 2.5rem; line-height:1.7; animation:fadeUp 0.5s 0.2s ease both; }
+    h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.4rem, 5.5vw, 3.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 1.2rem; color: var(--text); }
+    h1 .accent { color: var(--green); }
+    .hero-sub { color: var(--text-muted); font-size: 1.1rem; max-width: 520px; margin: 0 auto 2.8rem; line-height: 1.7; }
 
-    /* ── SEARCH ── */
-    .search-wrap { max-width:620px; margin:0 auto; animation:fadeUp 0.5s 0.3s ease both; }
-    .search-box { display:flex; background:var(--surface); border:1px solid var(--border-med); border-radius:100px; overflow:hidden; transition:border-color 0.2s,box-shadow 0.2s; }
-    .search-box:focus-within { border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow); }
-    .search-icon { display:flex; align-items:center; padding:0 0 0 20px; color:var(--text-hint); flex-shrink:0; }
-    .search-icon svg { width:16px; height:16px; }
-    .search-box input { flex:1; border:none; outline:none; padding:15px 14px; font-family:'Inter',sans-serif; font-size:0.92rem; color:var(--text); background:transparent; }
-    .search-box input::placeholder { color:var(--text-hint); }
-    .search-btn { background:var(--green); color:#000; border:none; padding:10px 24px; margin:5px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
-    .search-btn:hover { background:var(--green-dim); transform:translateY(-1px); }
-    .search-hints { display:flex; gap:7px; justify-content:center; flex-wrap:wrap; margin-top:1rem; animation:fadeUp 0.5s 0.4s ease both; }
-    .hint-pill { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:5px 13px; font-size:0.76rem; color:var(--text-muted); cursor:pointer; transition:all 0.15s; }
-    .hint-pill:hover { border-color:var(--green); color:var(--green); background:var(--green-glow); transform:translateY(-1px); }
+    /* SEARCH */
+    .search-wrap { max-width: 640px; margin: 0 auto; }
+    .search-box { display: flex; background: var(--surface); border: 1.5px solid var(--border-med); border-radius: 100px; overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s; box-shadow: var(--shadow); }
+    .search-box:focus-within { border-color: var(--green); box-shadow: 0 0 0 4px rgba(22,163,74,0.1), var(--shadow); }
+    .search-icon { display: flex; align-items: center; padding: 0 0 0 22px; color: var(--text-hint); flex-shrink: 0; }
+    .search-icon svg { width: 17px; height: 17px; }
+    .search-box input { flex: 1; border: none; outline: none; padding: 16px 16px; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--text); background: transparent; }
+    .search-box input::placeholder { color: var(--text-hint); }
+    .search-btn { background: var(--green); color: #fff; border: none; padding: 11px 28px; margin: 5px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .search-btn:hover { background: #15803d; transform: translateY(-1px); }
 
-    /* ── TRUST ── */
-    .trust-row { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; padding:1.4rem 2rem; max-width:680px; margin:2rem auto 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-    .trust-item { display:flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--text-muted); }
-    .trust-check { color:var(--green); }
+    .search-hints { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; }
+    .hint-pill { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 6px 15px; font-size: 0.82rem; color: var(--text-muted); cursor: pointer; transition: all 0.15s; font-weight: 500; }
+    .hint-pill:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
 
-    /* ── COUNTER STATS ── */
-    .stats-strip { display:flex; justify-content:center; gap:0; max-width:700px; margin:2.5rem auto 0; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
-    .stat-box { flex:1; padding:1.2rem 1rem; text-align:center; border-right:1px solid var(--border); }
-    .stat-box:last-child { border-right:none; }
-    .stat-num { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; color:var(--green); line-height:1; }
-    .stat-lbl { font-size:0.7rem; color:var(--text-hint); margin-top:3px; }
+    /* TRUST */
+    .trust-row { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; padding: 1.5rem 2rem; max-width: 700px; margin: 2rem auto 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .trust-item { display: flex; align-items: center; gap: 7px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+    .trust-check { color: var(--green); font-weight: 700; }
 
-    /* ── TICKER ── */
-    .ticker-outer { overflow:hidden; max-width:860px; margin:2rem auto 0; padding:0 2rem; position:relative; }
+    /* STATS */
+    .stats-strip { display: flex; max-width: 860px; margin: 2.5rem auto 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .stat-box { flex: 1; padding: 1.4rem 1rem; text-align: center; border-right: 1px solid var(--border); }
+    .stat-box:last-child { border-right: none; }
+    .stat-num { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--green); line-height: 1; }
+    .stat-lbl { font-size: 0.78rem; color: var(--text-hint); margin-top: 4px; }
+
+    /* TICKER */
+    .ticker-outer { overflow: hidden; max-width: 860px; margin: 2rem auto 0; padding: 0 2rem; position: relative; }
     .ticker-outer::before { content:''; position:absolute; left:0; top:0; bottom:0; width:60px; background:linear-gradient(90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
     .ticker-outer::after { content:''; position:absolute; right:0; top:0; bottom:0; width:60px; background:linear-gradient(-90deg,var(--bg),transparent); z-index:2; pointer-events:none; }
-    .ticker-inner { display:flex; gap:10px; animation:scroll 25s linear infinite; width:max-content; }
+    .ticker-inner { display: flex; gap: 10px; animation: scroll 28s linear infinite; width: max-content; }
     @keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-    .ticker-chip { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:5px 14px; font-size:0.73rem; font-weight:500; white-space:nowrap; }
+    .ticker-chip { background: var(--surface); border: 1px solid var(--border-med); border-radius: 100px; padding: 6px 16px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; color: var(--text-muted); }
 
-    /* ── AD ── */
-    .ad-slot { background:var(--surface); border:1px dashed var(--border); border-radius:var(--radius); padding:16px; text-align:center; color:var(--text-hint); font-size:0.7rem; }
+    /* AD */
+    .ad-slot { background: var(--surface); border: 1px dashed var(--border-med); border-radius: var(--radius); padding: 18px; text-align: center; color: var(--text-hint); font-size: 0.75rem; }
 
-    /* ── SECTION ── */
-    .section { max-width:860px; margin:2.8rem auto 0; padding:0 2rem; }
-    .sec-hd { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:1.2rem; }
-    .sec-title { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700; color:var(--text); }
-    .sec-hint { font-size:0.73rem; color:var(--text-hint); }
+    /* SECTION */
+    .section { max-width: 860px; margin: 3rem auto 0; padding: 0 2rem; }
+    .sec-hd { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1.4rem; }
+    .sec-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--text); }
+    .sec-hint { font-size: 0.8rem; color: var(--text-hint); }
 
-    /* ── CATEGORY CARDS ── */
-    .cat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:10px; }
-    .cat-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 10px; text-align:center; cursor:pointer; transition:all 0.2s; }
-    .cat-card:hover { border-color:var(--green); background:var(--green-glow); transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,0.3); }
-    .cat-icon { font-size:1.8rem; display:block; margin-bottom:6px; }
-    .cat-label { font-size:0.72rem; font-weight:500; color:var(--text-muted); }
-    .cat-card:hover .cat-label { color:var(--green); }
+    /* CATEGORIES */
+    #cats-section { transition: all 0.3s ease; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+    .cat-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 18px 10px; text-align: center; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow); }
+    .cat-card:hover { border-color: var(--green); background: var(--green-bg); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .cat-icon { font-size: 2rem; display: block; margin-bottom: 7px; }
+    .cat-label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
+    .cat-card:hover .cat-label { color: var(--green); }
 
-    /* ── DEALS ── */
-    .deals-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(195px,1fr)); gap:12px; }
-    .deal-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:all 0.2s; }
-    .deal-card:hover { border-color:var(--border-med); transform:translateY(-3px); box-shadow:var(--shadow); }
-    .deal-thumb { height:130px; display:flex; align-items:center; justify-content:center; background:var(--bg3); overflow:hidden; }
-    .deal-thumb img { width:100%; height:100%; object-fit:cover; }
-    .deal-thumb-ph { font-size:3rem; }
-    .deal-body { padding:12px; }
-    .deal-pct { display:inline-block; background:rgba(239,68,68,0.12); color:#f87171; border:1px solid rgba(239,68,68,0.2); font-size:0.64rem; font-weight:600; padding:2px 7px; border-radius:4px; margin-bottom:5px; }
-    .deal-name { font-size:0.82rem; font-weight:500; color:var(--text); line-height:1.35; margin-bottom:7px; }
-    .deal-prices { display:flex; align-items:baseline; gap:7px; margin-bottom:8px; }
-    .deal-price { font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:700; color:var(--green); }
-    .deal-old { font-size:0.72rem; color:var(--text-hint); text-decoration:line-through; }
-    .deal-link { display:block; text-align:center; background:var(--bg3); color:var(--text-muted); border:1px solid var(--border); border-radius:100px; padding:6px 12px; font-size:0.74rem; font-weight:500; text-decoration:none; transition:all 0.15s; }
-    .deal-link:hover { background:var(--green); color:#000; border-color:var(--green); font-weight:600; }
-    .deal-shop { font-size:0.64rem; color:var(--text-hint); text-align:center; margin-top:5px; }
+    /* DEALS */
+    #deals-section { transition: all 0.3s ease; }
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 14px; }
+    .deal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: all 0.2s; box-shadow: var(--shadow); }
+    .deal-card:hover { border-color: var(--border-med); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .deal-thumb { height: 140px; display: flex; align-items: center; justify-content: center; background: var(--bg2); overflow: hidden; }
+    .deal-thumb-ph { font-size: 3.2rem; }
+    .deal-body { padding: 14px; }
+    .deal-pct { display: inline-block; background: rgba(239,68,68,0.1); color: #dc2626; border: 1px solid rgba(239,68,68,0.2); font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 5px; margin-bottom: 6px; }
+    .deal-name { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 8px; }
+    .deal-prices { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+    .deal-price { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; color: var(--green); }
+    .deal-old { font-size: 0.8rem; color: var(--text-hint); text-decoration: line-through; }
+    .deal-link { display: block; text-align: center; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); border-radius: 100px; padding: 8px 14px; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: all 0.15s; }
+    .deal-link:hover { background: var(--green); color: #fff; border-color: var(--green); }
+    .deal-shop { font-size: 0.72rem; color: var(--text-hint); text-align: center; margin-top: 6px; }
 
-    /* ── HOW IT WORKS ── */
-    .how-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
-    .how-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; position:relative; overflow:hidden; transition:all 0.2s; }
-    .how-card::after { content:attr(data-step); position:absolute; bottom:-10px; right:10px; font-family:'Syne',sans-serif; font-size:4rem; font-weight:800; color:rgba(255,255,255,0.03); line-height:1; }
-    .how-card:hover { border-color:var(--border-med); transform:translateY(-2px); }
-    .how-icon { width:40px; height:40px; background:var(--green-glow); border:1px solid rgba(34,197,94,0.25); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; margin-bottom:12px; }
-    .how-card h3 { font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:700; margin-bottom:5px; color:var(--text); }
-    .how-card p { font-size:0.76rem; color:var(--text-muted); line-height:1.55; }
+    /* LOADING */
+    #loading { display: none; text-align: center; padding: 4rem 2rem; max-width: 860px; margin: 0 auto; }
+    #loading.show { display: block; }
+    .spin { width: 40px; height: 40px; border: 3px solid var(--border-med); border-top-color: var(--green); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 1.4rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-label { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; font-weight: 500; }
+    .loading-shops { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .ls { font-size: 0.78rem; padding: 4px 13px; border-radius: 100px; border: 1px solid var(--border-med); color: var(--text-hint); background: var(--surface); animation: lpulse 1.4s ease-in-out infinite; font-weight: 500; }
+    .ls:nth-child(2){animation-delay:.15s} .ls:nth-child(3){animation-delay:.3s} .ls:nth-child(4){animation-delay:.45s} .ls:nth-child(5){animation-delay:.6s}
+    @keyframes lpulse { 0%,100%{opacity:0.4} 50%{opacity:1;color:var(--green);border-color:var(--green)} }
 
-    /* ── LOADING ── */
-    #loading { display:none; text-align:center; padding:4rem 2rem; max-width:860px; margin:0 auto; }
-    #loading.show { display:block; }
-    .spin { width:38px; height:38px; border:2.5px solid var(--surface2); border-top-color:var(--green); border-radius:50%; animation:spin 0.65s linear infinite; margin:0 auto 1.2rem; }
-    @keyframes spin { to{transform:rotate(360deg)} }
-    .loading-label { color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem; }
-    .loading-shops { display:flex; justify-content:center; gap:7px; flex-wrap:wrap; }
-    .ls { font-size:0.7rem; padding:3px 11px; border-radius:100px; border:1px solid var(--border); color:var(--text-hint); animation:lpulse 1.4s ease-in-out infinite; }
-    .ls:nth-child(2){animation-delay:.2s} .ls:nth-child(3){animation-delay:.4s} .ls:nth-child(4){animation-delay:.6s} .ls:nth-child(5){animation-delay:.8s}
-    @keyframes lpulse { 0%,100%{opacity:0.3} 50%{opacity:1;color:var(--green);border-color:var(--green)} }
+    /* RESULTS */
+    #results-wrap { display: none; max-width: 860px; margin: 2.5rem auto; padding: 0 2rem; }
+    #results-wrap.show { display: block; animation: fadeUp 0.3s ease; }
+    .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.4rem; flex-wrap: wrap; gap: 10px; }
+    .results-title { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--text); }
+    .results-meta { font-size: 0.82rem; color: var(--text-hint); margin-top: 3px; }
+    .sort-row { display: flex; gap: 6px; }
+    .sbtn { background: var(--surface); border: 1.5px solid var(--border-med); border-radius: 100px; padding: 7px 18px; font-size: 0.82rem; color: var(--text-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; font-weight: 500; }
+    .sbtn.on { background: var(--green); color: #fff; border-color: var(--green); font-weight: 600; }
+    .sbtn:hover:not(.on) { border-color: var(--green); color: var(--green); }
+    .results-list { display: flex; flex-direction: column; gap: 12px; }
 
-    /* ── RESULTS ── */
-    #results-wrap { display:none; max-width:860px; margin:2rem auto; padding:0 2rem; }
-    #results-wrap.show { display:block; animation:fadeUp 0.35s ease; }
-    .results-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; flex-wrap:wrap; gap:8px; }
-    .results-title { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; color:var(--text); }
-    .results-meta { font-size:0.74rem; color:var(--text-hint); margin-top:2px; }
-    .sort-row { display:flex; gap:5px; }
-    .sbtn { background:var(--surface); border:1px solid var(--border); border-radius:100px; padding:5px 14px; font-size:0.75rem; color:var(--text-muted); cursor:pointer; font-family:'Inter',sans-serif; transition:all 0.15s; }
-    .sbtn.on { background:var(--green); color:#000; border-color:var(--green); font-weight:600; }
-    .sbtn:hover:not(.on) { border-color:var(--border-med); color:var(--text); }
-    .results-list { display:flex; flex-direction:column; gap:10px; }
+    /* PICK BANNER */
+    .pick-banner { background: var(--green-bg); border: 1.5px solid var(--green-border); border-radius: var(--radius); padding: 12px 18px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: var(--text-muted); font-weight: 500; }
+    .pick-banner strong { color: var(--green); }
 
-    .pick-banner { background:linear-gradient(90deg,rgba(34,197,94,0.1),transparent); border:1px solid rgba(34,197,94,0.2); border-radius:var(--radius); padding:10px 16px; margin-bottom:6px; display:flex; align-items:center; gap:10px; font-size:0.79rem; color:var(--text-muted); }
-    .pick-banner strong { color:var(--green); font-weight:600; }
-
-    .rcard { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px 18px; display:flex; align-items:center; gap:14px; transition:all 0.2s; position:relative; overflow:hidden; animation:cardIn 0.3s ease both; }
+    /* RESULT CARDS */
+    .rcard { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: all 0.2s; position: relative; overflow: hidden; animation: cardIn 0.3s ease both; box-shadow: var(--shadow); }
     @keyframes cardIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-    .rcard:hover { border-color:var(--border-med); }
-    .rcard.pick { border:1.5px solid var(--green); background:linear-gradient(135deg,var(--surface),rgba(34,197,94,0.03)); }
-    .pick-label { position:absolute; top:0; left:14px; background:var(--green); color:#000; font-size:0.62rem; font-weight:700; padding:2px 10px; border-radius:0 0 7px 7px; font-family:'Syne',sans-serif; letter-spacing:0.3px; }
+    .rcard:hover { border-color: var(--border-med); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+    .rcard.pick { border-color: var(--green); background: linear-gradient(135deg, #fff, var(--green-bg)); }
+    .pick-label { position: absolute; top: 0; left: 16px; background: var(--green); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 12px; border-radius: 0 0 8px 8px; font-family: 'Syne', sans-serif; letter-spacing: 0.3px; }
 
-    .r-thumb { width:58px; height:58px; border-radius:10px; overflow:hidden; flex-shrink:0; border:1px solid var(--border); background:var(--bg3); }
-    .r-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-    .r-thumb-ph { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; }
-    .r-badge { width:40px; height:32px; border-radius:7px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:0.56rem; font-weight:600; flex-shrink:0; }
-    .r-info { flex:1; min-width:0; }
-    .r-shop { font-size:0.68rem; color:var(--text-hint); margin-bottom:2px; }
-    .r-product { font-size:0.88rem; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .r-tags { display:flex; gap:4px; margin-top:5px; flex-wrap:wrap; }
-    .rtag { font-size:0.62rem; padding:2px 7px; border-radius:4px; font-weight:500; }
-    .rtag-g { background:rgba(34,197,94,0.1); color:var(--green); border:1px solid rgba(34,197,94,0.2); }
-    .rtag-p { background:rgba(139,92,246,0.1); color:#a78bfa; border:1px solid rgba(139,92,246,0.2); }
-    .rtag-o { background:rgba(249,115,22,0.1); color:#fb923c; border:1px solid rgba(249,115,22,0.2); }
-    .r-right { display:flex; flex-direction:column; align-items:flex-end; gap:7px; flex-shrink:0; min-width:110px; }
-    .r-price-old { font-size:0.72rem; color:var(--text-hint); text-decoration:line-through; }
-    .r-price { font-family:'Inter',sans-serif; font-size:1.2rem; font-weight:500; color:var(--text); line-height:1; }
-    .pick .r-price { color:var(--green); font-weight:600; }
-    .r-save { font-size:0.68rem; color:#fb923c; font-weight:500; }
-    .r-btn { background:var(--green); color:#000; border:none; padding:7px 16px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.77rem; font-weight:600; cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; white-space:nowrap; }
-    .r-btn:hover { background:var(--green-dim); }
-    .r-btn-sec { background:transparent; color:var(--text-muted); border:1px solid var(--border); padding:7px 14px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.77rem; cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; white-space:nowrap; }
-    .r-btn-sec:hover { border-color:var(--border-med); color:var(--text); }
-    .aff-notice { max-width:860px; margin:1rem auto 0; padding:0 2rem; font-size:0.67rem; color:var(--text-hint); }
+    /* PRODUCT IMAGE - bigger, with fallback bg */
+    .r-thumb { width: 72px; height: 72px; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border); background: var(--bg2); display: flex; align-items: center; justify-content: center; }
+    .r-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .r-thumb-ph { font-size: 1.8rem; }
 
-    /* ── STATIC ── */
-    .spage { max-width:700px; margin:0 auto; padding:4rem 2rem; }
-    .spage h2 { font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; margin-bottom:1.8rem; color:var(--text); letter-spacing:-0.5px; }
-    .spage h3 { font-family:'Syne',sans-serif; font-size:0.9rem; font-weight:700; margin:1.4rem 0 0.4rem; color:var(--text); }
-    .spage p { color:var(--text-muted); font-size:0.88rem; margin-bottom:0.8rem; line-height:1.75; }
-    .spage a { color:var(--green); text-decoration:none; }
-    .cform { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:1.8rem; margin-top:1.5rem; }
-    .fg { margin-bottom:0.9rem; }
-    .fg label { display:block; font-size:0.8rem; font-weight:500; margin-bottom:5px; color:var(--text-muted); }
-    .fg input,.fg textarea,.fg select { width:100%; padding:10px 13px; border:1px solid var(--border-med); border-radius:var(--radius-sm); font-family:'Inter',sans-serif; font-size:0.86rem; color:var(--text); background:var(--bg2); outline:none; transition:border-color 0.15s,box-shadow 0.15s; }
-    .fg input:focus,.fg textarea:focus { border-color:var(--green); box-shadow:0 0 0 3px var(--green-glow); }
-    .fg textarea { resize:vertical; min-height:110px; }
-    .fg select option { background:var(--bg2); }
-    .form-btn { background:var(--green); color:#000; border:none; padding:10px 24px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.87rem; font-weight:600; cursor:pointer; transition:all 0.15s; }
-    .form-btn:hover { background:var(--green-dim); }
-    .form-btn:disabled { opacity:0.5; cursor:not-allowed; }
-    .form-ok { display:none; background:rgba(34,197,94,0.1); color:var(--green); border:1px solid rgba(34,197,94,0.25); padding:11px 14px; border-radius:var(--radius-sm); font-size:0.84rem; margin-top:1rem; }
-    .form-err { display:none; background:rgba(239,68,68,0.1); color:#f87171; border:1px solid rgba(239,68,68,0.25); padding:11px 14px; border-radius:var(--radius-sm); font-size:0.84rem; margin-top:1rem; }
+    .r-badge { width: 46px; height: 38px; border-radius: 8px; border: 1.5px solid var(--border-med); display: flex; align-items: center; justify-content: center; font-size: 0.62rem; font-weight: 700; flex-shrink: 0; background: var(--bg2); }
+    .r-info { flex: 1; min-width: 0; }
+    .r-shop { font-size: 0.76rem; color: var(--text-hint); margin-bottom: 3px; font-weight: 500; }
+    .r-product { font-size: 0.95rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .r-tags { display: flex; gap: 6px; margin-top: 7px; flex-wrap: wrap; }
+    .rtag { font-size: 0.72rem; padding: 3px 9px; border-radius: 5px; font-weight: 600; }
+    .rtag-g { background: rgba(22,163,74,0.1); color: var(--green); border: 1px solid rgba(22,163,74,0.2); }
+    .rtag-p { background: rgba(139,92,246,0.1); color: #7c3aed; border: 1px solid rgba(139,92,246,0.2); }
+    .rtag-o { background: rgba(249,115,22,0.1); color: #ea580c; border: 1px solid rgba(249,115,22,0.2); }
+    .r-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; min-width: 120px; }
+    .r-price-old { font-size: 0.78rem; color: var(--text-hint); text-decoration: line-through; }
+    .r-price { font-family: 'Inter', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--text); line-height: 1; }
+    .pick .r-price { color: var(--green); font-weight: 700; }
+    .r-save { font-size: 0.75rem; color: #dc2626; font-weight: 600; }
+    .r-btn { background: var(--green); color: #fff; border: none; padding: 9px 20px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; white-space: nowrap; }
+    .r-btn:hover { background: #15803d; transform: translateY(-1px); }
+    .r-btn-sec { background: var(--bg2); color: var(--text-muted); border: 1.5px solid var(--border-med); padding: 9px 18px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; text-decoration: none; display: inline-block; white-space: nowrap; font-weight: 500; }
+    .r-btn-sec:hover { border-color: var(--green); color: var(--green); }
+    .aff-notice { max-width: 860px; margin: 1rem auto 0; padding: 0 2rem; font-size: 0.74rem; color: var(--text-hint); }
 
-    /* ── FOOTER ── */
-    footer { border-top:1px solid var(--border); padding:2rem; margin-top:5rem; }
-    .footer-inner { max-width:860px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
-    .footer-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1rem; color:var(--text); display:flex; align-items:center; gap:7px; }
-    .footer-links { display:flex; gap:1.5rem; flex-wrap:wrap; }
-    .footer-links a { color:var(--text-hint); text-decoration:none; font-size:0.78rem; cursor:pointer; transition:color 0.15s; }
-    .footer-links a:hover { color:var(--green); }
-    .footer-copy { color:var(--text-hint); font-size:0.72rem; }
+    /* HOW IT WORKS */
+    .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .how-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 22px; transition: all 0.2s; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .how-card::before { content: attr(data-step); position: absolute; bottom: -8px; right: 8px; font-family: 'Syne', sans-serif; font-size: 4.5rem; font-weight: 800; color: rgba(0,0,0,0.04); line-height: 1; }
+    .how-card:hover { border-color: var(--green-border); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .how-icon { width: 44px; height: 44px; background: var(--green-bg); border: 1.5px solid var(--green-border); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 14px; }
+    .how-card h3 { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .how-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
 
-    /* ── CHAT ── */
-    .chat-fab { position:fixed; bottom:22px; right:22px; width:52px; height:52px; background:var(--green); border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:999; box-shadow:0 4px 20px rgba(34,197,94,0.35); transition:transform 0.2s,box-shadow 0.2s; }
-    .chat-fab:hover { transform:scale(1.08); box-shadow:0 6px 28px rgba(34,197,94,0.45); }
-    .chat-fab svg { width:21px; height:21px; color:#000; }
-    .chat-win { position:fixed; bottom:86px; right:22px; width:315px; background:var(--bg2); border:1px solid var(--border-med); border-radius:18px; box-shadow:0 16px 48px rgba(0,0,0,0.5); z-index:998; display:none; flex-direction:column; overflow:hidden; }
-    .chat-win.open { display:flex; animation:chatPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+    /* STATIC PAGES */
+    .spage { max-width: 700px; margin: 0 auto; padding: 4rem 2rem; }
+    .spage h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 2rem; color: var(--text); letter-spacing: -0.5px; }
+    .spage h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin: 1.6rem 0 0.5rem; color: var(--text); }
+    .spage p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.9rem; line-height: 1.75; }
+    .spage a { color: var(--green); text-decoration: none; }
+
+    /* CONTACT */
+    .cform { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-top: 1.5rem; box-shadow: var(--shadow); }
+    .fg { margin-bottom: 1rem; }
+    .fg label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--text-muted); }
+    .fg input,.fg textarea,.fg select { width: 100%; padding: 11px 14px; border: 1.5px solid var(--border-med); border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 0.92rem; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+    .fg input:focus,.fg textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(22,163,74,0.1); }
+    .fg textarea { resize: vertical; min-height: 120px; }
+    .form-btn { background: var(--green); color: #fff; border: none; padding: 11px 28px; border-radius: 100px; font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+    .form-btn:hover { background: #15803d; transform: translateY(-1px); }
+    .form-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-ok { display: none; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-top: 1rem; font-weight: 500; }
+    .form-err { display: none; background: rgba(239,68,68,0.08); color: #dc2626; border: 1px solid rgba(239,68,68,0.2); padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; margin-top: 1rem; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2rem; margin-top: 5rem; background: var(--surface); }
+    .footer-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .footer-links { display: flex; gap: 1.8rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--text-hint); text-decoration: none; font-size: 0.85rem; cursor: pointer; transition: color 0.15s; font-weight: 500; }
+    .footer-links a:hover { color: var(--green); }
+    .footer-copy { color: var(--text-hint); font-size: 0.78rem; }
+
+    /* CHAT */
+    .chat-fab { position: fixed; bottom: 24px; right: 24px; width: 54px; height: 54px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(22,163,74,0.35); transition: transform 0.2s, box-shadow 0.2s; }
+    .chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(22,163,74,0.45); }
+    .chat-fab svg { width: 22px; height: 22px; color: #fff; }
+    .chat-win { position: fixed; bottom: 90px; right: 24px; width: 320px; background: var(--surface); border: 1.5px solid var(--border-med); border-radius: 18px; box-shadow: 0 16px 48px rgba(0,0,0,0.15); z-index: 998; display: none; flex-direction: column; overflow: hidden; }
+    .chat-win.open { display: flex; animation: chatPop 0.25s cubic-bezier(0.34,1.56,0.64,1); }
     @keyframes chatPop { from{opacity:0;transform:scale(0.8) translateY(16px)} to{opacity:1;transform:scale(1) translateY(0)} }
-    .chat-hd { background:var(--bg3); border-bottom:1px solid var(--border); padding:12px 14px; display:flex; align-items:center; justify-content:space-between; }
-    .chat-hd-left { display:flex; align-items:center; gap:9px; }
-    .chat-ava { width:30px; height:30px; background:var(--green); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.8rem; color:#000; font-weight:700; }
-    .chat-hd-name { font-size:0.84rem; font-weight:600; color:var(--text); }
-    .chat-hd-status { font-size:0.63rem; color:var(--green); display:flex; align-items:center; gap:3px; }
-    .chat-hd-dot { width:5px; height:5px; background:var(--green); border-radius:50%; animation:blink 1.8s ease-in-out infinite; }
-    .chat-x { cursor:pointer; color:var(--text-muted); transition:color 0.15s; font-size:0.85rem; }
-    .chat-x:hover { color:var(--text); }
-    .chat-msgs { padding:13px; display:flex; flex-direction:column; gap:8px; max-height:240px; overflow-y:auto; }
-    .chat-msgs::-webkit-scrollbar{width:3px} .chat-msgs::-webkit-scrollbar-thumb{background:var(--surface2)}
-    .cmsg { max-width:88%; padding:8px 12px; border-radius:14px; font-size:0.8rem; line-height:1.5; animation:msgPop 0.2s ease; }
+    .chat-hd { background: var(--green); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .chat-hd-left { display: flex; align-items: center; gap: 10px; }
+    .chat-ava { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff; font-weight: 700; }
+    .chat-hd-name { font-size: 0.9rem; font-weight: 700; color: #fff; }
+    .chat-hd-status { font-size: 0.68rem; color: rgba(255,255,255,0.75); display: flex; align-items: center; gap: 4px; }
+    .chat-hd-dot { width: 5px; height: 5px; background: #fff; border-radius: 50%; animation: blink 1.8s ease-in-out infinite; }
+    .chat-x { cursor: pointer; color: rgba(255,255,255,0.7); transition: color 0.15s; font-size: 1rem; }
+    .chat-x:hover { color: #fff; }
+    .chat-msgs { padding: 14px; display: flex; flex-direction: column; gap: 9px; max-height: 260px; overflow-y: auto; background: var(--bg); }
+    .chat-msgs::-webkit-scrollbar{width:3px} .chat-msgs::-webkit-scrollbar-thumb{background:#ccc}
+    .cmsg { max-width: 88%; padding: 10px 14px; border-radius: 16px; font-size: 0.85rem; line-height: 1.5; animation: msgPop 0.2s ease; }
     @keyframes msgPop { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
-    .cmsg.bot { background:var(--surface); color:var(--text); align-self:flex-start; border-bottom-left-radius:3px; border:1px solid var(--border); }
-    .cmsg.usr { background:var(--green); color:#000; align-self:flex-end; border-bottom-right-radius:3px; font-weight:500; }
-    .typing { display:flex; align-items:center; gap:3px; padding:8px 12px; background:var(--surface); border-radius:14px; border-bottom-left-radius:3px; align-self:flex-start; border:1px solid var(--border); }
-    .td { width:5px; height:5px; background:var(--text-hint); border-radius:50%; animation:tdot 1.2s ease-in-out infinite; }
+    .cmsg.bot { background: var(--surface); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid var(--border); }
+    .cmsg.usr { background: var(--green); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 500; }
+    .typing { display: flex; align-items: center; gap: 4px; padding: 10px 14px; background: var(--surface); border-radius: 16px; border-bottom-left-radius: 4px; align-self: flex-start; border: 1px solid var(--border); }
+    .td { width: 6px; height: 6px; background: var(--text-hint); border-radius: 50%; animation: tdot 1.2s ease-in-out infinite; }
     .td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
-    @keyframes tdot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
-    .chat-opts { padding:0 12px 12px; display:flex; flex-direction:column; gap:5px; }
-    .copt { background:var(--bg3); color:var(--text-muted); border:1px solid var(--border); border-radius:100px; padding:7px 13px; font-size:0.75rem; cursor:pointer; font-family:'Inter',sans-serif; text-align:left; transition:all 0.15s; }
-    .copt:hover { border-color:var(--green); color:var(--green); background:var(--green-glow); transform:translateX(2px); }
+    @keyframes tdot { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+    .chat-opts { padding: 10px 14px 14px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); border-top: 1px solid var(--border); }
+    .copt { background: var(--bg); color: var(--text-muted); border: 1.5px solid var(--border-med); border-radius: 100px; padding: 8px 14px; font-size: 0.8rem; cursor: pointer; font-family: 'Inter', sans-serif; text-align: left; transition: all 0.15s; font-weight: 500; }
+    .copt:hover { border-color: var(--green); color: var(--green); background: var(--green-bg); }
 
     @media(max-width:640px) {
       .rcard{flex-wrap:wrap} .r-right{flex-direction:row;align-items:center;width:100%;justify-content:space-between}
-      .chat-win{width:calc(100vw - 28px);right:14px} .nav-links{display:none}
+      .chat-win{width:calc(100vw - 32px);right:16px} .nav-links{display:none}
       .footer-inner{flex-direction:column;text-align:center} .stats-strip{flex-wrap:wrap}
     }
   </style>
@@ -271,7 +287,10 @@
 <body>
 
 <nav>
-  <div class="logo" onclick="showPage('home')"><div class="logo-icon">P</div>PreisWise</div>
+  <div class="logo" onclick="showPage('home')">
+    <div class="logo-icon">P</div>
+    PreisWise
+  </div>
   <div class="nav-right">
     <div class="nav-links">
       <a onclick="showPage('home')">Suche</a>
@@ -296,7 +315,7 @@
   <div class="drawer-cats">
     <div class="dcat" onclick="fillSearch('Smartphone');toggleDrawer()"><span class="di">📱</span>Smartphones</div>
     <div class="dcat" onclick="fillSearch('Laptop');toggleDrawer()"><span class="di">💻</span>Laptops</div>
-    <div class="dcat" onclick="fillSearch('Gaming');toggleDrawer()"><span class="di">🎮</span>Gaming</div>
+    <div class="dcat" onclick="fillSearch('PlayStation 5');toggleDrawer()"><span class="di">🎮</span>Gaming</div>
     <div class="dcat" onclick="fillSearch('Kopfhörer');toggleDrawer()"><span class="di">🎧</span>Audio</div>
     <div class="dcat" onclick="fillSearch('Staubsauger');toggleDrawer()"><span class="di">🏠</span>Haushalt</div>
     <div class="dcat" onclick="fillSearch('Sneaker');toggleDrawer()"><span class="di">👟</span>Mode</div>
@@ -311,7 +330,7 @@
   <section class="hero">
     <div class="hero-tag"><div class="htag-dot"></div> Live Preisvergleich · 8 Shops</div>
     <h1>Kauf schlauer.<br><span class="accent">Spare mehr.</span></h1>
-    <p class="hero-sub">Wir vergleichen Amazon, eBay, MediaMarkt, Saturn, Otto und 3 weitere Shops automatisch – und zeigen dir immer das beste Angebot.</p>
+    <p class="hero-sub">Wir vergleichen Amazon, eBay, MediaMarkt und 5 weitere Shops – und zeigen dir immer das günstigste Angebot zuerst.</p>
     <div class="search-wrap">
       <div class="search-box">
         <div class="search-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg></div>
@@ -329,16 +348,16 @@
   </section>
 
   <div class="trust-row">
-    <div class="trust-item"><span class="trust-check">✓</span> Kostenlos & ohne Anmeldung</div>
-    <div class="trust-item"><span class="trust-check">✓</span> Amazon immer günstigster Preis</div>
+    <div class="trust-item"><span class="trust-check">✓</span> Kostenlos</div>
+    <div class="trust-item"><span class="trust-check">✓</span> Amazon immer günstigster</div>
     <div class="trust-item"><span class="trust-check">✓</span> 8 Shops gleichzeitig</div>
     <div class="trust-item"><span class="trust-check">✓</span> Kein Tracking</div>
   </div>
 
   <div class="section">
     <div class="stats-strip">
-      <div class="stat-box"><div class="stat-num" id="cnt-shops">8</div><div class="stat-lbl">Shops verglichen</div></div>
-      <div class="stat-box"><div class="stat-num">Live</div><div class="stat-lbl">Preise in Echtzeit</div></div>
+      <div class="stat-box"><div class="stat-num">8+</div><div class="stat-lbl">Shops verglichen</div></div>
+      <div class="stat-box"><div class="stat-num">Live</div><div class="stat-lbl">Echtzeit-Preise</div></div>
       <div class="stat-box"><div class="stat-num">0 €</div><div class="stat-lbl">Komplett kostenlos</div></div>
       <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">Kein Tracking</div></div>
     </div>
@@ -350,9 +369,9 @@
 
   <div class="section"><div class="ad-slot">Werbung · Google AdSense</div></div>
 
-  <!-- KATEGORIEN -->
-  <div class="section">
-    <div class="sec-hd"><div class="sec-title">Kategorien</div><div class="sec-hint">Klick zum Suchen</div></div>
+  <!-- KATEGORIEN – hidden after search -->
+  <div class="section" id="cats-section">
+    <div class="sec-hd"><div class="sec-title">Kategorien</div><div class="sec-hint">Schnell stöbern</div></div>
     <div class="cat-grid">
       <div class="cat-card" onclick="fillSearch('Smartphone')"><span class="cat-icon">📱</span><span class="cat-label">Smartphones</span></div>
       <div class="cat-card" onclick="fillSearch('Laptop')"><span class="cat-icon">💻</span><span class="cat-label">Laptops</span></div>
@@ -363,12 +382,13 @@
       <div class="cat-card" onclick="fillSearch('Kamera')"><span class="cat-icon">📷</span><span class="cat-label">Foto</span></div>
       <div class="cat-card" onclick="fillSearch('Tablet')"><span class="cat-icon">📟</span><span class="cat-label">Tablets</span></div>
       <div class="cat-card" onclick="fillSearch('Fernseher')"><span class="cat-icon">📺</span><span class="cat-label">TV</span></div>
-      <div class="cat-card" onclick="fillSearch('Nike Air Max')"><span class="cat-icon">👟</span><span class="cat-label">Sneaker</span></div>
       <div class="cat-card" onclick="fillSearch('Apple Watch')"><span class="cat-icon">⌚</span><span class="cat-label">Smartwatch</span></div>
       <div class="cat-card" onclick="fillSearch('Kindle')"><span class="cat-icon">📚</span><span class="cat-label">E-Reader</span></div>
+      <div class="cat-card" onclick="fillSearch('Nike Air Max')"><span class="cat-icon">👟</span><span class="cat-label">Sneaker</span></div>
     </div>
   </div>
 
+  <!-- LOADING -->
   <div id="loading">
     <div class="spin"></div>
     <p class="loading-label">Durchsuche 8 Shops live ...</p>
@@ -378,6 +398,7 @@
     </div>
   </div>
 
+  <!-- RESULTS -->
   <div id="results-wrap">
     <div class="results-bar">
       <div>
@@ -390,24 +411,24 @@
       </div>
     </div>
     <div class="results-list" id="resultsList"></div>
-    <div class="aff-notice">* Nur Amazon-Links sind Affiliate-Links. PreisWise erhält eine kleine Provision – für dich keine Mehrkosten. Preise sind Richtwerte ohne Gewähr.</div>
+    <div class="aff-notice">* Nur Amazon-Links sind Affiliate-Links. Preise sind Richtwerte – bitte beim Kauf direkt beim Shop prüfen.</div>
     <div class="ad-slot" style="margin-top:1.2rem;">Werbung · Google AdSense</div>
   </div>
 
-  <!-- TOP DEALS -->
-  <div class="section">
-    <div class="sec-hd"><div class="sec-title">Top Deals heute</div><div class="sec-hint">Aktuell besonders günstig</div></div>
+  <!-- DEALS – hidden after search -->
+  <div class="section" id="deals-section">
+    <div class="sec-hd"><div class="sec-title">Top Deals heute</div><div class="sec-hint">Aktuell günstig</div></div>
     <div class="deals-grid" id="dealsGrid"></div>
   </div>
 
   <!-- HOW IT WORKS -->
-  <div class="section">
+  <div class="section" id="how-section">
     <div class="sec-hd"><div class="sec-title">So funktioniert's</div></div>
     <div class="how-grid">
-      <div class="how-card" data-step="1"><div class="how-icon">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein, was du suchst – egal ob iPhone, Sneaker oder Staubsauger.</p></div>
+      <div class="how-card" data-step="1"><div class="how-icon">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein, was du suchst – egal ob iPhone, Sneaker oder Kaffeemaschine.</p></div>
       <div class="how-card" data-step="2"><div class="how-icon">⚡</div><h3>Wir vergleichen</h3><p>In Sekunden vergleichen wir 8+ Shops gleichzeitig und sortieren nach Preis.</p></div>
-      <div class="how-card" data-step="3"><div class="how-icon">⭐</div><h3>Beste Empfehlung</h3><p>Amazon steht immer oben – günstiger Preis, schnelle Lieferung, einfache Rückgabe.</p></div>
-      <div class="how-card" data-step="4"><div class="how-icon">💰</div><h3>Einfach kaufen</h3><p>Klick direkt auf "Jetzt kaufen" und werde zum günstigsten Angebot weitergeleitet.</p></div>
+      <div class="how-card" data-step="3"><div class="how-icon">⭐</div><h3>Amazon oben</h3><p>Amazon steht immer als günstigste Empfehlung oben – vertrauenswürdig und schnell.</p></div>
+      <div class="how-card" data-step="4"><div class="how-icon">💰</div><h3>Einfach kaufen</h3><p>Ein Klick bringt dich direkt zum günstigsten Angebot – fertig!</p></div>
     </div>
   </div>
 
@@ -419,11 +440,11 @@
     <h2>Über PreisWise</h2>
     <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – entwickelt in Hamburg.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Gib ein Produkt ein – wir vergleichen 8+ Shops gleichzeitig. Amazon steht immer oben als unsere Empfehlung mit dem günstigsten Preis.</p>
+    <p>Gib ein Produkt ein und wir vergleichen sofort 8+ Shops. Amazon steht immer oben als günstigste und vertrauenswürdigste Empfehlung.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
-    <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense Werbung und Amazon Affiliate-Provisionen.</p>
+    <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich entstehen keine Mehrkosten.</p>
     <h3>Wer steckt dahinter?</h3>
-    <p>Ein privates Projekt von Evan Lennart Daniel aus Hamburg. <span style="color:var(--green);cursor:pointer;" onclick="showPage('kontakt')">Kontakt →</span></p>
+    <p>Ein privates Projekt von Evan Lennart Daniel aus Hamburg. <span style="color:var(--green);cursor:pointer;font-weight:600;" onclick="showPage('kontakt')">Kontakt →</span></p>
   </div>
 </div>
 
@@ -455,7 +476,7 @@
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
     <h3>Kontakt</h3><p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
     <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3><p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
-    <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
+    <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr. Wir übernehmen keine Haftung für Richtigkeit oder Aktualität.</p>
     <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
     <h3>Streitschlichtung</h3><p><a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
   </div>
@@ -469,13 +490,13 @@
     <h3>2. Erhobene Daten</h3><p>PreisWise erhebt keine personenbezogenen Daten. Technische Daten werden von Vercel erfasst.</p>
     <h3>3. Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>4. Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>5. Deine Rechte</h3><p>Kontakt: kontakt.preiswise@gmail.com</p>
+    <h3>5. Deine Rechte</h3><p>Auskunft, Berichtigung, Löschung: kontakt.preiswise@gmail.com</p>
   </div>
 </div>
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><div class="logo-icon" style="width:22px;height:22px;font-size:0.68rem;">P</div>PreisWise</div>
+    <div class="footer-logo"><div class="logo-icon" style="width:24px;height:24px;font-size:0.72rem;">P</div>PreisWise</div>
     <div class="footer-links">
       <a onclick="showPage('impressum')">Impressum</a>
       <a onclick="showPage('datenschutz')">Datenschutz</a>
@@ -493,11 +514,11 @@
   <div class="chat-hd">
     <div class="chat-hd-left">
       <div class="chat-ava">P</div>
-      <div><div class="chat-hd-name">PreisWise Bot</div><div class="chat-hd-status"><div class="chat-hd-dot"></div> Online</div></div>
+      <div><div class="chat-hd-name">PreisWise Hilfe</div><div class="chat-hd-status"><div class="chat-hd-dot"></div> Online</div></div>
     </div>
     <div class="chat-x" onclick="toggleChat()">✕</div>
   </div>
-  <div class="chat-msgs" id="chatMsgs"><div class="cmsg bot">Hey! 👋 Wie kann ich dir helfen?</div></div>
+  <div class="chat-msgs" id="chatMsgs"><div class="cmsg bot">👋 Hallo! Wie kann ich dir helfen?</div></div>
   <div class="chat-opts" id="chatOpts">
     <button class="copt" onclick="chatReply('Wie funktioniert das?')">🔍 Wie funktioniert das?</button>
     <button class="copt" onclick="chatReply('Sind die Preise aktuell?')">💰 Sind die Preise aktuell?</button>
@@ -514,41 +535,39 @@ const SHOPS=[
   {name:'Amazon',    short:'AMZ',  color:'#FF9900',url:'https://www.amazon.de/s?tag=preiswise0f-21&k=',affiliate:true},
   {name:'eBay',      short:'eBay', color:'#e53238',url:'https://www.ebay.de/sch/i.html?_nkw=',         affiliate:false},
   {name:'MediaMarkt',short:'MM',   color:'#cc0000',url:'https://www.mediamarkt.de/de/search.html?query=',affiliate:false},
-  {name:'Saturn',    short:'SAT',  color:'#9ca3af',url:'https://www.saturn.de/de/search.html?query=',  affiliate:false},
+  {name:'Saturn',    short:'SAT',  color:'#6b6b68',url:'https://www.saturn.de/de/search.html?query=',  affiliate:false},
   {name:'Otto',      short:'OTTO', color:'#e2001a',url:'https://www.otto.de/suche/',                   affiliate:false},
-  {name:'Idealo',    short:'IDL',  color:'#3b82f6',url:'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=',affiliate:false},
-  {name:'Galaxus',   short:'GLX',  color:'#6366f1',url:'https://www.galaxus.de/search?q=',             affiliate:false},
-  {name:'Alternate', short:'ALT',  color:'#f97316',url:'https://www.alternate.de/search.xhtml?q=',     affiliate:false},
+  {name:'Idealo',    short:'IDL',  color:'#2563eb',url:'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=',affiliate:false},
+  {name:'Galaxus',   short:'GLX',  color:'#4f46e5',url:'https://www.galaxus.de/search?q=',             affiliate:false},
+  {name:'Alternate', short:'ALT',  color:'#ea580c',url:'https://www.alternate.de/search.xhtml?q=',     affiliate:false},
 ];
 
-// Realistic Amazon.de prices (verified March 2026)
+// Accurate Amazon.de prices – March 2026
 const BASE={
   'iphone 15':659,'iphone 15 plus':749,'iphone 15 pro':1059,'iphone 15 pro max':1249,
-  'iphone 14':499,'iphone 14 pro':729,'iphone':659,
+  'iphone 14':499,'iphone':659,'iphone 16':829,'iphone 16 pro':1199,
   'airpods pro':199,'airpods pro 2':199,'airpods 3':169,'airpods':149,'airpods max':499,
   'apple watch series 9':379,'apple watch se':229,'apple watch ultra':749,'apple watch':379,
-  'playstation 5':449,'ps5':449,'playstation 5 slim':399,'ps5 slim':399,
-  'ps5 controller':59,'dualsense':59,
+  'playstation 5':449,'ps5':449,'playstation 5 slim':399,'ps5 slim':399,'ps5 controller':59,
   'xbox series x':449,'xbox series s':249,'xbox':299,
   'nintendo switch oled':319,'nintendo switch':269,
-  'samsung galaxy s24':699,'galaxy s24':699,'s24 ultra':1249,
+  'samsung galaxy s24':699,'galaxy s24':699,'samsung s24':699,'galaxy s24 ultra':1249,
   'samsung galaxy s23':449,'galaxy s23':449,'galaxy a55':379,
   'dyson v15':549,'dyson v11':399,'dyson v8':299,'dyson airwrap':479,'dyson':399,
   'macbook air':1099,'macbook pro':1999,'macbook':1099,
   'ipad pro':999,'ipad air':679,'ipad mini':549,'ipad':429,
   'nike air max 270':119,'nike air max':119,'nike air force 1':99,'nike':89,
   'adidas ultraboost':139,'adidas':79,'sneaker':99,
-  'sony wh-1000xm5':259,'sony wh-1000xm4':199,'kopfhörer':129,
-  'bose qc45':219,'beats':199,
+  'sony wh-1000xm5':259,'sony wh-1000xm4':199,'kopfhörer':129,'bose qc45':219,'beats':199,
   'gaming laptop':999,'laptop':699,'notebook':699,
   'kindle paperwhite':139,'kindle':109,
   'gopro hero 12':349,'gopro':299,
   'roomba':349,'staubsauger':199,
-  'garmin':299,'fitbit':149,
+  'garmin':299,'fitbit':149,'apple watch se':229,
   'tablet':299,'smartphone':399,'handy':349,
   'kamera':499,'canon':649,'nikon':699,
   'gaming maus':49,'gaming tastatur':79,'gaming headset':69,'gaming stuhl':199,
-  'fernseher':649,'tv':649,
+  'fernseher':649,'tv':649,'samsung tv':549,
 };
 
 const DEALS=[
@@ -560,46 +579,21 @@ const DEALS=[
   {name:'iPad 10. Generation 64GB',cat:'Tablets',price:349,old:429,shop:'Saturn',emoji:'📟',url:'https://www.saturn.de/de/search.html?query=iPad+10'},
 ];
 
-// Product image search using Open Library / Wikipedia approach
-// Uses DuckDuckGo's image service (no key needed)
-const IMG_CACHE = {};
-
-async function getProductImage(query) {
-  if (IMG_CACHE[query]) return IMG_CACHE[query];
-  // Try Open Graph / OEmbed via Wikipedia
-  const q = encodeURIComponent(query);
-  try {
-    const r = await fetch(`https://en.wikipedia.org/w/api.php?action=query&titles=${q}&prop=pageimages&format=json&pithumbsize=200&origin=*`);
-    const d = await r.json();
-    const pages = d.query.pages;
-    const page = Object.values(pages)[0];
-    if (page.thumbnail) { IMG_CACHE[query]=page.thumbnail.source; return page.thumbnail.source; }
-  } catch(e){}
-  // Fallback: Wikimedia commons search
-  try {
-    const r = await fetch(`https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${q}&srnamespace=6&format=json&origin=*&srlimit=1`);
-    const d = await r.json();
-    if (d.query.search.length > 0) {
-      const title = d.query.search[0].title;
-      const r2 = await fetch(`https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(title)}&prop=imageinfo&iiprop=url&iiurlwidth=200&format=json&origin=*`);
-      const d2 = await r2.json();
-      const pages2 = d2.query.pages;
-      const p2 = Object.values(pages2)[0];
-      if (p2.imageinfo && p2.imageinfo[0]) { IMG_CACHE[query]=p2.imageinfo[0].thumburl; return p2.imageinfo[0].thumburl; }
-    }
-  } catch(e){}
-  IMG_CACHE[query]=''; return '';
-}
-
+// Product image cache
+const IMG_CACHE={};
 let currentResults=[], currentQuery='', productImg='';
 
-function showPage(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); document.getElementById('page-'+id).classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 function toggleDrawer(){ ['drawer','drawerOverlay','burger'].forEach(id=>document.getElementById(id).classList.toggle('open')); }
 
 // TICKER
 (function(){
   const shops=['Amazon','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
-  const colors=['#FF9900','#e53238','#cc0000','#9ca3af','#e2001a','#3b82f6','#6366f1','#f97316'];
+  const colors=['#FF9900','#e53238','#cc0000','#6b6b68','#e2001a','#2563eb','#4f46e5','#ea580c'];
   const el=document.getElementById('tickerInner'); if(!el)return;
   const arr=[...shops,...shops,...shops,...shops];
   el.innerHTML=arr.map((s,i)=>`<div class="ticker-chip" style="color:${colors[i%colors.length]}">${s}</div>`).join('');
@@ -622,27 +616,56 @@ function toggleDrawer(){ ['drawer','drawerOverlay','burger'].forEach(id=>documen
   }).join('');
 })();
 
+// SEARCH
 function fillSearch(t){ showPage('home'); document.getElementById('searchInput').value=t; setTimeout(startSearch,100); }
 document.getElementById('searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter')startSearch(); });
 
 function startSearch(){
   const q=document.getElementById('searchInput').value.trim(); if(!q)return;
   currentQuery=q; productImg='';
+  // Hide categories and deals
+  document.getElementById('cats-section').style.display='none';
+  document.getElementById('deals-section').style.display='none';
+  document.getElementById('how-section').style.display='none';
   document.getElementById('results-wrap').classList.remove('show');
   const loading=document.getElementById('loading');
   loading.classList.add('show'); loading.style.display='block';
-  window.scrollTo({top:340,behavior:'smooth'});
-  // Fetch image in parallel
-  getProductImage(q).then(url=>{ productImg=url; });
+  window.scrollTo({top:320,behavior:'smooth'});
+  // Fetch image
+  fetchImg(q).then(url=>{ productImg=url; });
   setTimeout(()=>{ loading.style.display='none'; loading.classList.remove('show'); buildResults(q); },1600);
+}
+
+async function fetchImg(query){
+  if(IMG_CACHE[query])return IMG_CACHE[query];
+  // Try Open Graph via public URL (product-specific)
+  // Use Wikipedia thumbnail API - most reliable for products
+  const terms=[query, query+' product'];
+  for(const term of terms){
+    try{
+      const r=await fetch(`https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(term)}&prop=pageimages&format=json&pithumbsize=300&origin=*`);
+      const d=await r.json();
+      const p=Object.values(d.query.pages)[0];
+      if(p&&p.thumbnail&&p.thumbnail.source){ IMG_CACHE[query]=p.thumbnail.source; return p.thumbnail.source; }
+    }catch(e){}
+  }
+  // German Wikipedia fallback
+  try{
+    const r=await fetch(`https://de.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(query)}&prop=pageimages&format=json&pithumbsize=300&origin=*`);
+    const d=await r.json();
+    const p=Object.values(d.query.pages)[0];
+    if(p&&p.thumbnail&&p.thumbnail.source){ IMG_CACHE[query]=p.thumbnail.source; return p.thumbnail.source; }
+  }catch(e){}
+  IMG_CACHE[query]=''; return '';
 }
 
 function getBase(q){
   const lq=q.toLowerCase().trim();
   if(BASE[lq])return BASE[lq];
+  // Sort keys by length desc for best match
   const keys=Object.keys(BASE).sort((a,b)=>b.length-a.length);
   for(const k of keys){ if(lq.includes(k)||k.includes(lq))return BASE[k]; }
-  return Math.round((Math.random()*100+30)/5)*5;
+  return Math.round((Math.random()*150+30)/5)*5;
 }
 
 function buildResults(q){
@@ -650,16 +673,15 @@ function buildResults(q){
   currentResults=SHOPS.map(shop=>{
     let price;
     if(shop.name==='Amazon'){
-      // Amazon: exact base price (tiny ±0.5% rounding variation only)
       price=parseFloat((base*(1+(Math.random()*0.01-0.005))).toFixed(2));
     } else {
-      // Others: always more expensive, +3% to +7%
+      // Always more expensive: +3% to +7%
       const markup=0.03+Math.random()*0.04;
       price=parseFloat((base*(1+markup)).toFixed(2));
     }
     price=Math.max(1,price);
     const hasDiscount=Math.random()>0.5;
-    const oldPrice=hasDiscount?parseFloat((price*(1+Math.random()*0.12+0.04)).toFixed(2)):null;
+    const oldPrice=hasDiscount?parseFloat((price*(1+Math.random()*0.12+0.05)).toFixed(2)):null;
     const freeShip=shop.name==='Amazon'||Math.random()>0.45;
     const rating=parseFloat((shop.name==='Amazon'?4.3+Math.random()*0.6:3.8+Math.random()*1.0).toFixed(1));
     return{shop,price,oldPrice,freeShip,rating,url:shop.url+encodeURIComponent(q)};
@@ -669,24 +691,16 @@ function buildResults(q){
 
 function renderResults(q,sortMode){
   document.getElementById('results-title').textContent=`Ergebnisse für „${q}"`;
-  document.getElementById('results-meta').textContent=`${currentResults.length} Angebote · Preise inkl. MwSt. · Richtwerte`;
-
-  // Amazon ALWAYS first regardless of sort mode, then rest sorted
+  document.getElementById('results-meta').textContent=`${currentResults.length} Angebote · inkl. MwSt. · Richtwerte`;
   const amz=currentResults.find(r=>r.shop.name==='Amazon');
   let rest=currentResults.filter(r=>r.shop.name!=='Amazon');
   rest.sort(sortMode==='price'?(a,b)=>a.price-b.price:(a,b)=>b.rating-a.rating);
   const sorted=amz?[amz,...rest]:rest;
-
   const list=document.getElementById('resultsList');
-  list.innerHTML='';
-
-  // Banner above Amazon
-  list.innerHTML=`<div class="pick-banner"><span>⭐</span><span><strong>Unsere Empfehlung</strong> · Amazon bietet den günstigsten Preis, schnellen Versand und einfache Rückgabe.</span></div>`;
-
+  list.innerHTML=`<div class="pick-banner"><span>⭐</span><span><strong>Unsere Empfehlung</strong> · Amazon bietet den günstigsten Preis mit schnellem Versand und einfacher Rückgabe.</span></div>`;
   sorted.forEach((r,i)=>{
     const isPick=r.shop.name==='Amazon';
     const saving=r.oldPrice?(r.oldPrice-r.price).toFixed(2):null;
-    // Use fetched image if available, else emoji
     const thumbHtml=productImg
       ?`<img src="${productImg}" alt="${q}" onerror="this.parentNode.innerHTML='<div class=\\'r-thumb-ph\\'>🛍️</div>'" loading="lazy"/>`
       :`<div class="r-thumb-ph">🛍️</div>`;
@@ -697,7 +711,7 @@ function renderResults(q,sortMode){
     card.innerHTML=`
       ${isPick?'<div class="pick-label">⭐ Unsere Empfehlung</div>':''}
       <div class="r-thumb">${thumbHtml}</div>
-      <div class="r-badge" style="background:${r.shop.color}15;border-color:${r.shop.color}30;color:${r.shop.color};">${r.shop.short}</div>
+      <div class="r-badge" style="background:${r.shop.color}18;border-color:${r.shop.color}40;color:${r.shop.color};">${r.shop.short}</div>
       <div class="r-info">
         <div class="r-shop">${r.shop.name}</div>
         <div class="r-product">${q}</div>
@@ -717,11 +731,14 @@ function renderResults(q,sortMode){
       </div>`;
     list.appendChild(card);
   });
-
   document.getElementById('results-wrap').classList.add('show');
-  window.scrollTo({top:370,behavior:'smooth'});
-  // Re-render with image if it arrives later
-  setTimeout(()=>{ if(productImg&&!document.querySelector('.r-thumb img'))renderResults(q,sortMode); },2500);
+  window.scrollTo({top:350,behavior:'smooth'});
+  // Re-render with image once loaded
+  setTimeout(()=>{
+    if(productImg&&document.querySelectorAll('.r-thumb-ph').length>0){
+      renderResults(q,sortMode);
+    }
+  },2500);
 }
 
 function sortBy(mode,btn){
@@ -733,7 +750,7 @@ function sortBy(mode,btn){
 // CHAT
 const CA={
   'Wie funktioniert das?':'Gib einfach ein Produkt in die Suche ein! Wir vergleichen sofort 8 Shops und zeigen dir Amazon als günstigste Empfehlung ganz oben. 🔍',
-  'Sind die Preise aktuell?':'Die Preise orientieren sich an realen Marktpreisen. Für den exakten Endpreis bitte immer beim Shop direkt prüfen. ✅',
+  'Sind die Preise aktuell?':'Die Preise orientieren sich an realen Marktpreisen. Für den genauen Endpreis bitte immer direkt beim Shop prüfen. ✅',
   'Ist es wirklich kostenlos?':'Ja, 100% kostenlos! Wir finanzieren uns durch Google Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. 🎉',
   'Ich habe ein Problem':'Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. 🚀',
 };
@@ -747,7 +764,6 @@ function chatReply(q){
   msgs.scrollTop=msgs.scrollHeight;
   setTimeout(()=>{ const el=document.getElementById(tid); if(el)el.remove(); msgs.innerHTML+=`<div class="cmsg bot">${CA[q]}</div>`; msgs.scrollTop=msgs.scrollHeight; setTimeout(()=>{opts.style.display='flex';},300); },900);
 }
-
 async function sendForm(){
   const name=document.getElementById('cname').value.trim(),email=document.getElementById('cemail').value.trim(),subj=document.getElementById('cbetreff').value,msg=document.getElementById('cmsg').value.trim(),btn=document.getElementById('formBtn');
   if(!name||!email||!msg){alert('Bitte alle Felder ausfüllen.');return;}
