@@ -1,277 +1,275 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PreisWise – Smarter Preisvergleich</title>
-  <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr." />
-  <link rel="icon" id="favicon" type="image/svg+xml" href="favicon.svg" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PreisWise - Smarter Preisvergleich</title>
+  <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr - kostenlos und in Sekunden.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#e8e6e0;--bg2:#dddbd4;--surface:#f2f0ea;--surface2:#e4e2db;
-      --text:#1a1a18;--text-muted:#5a5a57;--text-hint:#9a9a96;
-      --green:#16a34a;--green-light:#22c55e;--green-bg:#ecfdf5;--green-border:rgba(22,163,74,0.22);
-      --border:rgba(0,0,0,0.1);--border-med:rgba(0,0,0,0.16);
-      --shadow:0 2px 16px rgba(0,0,0,0.1);--shadow-md:0 4px 24px rgba(0,0,0,0.15);
-      --radius:14px;--radius-sm:9px;
-    }
-    html{scroll-behavior:smooth}
-    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.6}
-    ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#e8e6e0;--bg2:#dddbd4;--surface:#f2f0ea;--surface2:#e4e2db;
+  --text:#1a1a18;--muted:#5a5a57;--hint:#9a9a96;
+  --green:#16a34a;--gl:#22c55e;--gbg:#ecfdf5;--gbrd:rgba(22,163,74,0.22);
+  --brd:rgba(0,0,0,0.1);--brdm:rgba(0,0,0,0.16);
+  --shd:0 2px 16px rgba(0,0,0,0.1);--shdm:0 4px 24px rgba(0,0,0,0.15);
+  --r:14px;--rs:9px;
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.6}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
 
-    nav{position:sticky;top:0;z-index:200;background:rgba(242,240,234,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;overflow:hidden}
-    nav::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--green-light),var(--green),var(--green-light),transparent);animation:navLine 3s ease-in-out infinite}
-    @keyframes navLine{0%{left:-100%}100%{left:100%}}
-    .logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:10px;color:var(--text)}
-    .logo-icon{width:30px;height:30px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:#fff;font-weight:800}
-    .nav-right{display:flex;align-items:center;gap:1rem}
-    .nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.9rem;margin-left:1.4rem;cursor:pointer;transition:color 0.15s;font-weight:500}
-    .nav-links a:hover{color:var(--green)}
-    .burger{width:38px;height:38px;display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:6px;border-radius:9px;transition:background 0.15s}
-    .burger:hover{background:var(--surface2)}
-    .burger span{display:block;height:2px;background:var(--text-muted);border-radius:2px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);transform-origin:center}
-    .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--green)}
-    .burger.open span:nth-child(2){opacity:0}
-    .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--green)}
+nav{position:sticky;top:0;z-index:200;background:rgba(242,240,234,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;overflow:hidden}
+nav::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gl),var(--green),var(--gl),transparent);animation:navLine 3s ease-in-out infinite}
+@keyframes navLine{0%{left:-100%}100%{left:100%}}
+.logo{font-family:Syne,Arial Black,sans-serif;font-size:1.4rem;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:10px;color:var(--text)}
+.logo-icon{width:30px;height:30px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:#fff;font-weight:800}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;margin-left:1.4rem;cursor:pointer;transition:color .15s;font-weight:500}
+.nav-links a:hover{color:var(--green)}
+.burger{width:38px;height:38px;display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:6px;border-radius:9px;transition:background .15s}
+.burger:hover{background:var(--surface2)}
+.burger span{display:block;height:2px;background:var(--muted);border-radius:2px;transition:all .3s cubic-bezier(.4,0,.2,1);transform-origin:center}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);background:var(--green)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);background:var(--green)}
 
-    .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:300;opacity:0;pointer-events:none;transition:opacity 0.25s;backdrop-filter:blur(2px)}
-    .drawer-overlay.open{opacity:1;pointer-events:all}
-    .drawer{position:fixed;top:0;left:-290px;width:275px;height:100vh;background:var(--surface);border-right:1px solid var(--border-med);z-index:400;transition:left 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;overflow-y:auto}
-    .drawer.open{left:0}
-    .drawer-header{padding:1.4rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-    .drawer-logo{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text)}
-    .drawer-x{width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;color:var(--text-muted);transition:all 0.15s}
-    .drawer-x:hover{background:var(--surface2);color:var(--text)}
-    .drawer-nav a{display:flex;align-items:center;gap:11px;padding:12px 1.5rem;color:var(--text-muted);text-decoration:none;font-size:0.9rem;cursor:pointer;transition:all 0.15s;border-left:3px solid transparent;font-weight:500}
-    .drawer-nav a:hover{background:var(--bg);color:var(--green);border-left-color:var(--green)}
-    .drawer-nav svg{width:16px;height:16px;flex-shrink:0}
-    .drawer-sec{padding:1.2rem 1.5rem 0.5rem;font-size:0.7rem;font-weight:600;color:var(--text-hint);letter-spacing:1px;text-transform:uppercase}
-    .drawer-cats{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0.4rem 1.5rem 1.5rem}
-    .dcat{background:var(--bg);border:1px solid var(--border);border-radius:11px;padding:12px 10px;text-align:center;cursor:pointer;transition:all 0.15s;font-size:0.8rem;color:var(--text-muted);font-weight:500}
-    .dcat:hover{border-color:var(--green);color:var(--green);background:var(--green-bg)}
-    .dcat .di{font-size:1.4rem;display:block;margin-bottom:4px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:300;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(2px)}
+.ov.open{opacity:1;pointer-events:all}
+.drw{position:fixed;top:0;left:-290px;width:275px;height:100vh;background:var(--surface);border-right:1px solid var(--brdm);z-index:400;transition:left .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto}
+.drw.open{left:0}
+.drw-hd{padding:1.4rem 1.5rem;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between}
+.drw-logo{font-family:Syne,sans-serif;font-size:1.2rem;font-weight:800;color:var(--text)}
+.drw-x{width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;color:var(--muted);transition:all .15s}
+.drw-x:hover{background:var(--surface2);color:var(--text)}
+.drw-nav a{display:flex;align-items:center;gap:11px;padding:12px 1.5rem;color:var(--muted);text-decoration:none;font-size:.9rem;cursor:pointer;transition:all .15s;border-left:3px solid transparent;font-weight:500}
+.drw-nav a:hover{background:var(--bg);color:var(--green);border-left-color:var(--green)}
+.drw-nav svg{width:16px;height:16px;flex-shrink:0}
+.drw-sec{padding:1.2rem 1.5rem .5rem;font-size:.7rem;font-weight:600;color:var(--hint);letter-spacing:1px;text-transform:uppercase}
+.drw-cats{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:.4rem 1.5rem 1.5rem}
+.dcat{background:var(--bg);border:1px solid var(--brd);border-radius:11px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .15s;font-size:.8rem;color:var(--muted);font-weight:500}
+.dcat:hover{border-color:var(--green);color:var(--green);background:var(--gbg)}
+.dcat .di{font-size:1.4rem;display:block;margin-bottom:4px}
 
-    .page{display:none}
-    .page.active{display:block;animation:fadeUp 0.3s ease}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page{display:none}
+.page.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    .hero{max-width:780px;margin:0 auto;padding:5rem 2rem 3rem;text-align:center;position:relative}
-    .hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-    .particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--green);opacity:0.15;animation:floatUp linear infinite}
-    .particle:nth-child(1){left:10%;animation-duration:8s;width:3px;height:3px}
-    .particle:nth-child(2){left:25%;animation-duration:11s;animation-delay:2s}
-    .particle:nth-child(3){left:45%;animation-duration:9s;animation-delay:4s;width:5px;height:5px;opacity:0.1}
-    .particle:nth-child(4){left:65%;animation-duration:12s;animation-delay:1s}
-    .particle:nth-child(5){left:80%;animation-duration:7s;animation-delay:3s;width:3px;height:3px}
-    @keyframes floatUp{0%{transform:translateY(200px);opacity:0}20%{opacity:0.15}80%{opacity:0.1}100%{transform:translateY(-50px);opacity:0}}
+.hero{max-width:780px;margin:0 auto;padding:5rem 2rem 3rem;text-align:center;position:relative}
+.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.pt{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--green);opacity:.15;animation:floatUp linear infinite}
+.pt:nth-child(1){left:10%;animation-duration:8s;width:3px;height:3px}
+.pt:nth-child(2){left:25%;animation-duration:11s;animation-delay:2s}
+.pt:nth-child(3){left:45%;animation-duration:9s;animation-delay:4s;width:5px;height:5px;opacity:.1}
+.pt:nth-child(4){left:65%;animation-duration:12s;animation-delay:1s}
+.pt:nth-child(5){left:80%;animation-duration:7s;animation-delay:3s;width:3px;height:3px}
+@keyframes floatUp{0%{transform:translateY(200px);opacity:0}20%{opacity:.15}80%{opacity:.1}100%{transform:translateY(-50px);opacity:0}}
 
-    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);font-size:0.8rem;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:1.8rem}
-    .htag-dot{width:6px;height:6px;background:var(--green-light);border-radius:50%;animation:blink 2s ease-in-out infinite}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-    h1{font-family:'Syne','Arial Black',Arial,sans-serif;font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1.2rem;color:var(--text)}
-    h1 .accent{color:var(--green)}
-    .hero-sub{color:var(--text-muted);font-size:1.05rem;max-width:520px;margin:0 auto 2.8rem;line-height:1.7}
+.htag{display:inline-flex;align-items:center;gap:8px;background:var(--gbg);border:1px solid var(--gbrd);color:var(--green);font-size:.8rem;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:1.8rem}
+.hdot{width:6px;height:6px;background:var(--gl);border-radius:50%;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-family:Syne,Arial Black,sans-serif;font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1.2rem;color:var(--text)}
+h1 .accent{color:var(--green)}
+.hero-sub{color:var(--muted);font-size:1.05rem;max-width:520px;margin:0 auto 2.8rem;line-height:1.7}
 
-    .search-wrap{max-width:640px;margin:0 auto}
-    .search-box{display:flex;background:var(--surface);border:1.5px solid var(--border-med);border-radius:100px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s;box-shadow:var(--shadow)}
-    .search-box:focus-within{border-color:var(--green);box-shadow:0 0 0 4px rgba(22,163,74,0.1),var(--shadow)}
-    .search-icon{display:flex;align-items:center;padding:0 0 0 22px;color:var(--text-hint);flex-shrink:0}
-    .search-icon svg{width:17px;height:17px}
-    .search-box input{flex:1;border:none;outline:none;padding:16px;font-family:'Inter',sans-serif;font-size:1rem;color:var(--text);background:transparent}
-    .search-box input::placeholder{color:var(--text-hint)}
-    .search-btn{background:var(--green);color:#fff;border:none;padding:11px 28px;margin:5px;border-radius:100px;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.15s;white-space:nowrap}
-    .search-btn:hover{background:#15803d;transform:translateY(-1px)}
-    .search-hints{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:1.2rem}
-    .hint-pill{background:var(--surface);border:1px solid var(--border-med);border-radius:100px;padding:6px 15px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;transition:all 0.15s;font-weight:500}
-    .hint-pill:hover{border-color:var(--green);color:var(--green);background:var(--green-bg)}
+.swrap{max-width:640px;margin:0 auto}
+.sbox{display:flex;background:var(--surface);border:1.5px solid var(--brdm);border-radius:100px;overflow:hidden;transition:border-color .2s,box-shadow .2s;box-shadow:var(--shd)}
+.sbox:focus-within{border-color:var(--green);box-shadow:0 0 0 4px rgba(22,163,74,.1),var(--shd)}
+.sico{display:flex;align-items:center;padding:0 0 0 22px;color:var(--hint);flex-shrink:0}
+.sico svg{width:17px;height:17px}
+.sbox input{flex:1;border:none;outline:none;padding:16px;font-family:inherit;font-size:1rem;color:var(--text);background:transparent}
+.sbox input::placeholder{color:var(--hint)}
+.sbtn{background:var(--green);color:#fff;border:none;padding:11px 28px;margin:5px;border-radius:100px;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.sbtn:hover{background:#15803d;transform:translateY(-1px)}
+.hints{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:1.2rem}
+.pill{background:var(--surface);border:1px solid var(--brdm);border-radius:100px;padding:6px 15px;font-size:.82rem;color:var(--muted);cursor:pointer;transition:all .15s;font-weight:500}
+.pill:hover{border-color:var(--green);color:var(--green);background:var(--gbg)}
 
-    .trust-row{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;padding:1.5rem 2rem;max-width:700px;margin:2rem auto 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-    .trust-item{display:flex;align-items:center;gap:7px;font-size:0.85rem;color:var(--text-muted);font-weight:500}
-    .trust-check{color:var(--green);font-weight:700}
+.trust{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;padding:1.5rem 2rem;max-width:700px;margin:2rem auto 0;border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.ti{display:flex;align-items:center;gap:7px;font-size:.85rem;color:var(--muted);font-weight:500}
+.tc{color:var(--green);font-weight:700}
 
-    .stats-strip{display:flex;max-width:860px;margin:2.5rem auto 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-    .stat-box{flex:1;padding:1.4rem 1rem;text-align:center;border-right:1px solid var(--border)}
-    .stat-box:last-child{border-right:none}
-    .stat-num{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--green);line-height:1}
-    .stat-lbl{font-size:0.78rem;color:var(--text-hint);margin-top:4px}
+.stats{display:flex;max-width:860px;margin:2.5rem auto 0;background:var(--surface);border:1px solid var(--brd);border-radius:var(--r);overflow:hidden;box-shadow:var(--shd)}
+.stt{flex:1;padding:1.4rem 1rem;text-align:center;border-right:1px solid var(--brd)}
+.stt:last-child{border-right:none}
+.stn{font-family:Syne,sans-serif;font-size:1.6rem;font-weight:800;color:var(--green);line-height:1}
+.stl{font-size:.78rem;color:var(--hint);margin-top:4px}
 
-    .ticker-outer{overflow:hidden;max-width:860px;margin:2rem auto 0;padding:0 2rem;position:relative}
-    .ticker-outer::before{content:'';position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,var(--bg),transparent);z-index:2;pointer-events:none}
-    .ticker-outer::after{content:'';position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(-90deg,var(--bg),transparent);z-index:2;pointer-events:none}
-    .ticker-inner{display:flex;gap:10px;animation:scroll 28s linear infinite;width:max-content}
-    @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    .ticker-chip{background:var(--surface);border:1px solid var(--border-med);border-radius:100px;padding:6px 16px;font-size:0.8rem;font-weight:600;white-space:nowrap;color:var(--text-muted)}
+.tkr{overflow:hidden;max-width:860px;margin:2rem auto 0;padding:0 2rem;position:relative}
+.tkr::before{content:"";position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(90deg,var(--bg),transparent);z-index:2;pointer-events:none}
+.tkr::after{content:"";position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(-90deg,var(--bg),transparent);z-index:2;pointer-events:none}
+.tki{display:flex;gap:10px;animation:scroll 28s linear infinite;width:max-content}
+@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tkc{background:var(--surface);border:1px solid var(--brdm);border-radius:100px;padding:6px 16px;font-size:.8rem;font-weight:600;white-space:nowrap;color:var(--muted)}
 
-    .ad-slot{background:var(--surface);border:1px dashed var(--border-med);border-radius:var(--radius);padding:18px;text-align:center;color:var(--text-hint);font-size:0.75rem}
-    .section{max-width:860px;margin:3rem auto 0;padding:0 2rem}
-    .sec-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.4rem}
-    .sec-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text)}
-    .sec-hint{font-size:0.8rem;color:var(--text-hint)}
+.ad{background:var(--surface);border:1px dashed var(--brdm);border-radius:var(--r);padding:18px;text-align:center;color:var(--hint);font-size:.75rem}
+.sec{max-width:860px;margin:3rem auto 0;padding:0 2rem}
+.sechd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.4rem}
+.sect{font-family:Syne,sans-serif;font-size:1.3rem;font-weight:800;color:var(--text)}
+.sech{font-size:.8rem;color:var(--hint)}
 
-    .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
-    .cat-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:18px 10px;text-align:center;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow)}
-    .cat-card:hover{border-color:var(--green);background:var(--green-bg);transform:translateY(-3px);box-shadow:var(--shadow-md)}
-    .cat-icon{font-size:2rem;display:block;margin-bottom:7px}
-    .cat-label{font-size:0.82rem;font-weight:600;color:var(--text-muted)}
-    .cat-card:hover .cat-label{color:var(--green)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.ccard{background:var(--surface);border:1.5px solid var(--brd);border-radius:var(--r);padding:18px 10px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:var(--shd)}
+.ccard:hover{border-color:var(--green);background:var(--gbg);transform:translateY(-3px);box-shadow:var(--shdm)}
+.cico{font-size:2rem;display:block;margin-bottom:7px}
+.clbl{font-size:.82rem;font-weight:600;color:var(--muted)}
+.ccard:hover .clbl{color:var(--green)}
 
-    .deals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:14px}
-    .deal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;box-shadow:var(--shadow)}
-    .deal-card:hover{border-color:var(--border-med);transform:translateY(-3px);box-shadow:var(--shadow-md)}
-    .deal-thumb{height:140px;display:flex;align-items:center;justify-content:center;background:var(--bg2);font-size:3.2rem}
-    .deal-body{padding:14px}
-    .deal-pct{display:inline-block;background:rgba(239,68,68,0.1);color:#dc2626;border:1px solid rgba(239,68,68,0.2);font-size:0.72rem;font-weight:700;padding:3px 9px;border-radius:5px;margin-bottom:6px}
-    .deal-name{font-size:0.9rem;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:8px}
-    .deal-prices{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
-    .deal-price{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:var(--green)}
-    .deal-old{font-size:0.8rem;color:var(--text-hint);text-decoration:line-through}
-    .deal-link{display:block;text-align:center;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);border-radius:100px;padding:8px 14px;font-size:0.82rem;font-weight:600;text-decoration:none;transition:all 0.15s}
-    .deal-link:hover{background:var(--green);color:#fff}
-    .deal-shop{font-size:0.72rem;color:var(--text-hint);text-align:center;margin-top:6px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:14px}
+.dc{background:var(--surface);border:1px solid var(--brd);border-radius:var(--r);overflow:hidden;transition:all .2s;box-shadow:var(--shd)}
+.dc:hover{border-color:var(--brdm);transform:translateY(-3px);box-shadow:var(--shdm)}
+.dth{height:140px;display:flex;align-items:center;justify-content:center;background:var(--bg2);font-size:3.2rem}
+.db{padding:14px}
+.dpct{display:inline-block;background:rgba(239,68,68,.1);color:#dc2626;border:1px solid rgba(239,68,68,.2);font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:5px;margin-bottom:6px}
+.dn{font-size:.9rem;font-weight:600;color:var(--text);line-height:1.35;margin-bottom:8px}
+.dpr{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.dp{font-family:Syne,sans-serif;font-size:1.25rem;font-weight:800;color:var(--green)}
+.do{font-size:.8rem;color:var(--hint);text-decoration:line-through}
+.dlnk{display:block;text-align:center;background:var(--gbg);color:var(--green);border:1px solid var(--gbrd);border-radius:100px;padding:8px 14px;font-size:.82rem;font-weight:600;text-decoration:none;transition:all .15s}
+.dlnk:hover{background:var(--green);color:#fff}
+.dsh{font-size:.72rem;color:var(--hint);text-align:center;margin-top:6px}
 
-    #loading{display:none;text-align:center;padding:3rem 2rem 4rem;max-width:860px;margin:0 auto}
-    #loading.show{display:block}
-    .foxy-loading-scene{position:relative;height:140px;width:280px;margin:0 auto 1.5rem}
-    .foxy-ground{position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--bg2);border-radius:50% 50% 0 0 / 20px 20px 0 0;border:2px solid var(--border-med);border-bottom:none}
-    .foxy-ground::before{content:'🌿🌱🌿';position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1rem;letter-spacing:4px}
-    .foxy-hole{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:44px;height:22px;background:#2a2a20;border-radius:50%;box-shadow:inset 0 4px 8px rgba(0,0,0,0.4)}
-    .foxy-dirt{position:absolute;bottom:24px;left:calc(50% + 26px);width:28px;height:14px;background:#8B6914;border-radius:50% 50% 0 50%;opacity:0.7}
-    .foxy-diver{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:2.2rem;animation:foxyDive 1.4s ease-in-out infinite;transform-origin:bottom center}
-    @keyframes foxyDive{
-      0%{transform:translateX(-50%) translateY(0) rotate(0deg)}
-      30%{transform:translateX(-50%) translateY(-30px) rotate(-20deg)}
-      55%{transform:translateX(-50%) translateY(0px) rotate(10deg) scaleY(0.7)}
-      65%{transform:translateX(-50%) translateY(8px) rotate(0deg) scaleY(0.4) scaleX(1.2)}
-      80%{transform:translateX(-50%) translateY(12px) scaleY(0.1) scaleX(1.3)}
-      90%{transform:translateX(-50%) translateY(14px) scaleY(0)}
-      95%{transform:translateX(-50%) translateY(0px) scaleY(1)}
-      100%{transform:translateX(-50%) translateY(0) rotate(0deg)}
-    }
-    .foxy-sparkle{position:absolute;font-size:1rem;animation:sparkle 1.4s ease-in-out infinite}
-    .foxy-sparkle:nth-child(1){bottom:28px;left:calc(50% - 38px);animation-delay:0.55s}
-    .foxy-sparkle:nth-child(2){bottom:28px;left:calc(50% + 22px);animation-delay:0.65s}
-    .foxy-sparkle:nth-child(3){bottom:45px;left:calc(50% - 20px);animation-delay:0.6s}
-    @keyframes sparkle{0%,50%{opacity:0;transform:scale(0)}60%{opacity:1;transform:scale(1.2)}75%{opacity:1}100%{opacity:0;transform:scale(0) translateY(-10px)}}
-    .loading-label{color:var(--text-muted);font-size:0.95rem;margin-bottom:1rem;font-weight:500}
-    .loading-shops{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-    .ls{font-size:0.78rem;padding:4px 13px;border-radius:100px;border:1px solid var(--border-med);color:var(--text-hint);background:var(--surface);animation:lpulse 1.4s ease-in-out infinite;font-weight:500}
-    .ls:nth-child(2){animation-delay:.15s}.ls:nth-child(3){animation-delay:.3s}.ls:nth-child(4){animation-delay:.45s}.ls:nth-child(5){animation-delay:.6s}
-    @keyframes lpulse{0%,100%{opacity:0.4}50%{opacity:1;color:var(--green);border-color:var(--green)}}
+#loading{display:none;text-align:center;padding:3rem 2rem 4rem;max-width:860px;margin:0 auto}
+#loading.show{display:block}
+.fscene{position:relative;height:140px;width:280px;margin:0 auto 1.5rem}
+.fgnd{position:absolute;bottom:0;left:0;right:0;height:30px;background:var(--bg2);border-radius:50% 50% 0 0/20px 20px 0 0;border:2px solid var(--brdm);border-bottom:none}
+.fgnd::before{content:"🌿🌱🌿";position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:1rem;letter-spacing:4px}
+.fhole{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:44px;height:22px;background:#2a2a20;border-radius:50%;box-shadow:inset 0 4px 8px rgba(0,0,0,.4)}
+.fdirt{position:absolute;bottom:24px;left:calc(50% + 26px);width:28px;height:14px;background:#8B6914;border-radius:50% 50% 0 50%;opacity:.7}
+.fdvr{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:2.2rem;animation:dive 1.4s ease-in-out infinite;transform-origin:bottom center}
+@keyframes dive{
+  0%{transform:translateX(-50%) translateY(0) rotate(0deg)}
+  30%{transform:translateX(-50%) translateY(-30px) rotate(-20deg)}
+  55%{transform:translateX(-50%) translateY(0) rotate(10deg) scaleY(.7)}
+  65%{transform:translateX(-50%) translateY(8px) scaleY(.4) scaleX(1.2)}
+  80%{transform:translateX(-50%) translateY(12px) scaleY(.1) scaleX(1.3)}
+  90%{transform:translateX(-50%) translateY(14px) scaleY(0)}
+  95%{transform:translateX(-50%) translateY(0) scaleY(1)}
+  100%{transform:translateX(-50%) translateY(0) rotate(0deg)}
+}
+.fspk{position:absolute;font-size:1rem;animation:spk 1.4s ease-in-out infinite}
+.fspk:nth-child(1){bottom:28px;left:calc(50% - 38px);animation-delay:.55s}
+.fspk:nth-child(2){bottom:28px;left:calc(50% + 22px);animation-delay:.65s}
+.fspk:nth-child(3){bottom:45px;left:calc(50% - 20px);animation-delay:.6s}
+@keyframes spk{0%,50%{opacity:0;transform:scale(0)}60%{opacity:1;transform:scale(1.2)}75%{opacity:1}100%{opacity:0;transform:scale(0) translateY(-10px)}}
+.llbl{color:var(--muted);font-size:.95rem;margin-bottom:1rem;font-weight:500}
+.lshps{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.ls{font-size:.78rem;padding:4px 13px;border-radius:100px;border:1px solid var(--brdm);color:var(--hint);background:var(--surface);animation:lp 1.4s ease-in-out infinite;font-weight:500}
+.ls:nth-child(2){animation-delay:.15s}.ls:nth-child(3){animation-delay:.3s}.ls:nth-child(4){animation-delay:.45s}.ls:nth-child(5){animation-delay:.6s}
+@keyframes lp{0%,100%{opacity:.4}50%{opacity:1;color:var(--green);border-color:var(--green)}}
 
-    #results-wrap{display:none;max-width:860px;margin:2.5rem auto;padding:0 2rem}
-    #results-wrap.show{display:block;animation:fadeUp 0.3s ease}
-    .results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;flex-wrap:wrap;gap:10px}
-    .results-title{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--text)}
-    .results-meta{font-size:0.82rem;color:var(--text-hint);margin-top:3px}
-    .sort-row{display:flex;gap:6px}
-    .sbtn{background:var(--surface);border:1.5px solid var(--border-med);border-radius:100px;padding:7px 18px;font-size:0.82rem;color:var(--text-muted);cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;font-weight:500}
-    .sbtn.on{background:var(--green);color:#fff;border-color:var(--green);font-weight:600}
-    .sbtn:hover:not(.on){border-color:var(--green);color:var(--green)}
-    .results-list{display:flex;flex-direction:column;gap:12px}
+#rw{display:none;max-width:860px;margin:2.5rem auto;padding:0 2rem}
+#rw.show{display:block;animation:fadeUp .3s ease}
+.rbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.4rem;flex-wrap:wrap;gap:10px}
+.rtit{font-family:Syne,sans-serif;font-size:1.15rem;font-weight:800;color:var(--text)}
+.rmeta{font-size:.82rem;color:var(--hint);margin-top:3px}
+.srow{display:flex;gap:6px}
+.bb{background:var(--surface);border:1.5px solid var(--brdm);border-radius:100px;padding:7px 18px;font-size:.82rem;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .15s;font-weight:500}
+.bb.on{background:var(--green);color:#fff;border-color:var(--green);font-weight:600}
+.bb:hover:not(.on){border-color:var(--green);color:var(--green)}
+.rl{display:flex;flex-direction:column;gap:12px}
 
-    .pick-banner{background:var(--green-bg);border:1.5px solid var(--green-border);border-radius:var(--radius);padding:12px 18px;margin-bottom:8px;display:flex;align-items:center;gap:12px;font-size:0.88rem;color:var(--text-muted);font-weight:500}
-    .pick-banner strong{color:var(--green)}
+.pbanner{background:var(--gbg);border:1.5px solid var(--gbrd);border-radius:var(--r);padding:12px 18px;margin-bottom:8px;display:flex;align-items:center;gap:12px;font-size:.88rem;color:var(--muted);font-weight:500}
+.pbanner strong{color:var(--green)}
 
-    .rcard{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;gap:16px;transition:all 0.2s;position:relative;overflow:hidden;animation:cardIn 0.3s ease both;box-shadow:var(--shadow)}
-    @keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-    .rcard:hover{border-color:var(--border-med);box-shadow:var(--shadow-md);transform:translateY(-1px)}
-    .rcard.pick{border-color:var(--green);background:linear-gradient(135deg,var(--surface),var(--green-bg))}
-    .pick-label{position:absolute;top:0;left:16px;background:var(--green);color:#fff;font-size:0.7rem;font-weight:700;padding:3px 12px;border-radius:0 0 8px 8px;font-family:'Syne',sans-serif}
-    .r-thumb{width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0;border:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;justify-content:center}
-    .r-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-    .r-thumb-ph{font-size:1.8rem}
-    .r-badge{width:46px;height:38px;border-radius:8px;border:1.5px solid var(--border-med);display:flex;align-items:center;justify-content:center;font-size:0.62rem;font-weight:700;flex-shrink:0;background:var(--bg2)}
-    .r-info{flex:1;min-width:0}
-    .r-shop{font-size:0.76rem;color:var(--text-hint);margin-bottom:3px;font-weight:500}
-    .r-product{font-size:0.95rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .r-tags{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
-    .rtag{font-size:0.72rem;padding:3px 9px;border-radius:5px;font-weight:600}
-    .rtag-g{background:rgba(22,163,74,0.1);color:var(--green);border:1px solid rgba(22,163,74,0.2)}
-    .rtag-p{background:rgba(139,92,246,0.1);color:#7c3aed;border:1px solid rgba(139,92,246,0.2)}
-    .rtag-o{background:rgba(249,115,22,0.1);color:#ea580c;border:1px solid rgba(249,115,22,0.2)}
-    .r-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;min-width:130px}
-    .r-price-old{font-size:0.78rem;color:var(--text-hint);text-decoration:line-through}
-    .r-price-from{font-size:0.72rem;color:var(--text-hint);font-weight:500}
-    .r-price-value{font-family:'Inter',sans-serif;font-size:1.3rem;font-weight:600;color:var(--text);line-height:1;display:block}
-    .pick .r-price-value{color:var(--green);font-weight:700}
-    .r-save{font-size:0.75rem;color:#dc2626;font-weight:600}
-    .r-btn{background:var(--green);color:#fff;border:none;padding:9px 20px;border-radius:100px;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-block;white-space:nowrap}
-    .r-btn:hover{background:#15803d;transform:translateY(-1px)}
-    .r-btn-sec{background:var(--bg2);color:var(--text-muted);border:1.5px solid var(--border-med);padding:9px 18px;border-radius:100px;font-family:'Inter',sans-serif;font-size:0.85rem;cursor:pointer;transition:all 0.15s;text-decoration:none;display:inline-block;white-space:nowrap;font-weight:500}
-    .r-btn-sec:hover{border-color:var(--green);color:var(--green)}
-    .aff-notice{max-width:860px;margin:0.5rem auto 0;padding:0 2rem;font-size:0.6rem;color:rgba(0,0,0,0.22)}
+.rc{background:var(--surface);border:1.5px solid var(--brd);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;gap:16px;transition:all .2s;position:relative;overflow:hidden;animation:cardIn .3s ease both;box-shadow:var(--shd)}
+@keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.rc:hover{border-color:var(--brdm);box-shadow:var(--shdm);transform:translateY(-1px)}
+.rc.pick{border-color:var(--green);background:linear-gradient(135deg,var(--surface),var(--gbg))}
+.plbl{position:absolute;top:0;left:16px;background:var(--green);color:#fff;font-size:.7rem;font-weight:700;padding:3px 12px;border-radius:0 0 8px 8px;font-family:Syne,sans-serif}
+.rthumb{width:72px;height:72px;border-radius:12px;overflow:hidden;flex-shrink:0;border:1px solid var(--brd);background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.rthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.rbdg{width:46px;height:38px;border-radius:8px;border:1.5px solid var(--brdm);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;flex-shrink:0;background:var(--bg2)}
+.ri{flex:1;min-width:0}
+.rshp{font-size:.76rem;color:var(--hint);margin-bottom:3px;font-weight:500}
+.rprd{font-size:.95rem;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rtags{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+.tag{font-size:.72rem;padding:3px 9px;border-radius:5px;font-weight:600}
+.tg{background:rgba(22,163,74,.1);color:var(--green);border:1px solid rgba(22,163,74,.2)}
+.tp{background:rgba(139,92,246,.1);color:#7c3aed;border:1px solid rgba(139,92,246,.2)}
+.to{background:rgba(249,115,22,.1);color:#ea580c;border:1px solid rgba(249,115,22,.2)}
+.rrgt{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;min-width:130px}
+.rold{font-size:.78rem;color:var(--hint);text-decoration:line-through}
+.rfrom{font-size:.72rem;color:var(--hint);font-weight:500}
+.rprice{font-family:Inter,sans-serif;font-size:1.3rem;font-weight:600;color:var(--text);line-height:1;display:block}
+.pick .rprice{color:var(--green);font-weight:700}
+.rsave{font-size:.75rem;color:#dc2626;font-weight:600}
+.rbtn{background:var(--green);color:#fff;border:none;padding:9px 20px;border-radius:100px;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;white-space:nowrap}
+.rbtn:hover{background:#15803d;transform:translateY(-1px)}
+.rbtn2{background:var(--bg2);color:var(--muted);border:1.5px solid var(--brdm);padding:9px 18px;border-radius:100px;font-family:inherit;font-size:.85rem;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-block;white-space:nowrap;font-weight:500}
+.rbtn2:hover{border-color:var(--green);color:var(--green)}
+.aff{max-width:860px;margin:.5rem auto 0;padding:0 2rem;font-size:.6rem;color:rgba(0,0,0,.22)}
 
-    .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-    .how-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:22px;transition:all 0.2s;box-shadow:var(--shadow);position:relative;overflow:hidden}
-    .how-card::before{content:attr(data-step);position:absolute;bottom:-8px;right:8px;font-family:'Syne',sans-serif;font-size:4.5rem;font-weight:800;color:rgba(0,0,0,0.04);line-height:1}
-    .how-card:hover{border-color:var(--green-border);transform:translateY(-2px);box-shadow:var(--shadow-md)}
-    .how-icon{width:44px;height:44px;background:var(--green-bg);border:1.5px solid var(--green-border);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:14px}
-    .how-card h3{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:800;margin-bottom:6px;color:var(--text)}
-    .how-card p{font-size:0.82rem;color:var(--text-muted);line-height:1.6}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.hc{background:var(--surface);border:1.5px solid var(--brd);border-radius:var(--r);padding:22px;transition:all .2s;box-shadow:var(--shd);position:relative;overflow:hidden}
+.hc::before{content:attr(data-s);position:absolute;bottom:-8px;right:8px;font-family:Syne,sans-serif;font-size:4.5rem;font-weight:800;color:rgba(0,0,0,.04);line-height:1}
+.hc:hover{border-color:var(--gbrd);transform:translateY(-2px);box-shadow:var(--shdm)}
+.hico{width:44px;height:44px;background:var(--gbg);border:1.5px solid var(--gbrd);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:14px}
+.hc h3{font-family:Syne,sans-serif;font-size:.95rem;font-weight:800;margin-bottom:6px;color:var(--text)}
+.hc p{font-size:.82rem;color:var(--muted);line-height:1.6}
 
-    .spage{max-width:700px;margin:0 auto;padding:4rem 2rem}
-    .spage h2{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;margin-bottom:2rem;color:var(--text)}
-    .spage h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin:1.6rem 0 0.5rem;color:var(--text)}
-    .spage p{color:var(--text-muted);font-size:0.95rem;margin-bottom:0.9rem;line-height:1.75}
-    .spage a{color:var(--green);text-decoration:none}
-    .cform{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);padding:2rem;margin-top:1.5rem;box-shadow:var(--shadow)}
-    .fg{margin-bottom:1rem}
-    .fg label{display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px;color:var(--text-muted)}
-    .fg input,.fg textarea,.fg select{width:100%;padding:11px 14px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-family:'Inter',sans-serif;font-size:0.92rem;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.15s,box-shadow 0.15s}
-    .fg input:focus,.fg textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,0.1)}
-    .fg textarea{resize:vertical;min-height:120px}
-    .form-btn{background:var(--green);color:#fff;border:none;padding:11px 28px;border-radius:100px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:600;cursor:pointer;transition:all 0.15s}
-    .form-btn:hover{background:#15803d;transform:translateY(-1px)}
-    .form-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-    .form-ok{display:none;background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.9rem;margin-top:1rem;font-weight:500}
-    .form-err{display:none;background:rgba(239,68,68,0.08);color:#dc2626;border:1px solid rgba(239,68,68,0.2);padding:12px 16px;border-radius:var(--radius-sm);font-size:0.9rem;margin-top:1rem}
+.sp{max-width:700px;margin:0 auto;padding:4rem 2rem}
+.sp h2{font-family:Syne,sans-serif;font-size:2rem;font-weight:800;margin-bottom:2rem;color:var(--text)}
+.sp h3{font-family:Syne,sans-serif;font-size:1rem;font-weight:700;margin:1.6rem 0 .5rem;color:var(--text)}
+.sp p{color:var(--muted);font-size:.95rem;margin-bottom:.9rem;line-height:1.75}
+.sp a{color:var(--green);text-decoration:none}
+.cf{background:var(--surface);border:1.5px solid var(--brd);border-radius:var(--r);padding:2rem;margin-top:1.5rem;box-shadow:var(--shd)}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--muted)}
+.fg input,.fg textarea,.fg select{width:100%;padding:11px 14px;border:1.5px solid var(--brdm);border-radius:var(--rs);font-family:inherit;font-size:.92rem;color:var(--text);background:var(--bg);outline:none;transition:border-color .15s,box-shadow .15s}
+.fg input:focus,.fg textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(22,163,74,.1)}
+.fg textarea{resize:vertical;min-height:120px}
+.fbtn{background:var(--green);color:#fff;border:none;padding:11px 28px;border-radius:100px;font-family:inherit;font-size:.92rem;font-weight:600;cursor:pointer;transition:all .15s}
+.fbtn:hover{background:#15803d;transform:translateY(-1px)}
+.fbtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.fok{display:none;background:var(--gbg);color:var(--green);border:1px solid var(--gbrd);padding:12px 16px;border-radius:var(--rs);font-size:.9rem;margin-top:1rem;font-weight:500}
+.ferr{display:none;background:rgba(239,68,68,.08);color:#dc2626;border:1px solid rgba(239,68,68,.2);padding:12px 16px;border-radius:var(--rs);font-size:.9rem;margin-top:1rem}
 
-    footer{border-top:1px solid var(--border);padding:2rem;margin-top:5rem;background:var(--surface)}
-    .footer-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-    .footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);display:flex;align-items:center;gap:8px}
-    .footer-links{display:flex;gap:1.8rem;flex-wrap:wrap}
-    .footer-links a{color:var(--text-hint);text-decoration:none;font-size:0.85rem;cursor:pointer;transition:color 0.15s;font-weight:500}
-    .footer-links a:hover{color:var(--green)}
-    .footer-copy{color:var(--text-hint);font-size:0.78rem}
+footer{border-top:1px solid var(--brd);padding:2rem;margin-top:5rem;background:var(--surface)}
+.fi{max-width:860px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.flogo{font-family:Syne,sans-serif;font-weight:800;font-size:1.05rem;color:var(--text);display:flex;align-items:center;gap:8px}
+.flinks{display:flex;gap:1.8rem;flex-wrap:wrap}
+.flinks a{color:var(--hint);text-decoration:none;font-size:.85rem;cursor:pointer;transition:color .15s;font-weight:500}
+.flinks a:hover{color:var(--green)}
+.fcp{color:var(--hint);font-size:.78rem}
 
-    .chat-fab{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;cursor:pointer;z-index:999;box-shadow:0 4px 20px rgba(22,163,74,0.25);display:flex;align-items:center;justify-content:center;background:var(--surface);border:2px solid var(--green-border);font-size:1.9rem;animation:foxyIdle 4s ease-in-out infinite}
-    @keyframes foxyIdle{0%,100%{transform:scale(1) rotate(0deg)}20%{transform:scale(1.05) rotate(5deg)}40%{transform:scale(1) rotate(-3deg)}60%{transform:scale(1.03) rotate(2deg)}}
-    .chat-fab:hover{transform:scale(1.15) rotate(-8deg)!important;box-shadow:0 6px 28px rgba(22,163,74,0.4)}
-    .chat-win{position:fixed;bottom:96px;right:24px;width:330px;background:var(--surface);border:1.5px solid var(--border-med);border-radius:20px;box-shadow:0 16px 48px rgba(0,0,0,0.15);z-index:998;display:none;flex-direction:column;overflow:hidden}
-    .chat-win.open{display:flex;animation:chatPop 0.3s cubic-bezier(0.34,1.56,0.64,1)}
-    @keyframes chatPop{from{opacity:0;transform:scale(0.8) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
-    .chat-hd{background:var(--green);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
-    .chat-hd-left{display:flex;align-items:center;gap:10px}
-    .chat-hd-fox{font-size:1.8rem;animation:foxyBob 2s ease-in-out infinite}
-    @keyframes foxyBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-    .chat-hd-name{font-size:0.95rem;font-weight:700;color:#fff}
-    .chat-hd-sub{font-size:0.7rem;color:rgba(255,255,255,0.8);display:flex;align-items:center;gap:4px}
-    .chat-hd-dot{width:5px;height:5px;background:#fff;border-radius:50%;animation:blink 1.8s ease-in-out infinite}
-    .chat-x{cursor:pointer;color:rgba(255,255,255,0.7);font-size:1rem;transition:color 0.15s}
-    .chat-x:hover{color:#fff}
-    .chat-msgs{padding:14px;display:flex;flex-direction:column;gap:9px;max-height:260px;overflow-y:auto;background:var(--bg)}
-    .chat-msgs::-webkit-scrollbar{width:3px}.chat-msgs::-webkit-scrollbar-thumb{background:#ccc}
-    .cmsg{max-width:88%;padding:10px 14px;border-radius:16px;font-size:0.85rem;line-height:1.5;animation:msgPop 0.2s ease}
-    @keyframes msgPop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-    .cmsg.bot{background:var(--surface);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--border)}
-    .cmsg.usr{background:var(--green);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
-    .typing{display:flex;align-items:center;gap:4px;padding:10px 14px;background:var(--surface);border-radius:16px;border-bottom-left-radius:4px;align-self:flex-start;border:1px solid var(--border)}
-    .td{width:6px;height:6px;background:var(--text-hint);border-radius:50%;animation:tdot 1.2s ease-in-out infinite}
-    .td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
-    @keyframes tdot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
-    .chat-opts{padding:10px 14px 14px;display:flex;flex-direction:column;gap:6px;background:var(--surface);border-top:1px solid var(--border)}
-    .copt{background:var(--bg);color:var(--text-muted);border:1.5px solid var(--border-med);border-radius:100px;padding:8px 14px;font-size:0.8rem;cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;font-weight:500}
-    .copt:hover{border-color:var(--green);color:var(--green);background:var(--green-bg);transform:translateX(2px)}
+.fab{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;cursor:pointer;z-index:999;box-shadow:0 4px 20px rgba(22,163,74,.25);display:flex;align-items:center;justify-content:center;background:var(--surface);border:2px solid var(--gbrd);font-size:1.9rem;animation:fxidle 4s ease-in-out infinite}
+@keyframes fxidle{0%,100%{transform:scale(1) rotate(0)}20%{transform:scale(1.05) rotate(5deg)}40%{transform:scale(1) rotate(-3deg)}60%{transform:scale(1.03) rotate(2deg)}}
+.fab:hover{transform:scale(1.15) rotate(-8deg)!important;box-shadow:0 6px 28px rgba(22,163,74,.4)}
+.cwin{position:fixed;bottom:96px;right:24px;width:330px;background:var(--surface);border:1.5px solid var(--brdm);border-radius:20px;box-shadow:0 16px 48px rgba(0,0,0,.15);z-index:998;display:none;flex-direction:column;overflow:hidden}
+.cwin.open{display:flex;animation:cpop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cpop{from{opacity:0;transform:scale(.8) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.chd{background:var(--green);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.chdl{display:flex;align-items:center;gap:10px}
+.cfox{font-size:1.8rem;animation:fxbob 2s ease-in-out infinite}
+@keyframes fxbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.cname{font-size:.95rem;font-weight:700;color:#fff}
+.csub{font-size:.7rem;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:4px}
+.cdot{width:5px;height:5px;background:#fff;border-radius:50%;animation:blink 1.8s ease-in-out infinite}
+.cx{cursor:pointer;color:rgba(255,255,255,.7);font-size:1rem;transition:color .15s}
+.cx:hover{color:#fff}
+.cmsgs{padding:14px;display:flex;flex-direction:column;gap:9px;max-height:260px;overflow-y:auto;background:var(--bg)}
+.cmsgs::-webkit-scrollbar{width:3px}.cmsgs::-webkit-scrollbar-thumb{background:#ccc}
+.cm{max-width:88%;padding:10px 14px;border-radius:16px;font-size:.85rem;line-height:1.5;animation:mpop .2s ease}
+@keyframes mpop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.cm.bot{background:var(--surface);color:var(--text);align-self:flex-start;border-bottom-left-radius:4px;border:1px solid var(--brd)}
+.cm.usr{background:var(--green);color:#fff;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
+.typ{display:flex;align-items:center;gap:4px;padding:10px 14px;background:var(--surface);border-radius:16px;border-bottom-left-radius:4px;align-self:flex-start;border:1px solid var(--brd)}
+.td{width:6px;height:6px;background:var(--hint);border-radius:50%;animation:tdot 1.2s ease-in-out infinite}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.copts{padding:10px 14px 14px;display:flex;flex-direction:column;gap:6px;background:var(--surface);border-top:1px solid var(--brd)}
+.co{background:var(--bg);color:var(--muted);border:1.5px solid var(--brdm);border-radius:100px;padding:8px 14px;font-size:.8rem;cursor:pointer;font-family:inherit;text-align:left;transition:all .15s;font-weight:500}
+.co:hover{border-color:var(--green);color:var(--green);background:var(--gbg);transform:translateX(2px)}
 
-    @media(max-width:640px){
-      .rcard{flex-wrap:wrap}.r-right{flex-direction:row;align-items:center;width:100%;justify-content:space-between}
-      .chat-win{width:calc(100vw - 32px);right:16px}.nav-links{display:none}
-      .footer-inner{flex-direction:column;text-align:center}.stats-strip{flex-wrap:wrap}
-    }
+@media(max-width:640px){
+  .rc{flex-wrap:wrap}.rrgt{flex-direction:row;align-items:center;width:100%;justify-content:space-between}
+  .cwin{width:calc(100vw - 32px);right:16px}.nav-links{display:none}
+  .fi{flex-direction:column;text-align:center}.stats{flex-wrap:wrap}
+}
   </style>
 </head>
 <body>
@@ -281,454 +279,451 @@
   <div class="nav-right">
     <div class="nav-links">
       <a onclick="showPage('home')">Suche</a>
-      <a onclick="showPage('ueber')">Über uns</a>
+      <a onclick="showPage('ueber')">Ueber uns</a>
       <a onclick="showPage('kontakt')">Kontakt</a>
     </div>
     <div class="burger" id="burger" onclick="toggleDrawer()"><span></span><span></span><span></span></div>
   </div>
 </nav>
 
-<div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
-<div class="drawer" id="drawer">
-  <div class="drawer-header"><div class="drawer-logo">PreisWise</div><div class="drawer-x" onclick="toggleDrawer()">✕</div></div>
-  <div class="drawer-nav">
+<div class="ov" id="ov" onclick="toggleDrawer()"></div>
+<div class="drw" id="drw">
+  <div class="drw-hd"><div class="drw-logo">PreisWise</div><div class="drw-x" onclick="toggleDrawer()">X</div></div>
+  <div class="drw-nav">
     <a onclick="showPage('home');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>Startseite</a>
-    <a onclick="showPage('ueber');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>Über uns</a>
+    <a onclick="showPage('ueber');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>Ueber uns</a>
     <a onclick="showPage('kontakt');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>Kontakt</a>
     <a onclick="showPage('impressum');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>Impressum</a>
     <a onclick="showPage('datenschutz');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Datenschutz</a>
   </div>
-  <div class="drawer-sec">Kategorien</div>
-  <div class="drawer-cats">
-    <div class="dcat" onclick="fillSearch('Smartphone');toggleDrawer()"><span class="di">📱</span>Smartphones</div>
-    <div class="dcat" onclick="fillSearch('Laptop');toggleDrawer()"><span class="di">💻</span>Laptops</div>
-    <div class="dcat" onclick="fillSearch('PlayStation 5');toggleDrawer()"><span class="di">🎮</span>Gaming</div>
-    <div class="dcat" onclick="fillSearch('Kopfhörer');toggleDrawer()"><span class="di">🎧</span>Audio</div>
-    <div class="dcat" onclick="fillSearch('Staubsauger');toggleDrawer()"><span class="di">🏠</span>Haushalt</div>
-    <div class="dcat" onclick="fillSearch('Sneaker');toggleDrawer()"><span class="di">👟</span>Mode</div>
-    <div class="dcat" onclick="fillSearch('Kamera');toggleDrawer()"><span class="di">📷</span>Foto</div>
-    <div class="dcat" onclick="fillSearch('Tablet');toggleDrawer()"><span class="di">📟</span>Tablets</div>
+  <div class="drw-sec">Kategorien</div>
+  <div class="drw-cats">
+    <div class="dcat" onclick="go('Smartphone');toggleDrawer()"><span class="di">📱</span>Smartphones</div>
+    <div class="dcat" onclick="go('Laptop');toggleDrawer()"><span class="di">💻</span>Laptops</div>
+    <div class="dcat" onclick="go('PlayStation 5');toggleDrawer()"><span class="di">🎮</span>Gaming</div>
+    <div class="dcat" onclick="go('Kopfhoerer');toggleDrawer()"><span class="di">🎧</span>Audio</div>
+    <div class="dcat" onclick="go('Staubsauger');toggleDrawer()"><span class="di">🏠</span>Haushalt</div>
+    <div class="dcat" onclick="go('Sneaker');toggleDrawer()"><span class="di">👟</span>Mode</div>
+    <div class="dcat" onclick="go('Kamera');toggleDrawer()"><span class="di">📷</span>Foto</div>
+    <div class="dcat" onclick="go('Tablet');toggleDrawer()"><span class="di">📟</span>Tablets</div>
   </div>
 </div>
 
 <div id="page-home" class="page active">
   <section class="hero">
-    <div class="hero-particles"><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div></div>
-    <div class="hero-tag"><div class="htag-dot"></div> Live Preisvergleich · 8 Shops</div>
+    <div class="hero-particles"><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div></div>
+    <div class="htag"><div class="hdot"></div> Live Preisvergleich - 8 Shops</div>
     <h1>Kauf schlauer.<br><span class="accent">Spare mehr.</span></h1>
-    <p class="hero-sub">Wir vergleichen Amazon, eBay, MediaMarkt und 5 weitere Shops – und zeigen dir immer das günstigste Angebot zuerst.</p>
-    <div class="search-wrap">
-      <div class="search-box">
-        <div class="search-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg></div>
-        <input type="text" id="searchInput" placeholder="z.B. iPhone 15, Laptops, PS5 ..." autocomplete="off" />
-        <button class="search-btn" onclick="startSearch()">Vergleichen</button>
+    <p class="hero-sub">Wir vergleichen Amazon, eBay, MediaMarkt und 5 weitere Shops - und zeigen dir immer das guenstigste Angebot zuerst.</p>
+    <div class="swrap">
+      <div class="sbox">
+        <div class="sico"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg></div>
+        <input type="text" id="si" placeholder="z.B. iPhone 15, Laptops, PS5 ..." autocomplete="off">
+        <button class="sbtn" onclick="startSearch()">Vergleichen</button>
       </div>
-      <div class="search-hints">
-        <div class="hint-pill" onclick="fillSearch('iPhone 15')">📱 iPhone 15</div>
-        <div class="hint-pill" onclick="fillSearch('AirPods Pro')">🎧 AirPods Pro</div>
-        <div class="hint-pill" onclick="fillSearch('PlayStation 5')">🎮 PS5</div>
-        <div class="hint-pill" onclick="fillSearch('Samsung Galaxy S24')">📲 Galaxy S24</div>
-        <div class="hint-pill" onclick="fillSearch('Laptop')">💻 Laptops</div>
+      <div class="hints">
+        <div class="pill" onclick="go('iPhone 15')">📱 iPhone 15</div>
+        <div class="pill" onclick="go('AirPods Pro')">🎧 AirPods Pro</div>
+        <div class="pill" onclick="go('PlayStation 5')">🎮 PS5</div>
+        <div class="pill" onclick="go('Samsung Galaxy S24')">📲 Galaxy S24</div>
+        <div class="pill" onclick="go('Laptop')">💻 Laptops</div>
       </div>
     </div>
   </section>
 
-  <div class="trust-row">
-    <div class="trust-item"><span class="trust-check">✓</span> Kostenlos</div>
-    <div class="trust-item"><span class="trust-check">✓</span> Amazon immer günstigster</div>
-    <div class="trust-item"><span class="trust-check">✓</span> 8 Shops gleichzeitig</div>
-    <div class="trust-item"><span class="trust-check">✓</span> Kein Tracking</div>
+  <div class="trust">
+    <div class="ti"><span class="tc">&#10003;</span> Kostenlos</div>
+    <div class="ti"><span class="tc">&#10003;</span> Amazon immer guenstigster</div>
+    <div class="ti"><span class="tc">&#10003;</span> 8 Shops gleichzeitig</div>
+    <div class="ti"><span class="tc">&#10003;</span> Kein Tracking</div>
   </div>
 
-  <div class="section">
-    <div class="stats-strip">
-      <div class="stat-box"><div class="stat-num">8+</div><div class="stat-lbl">Shops</div></div>
-      <div class="stat-box"><div class="stat-num">Live</div><div class="stat-lbl">Echtzeit</div></div>
-      <div class="stat-box"><div class="stat-num">0 €</div><div class="stat-lbl">Kostenlos</div></div>
-      <div class="stat-box"><div class="stat-num">100%</div><div class="stat-lbl">Kein Tracking</div></div>
+  <div class="sec">
+    <div class="stats">
+      <div class="stt"><div class="stn">8+</div><div class="stl">Shops</div></div>
+      <div class="stt"><div class="stn">Live</div><div class="stl">Echtzeit</div></div>
+      <div class="stt"><div class="stn">0 &euro;</div><div class="stl">Kostenlos</div></div>
+      <div class="stt"><div class="stn">100%</div><div class="stl">Kein Tracking</div></div>
     </div>
   </div>
 
-  <div class="ticker-outer section" style="padding:0 2rem">
-    <div class="ticker-inner" id="tickerInner"></div>
-  </div>
+  <div class="tkr sec" style="padding:0 2rem"><div class="tki" id="tki"></div></div>
 
-  <div class="section"><div class="ad-slot">Werbung · Google AdSense</div></div>
+  <div class="sec"><div class="ad">Werbung - Google AdSense</div></div>
 
-  <div class="section" id="cats-section">
-    <div class="sec-hd"><div class="sec-title">Kategorien</div><div class="sec-hint">Schnell stöbern</div></div>
-    <div class="cat-grid">
-      <div class="cat-card" onclick="fillSearch('Smartphone')"><span class="cat-icon">📱</span><span class="cat-label">Smartphones</span></div>
-      <div class="cat-card" onclick="fillSearch('Laptop')"><span class="cat-icon">💻</span><span class="cat-label">Laptops</span></div>
-      <div class="cat-card" onclick="fillSearch('PlayStation 5')"><span class="cat-icon">🎮</span><span class="cat-label">Gaming</span></div>
-      <div class="cat-card" onclick="fillSearch('Kopfhörer')"><span class="cat-icon">🎧</span><span class="cat-label">Audio</span></div>
-      <div class="cat-card" onclick="fillSearch('Staubsauger')"><span class="cat-icon">🏠</span><span class="cat-label">Haushalt</span></div>
-      <div class="cat-card" onclick="fillSearch('Sneaker')"><span class="cat-icon">👟</span><span class="cat-label">Mode</span></div>
-      <div class="cat-card" onclick="fillSearch('Kamera')"><span class="cat-icon">📷</span><span class="cat-label">Foto</span></div>
-      <div class="cat-card" onclick="fillSearch('Tablet')"><span class="cat-icon">📟</span><span class="cat-label">Tablets</span></div>
-      <div class="cat-card" onclick="fillSearch('Fernseher')"><span class="cat-icon">📺</span><span class="cat-label">TV</span></div>
-      <div class="cat-card" onclick="fillSearch('Apple Watch')"><span class="cat-icon">⌚</span><span class="cat-label">Smartwatch</span></div>
-      <div class="cat-card" onclick="fillSearch('Kindle')"><span class="cat-icon">📚</span><span class="cat-label">E-Reader</span></div>
-      <div class="cat-card" onclick="fillSearch('Nike Air Max')"><span class="cat-icon">👟</span><span class="cat-label">Sneaker</span></div>
+  <div class="sec" id="cs">
+    <div class="sechd"><div class="sect">Kategorien</div><div class="sech">Schnell stoebern</div></div>
+    <div class="cgrid">
+      <div class="ccard" onclick="go('Smartphone')"><span class="cico">📱</span><span class="clbl">Smartphones</span></div>
+      <div class="ccard" onclick="go('Laptop')"><span class="cico">💻</span><span class="clbl">Laptops</span></div>
+      <div class="ccard" onclick="go('PlayStation 5')"><span class="cico">🎮</span><span class="clbl">Gaming</span></div>
+      <div class="ccard" onclick="go('Kopfhoerer')"><span class="cico">🎧</span><span class="clbl">Audio</span></div>
+      <div class="ccard" onclick="go('Staubsauger')"><span class="cico">🏠</span><span class="clbl">Haushalt</span></div>
+      <div class="ccard" onclick="go('Sneaker')"><span class="cico">👟</span><span class="clbl">Mode</span></div>
+      <div class="ccard" onclick="go('Kamera')"><span class="cico">📷</span><span class="clbl">Foto</span></div>
+      <div class="ccard" onclick="go('Tablet')"><span class="cico">📟</span><span class="clbl">Tablets</span></div>
+      <div class="ccard" onclick="go('Fernseher')"><span class="cico">📺</span><span class="clbl">TV</span></div>
+      <div class="ccard" onclick="go('Apple Watch')"><span class="cico">⌚</span><span class="clbl">Smartwatch</span></div>
+      <div class="ccard" onclick="go('Kindle')"><span class="cico">📚</span><span class="clbl">E-Reader</span></div>
+      <div class="ccard" onclick="go('Nike Air Max')"><span class="cico">👟</span><span class="clbl">Sneaker</span></div>
     </div>
   </div>
 
   <div id="loading">
-    <div class="foxy-loading-scene">
-      <div class="foxy-ground"><div class="foxy-hole"></div><div class="foxy-dirt"></div></div>
-      <div class="foxy-diver">🦊</div>
-      <div class="foxy-sparkle">✨</div><div class="foxy-sparkle">💰</div><div class="foxy-sparkle">⭐</div>
+    <div class="fscene">
+      <div class="fgnd"><div class="fhole"></div><div class="fdirt"></div></div>
+      <div class="fdvr">🦊</div>
+      <div class="fspk">✨</div><div class="fspk">💰</div><div class="fspk">⭐</div>
     </div>
-    <div class="loading-label">Foxy jagt die besten Preise ...</div>
-    <div class="loading-shops">
+    <div class="llbl">Foxy jagt die besten Preise ...</div>
+    <div class="lshps">
       <span class="ls">Amazon</span><span class="ls">eBay</span><span class="ls">MediaMarkt</span><span class="ls">Idealo</span><span class="ls">Otto</span>
     </div>
   </div>
 
-  <div id="results-wrap">
-    <div class="results-bar">
-      <div><div class="results-title" id="results-title">Ergebnisse</div><div class="results-meta" id="results-meta"></div></div>
-      <div class="sort-row">
-        <button class="sbtn on" onclick="sortBy('price',this)">Am günstigsten</button>
-        <button class="sbtn" onclick="sortBy('rating',this)">Am besten bewertet</button>
+  <div id="rw">
+    <div class="rbar">
+      <div><div class="rtit" id="rtit">Ergebnisse</div><div class="rmeta" id="rmeta"></div></div>
+      <div class="srow">
+        <button class="bb on" onclick="sortBy('price',this)">Am guenstigsten</button>
+        <button class="bb" onclick="sortBy('rating',this)">Am besten bewertet</button>
       </div>
     </div>
-    <div class="results-list" id="resultsList"></div>
-    <div class="aff-notice">* Amazon-Links sind Affiliate-Links · Preise sind Richtwerte ohne Gewähr</div>
-    <div class="ad-slot" style="margin-top:1.2rem">Werbung · Google AdSense</div>
+    <div class="rl" id="rl"></div>
+    <div class="aff">* Amazon-Links sind Affiliate-Links - Preise sind Richtwerte ohne Gewaehr</div>
+    <div class="ad" style="margin-top:1.2rem">Werbung - Google AdSense</div>
   </div>
 
-  <div class="section" id="deals-section">
-    <div class="sec-hd"><div class="sec-title">Top Deals heute</div><div class="sec-hint">Aktuell günstig</div></div>
-    <div class="deals-grid" id="dealsGrid"></div>
+  <div class="sec" id="ds">
+    <div class="sechd"><div class="sect">Top Deals heute</div><div class="sech">Aktuell guenstig</div></div>
+    <div class="dgrid" id="dg"></div>
   </div>
 
-  <div class="section" id="how-section">
-    <div class="sec-hd"><div class="sec-title">So funktioniert's</div></div>
-    <div class="how-grid">
-      <div class="how-card" data-step="1"><div class="how-icon">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein was du suchst – egal ob iPhone, Sneaker oder Kaffeemaschine.</p></div>
-      <div class="how-card" data-step="2"><div class="how-icon">⚡</div><h3>Wir vergleichen</h3><p>In Sekunden vergleichen wir 8+ Shops gleichzeitig und sortieren nach Preis.</p></div>
-      <div class="how-card" data-step="3"><div class="how-icon">⭐</div><h3>Amazon oben</h3><p>Amazon steht immer als günstigste Empfehlung oben – vertrauenswürdig und schnell.</p></div>
-      <div class="how-card" data-step="4"><div class="how-icon">💰</div><h3>Einfach kaufen</h3><p>Ein Klick bringt dich direkt zum günstigsten Angebot – fertig!</p></div>
+  <div class="sec" id="hs">
+    <div class="sechd"><div class="sect">So funktionierts</div></div>
+    <div class="how">
+      <div class="hc" data-s="1"><div class="hico">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein was du suchst.</p></div>
+      <div class="hc" data-s="2"><div class="hico">⚡</div><h3>Wir vergleichen</h3><p>In Sekunden vergleichen wir 8+ Shops und sortieren nach Preis.</p></div>
+      <div class="hc" data-s="3"><div class="hico">⭐</div><h3>Amazon oben</h3><p>Amazon steht immer als guenstigste Empfehlung oben.</p></div>
+      <div class="hc" data-s="4"><div class="hico">💰</div><h3>Einfach kaufen</h3><p>Ein Klick bringt dich direkt zum guenstigsten Angebot.</p></div>
     </div>
   </div>
 </div>
 
 <div id="page-ueber" class="page">
-  <div class="spage">
-    <h2>Über PreisWise</h2>
-    <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – entwickelt in Hamburg von Evan Lennart Daniel.</p>
+  <div class="sp">
+    <h2>Ueber PreisWise</h2>
+    <p>PreisWise ist ein unabhaengiger, kostenloser Preisvergleich fuer den deutschen Markt - entwickelt in Hamburg von Evan Lennart Daniel.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Gib ein Produkt ein und wir vergleichen sofort 8+ Shops. Amazon steht immer oben als günstigste und vertrauenswürdigste Empfehlung.</p>
+    <p>Gib ein Produkt ein und wir vergleichen sofort 8+ Shops. Amazon steht immer oben als guenstigste und vertrauenswuerdigste Empfehlung.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
-    <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
+    <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen.</p>
     <h3>Fragen?</h3>
-    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <a href="/cdn-cgi/l/email-protection#e88387869c89839cc6989a8d819b9f819b8da88f85898184c68b8785"><span class="__cf_email__" data-cfemail="a9c2c6c7ddc8c2dd87d9dbccc0dadec0dacce9cec4c8c0c587cac6c4">[email&#160;protected]</span></a>.</p>
+    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a>.</p>
   </div>
 </div>
 
 <div id="page-kontakt" class="page">
-  <div class="spage">
+  <div class="sp">
     <h2>Kontakt</h2>
     <p>Fragen oder Feedback? Wir antworten schnell.</p>
-    <p>Direkt per E-Mail: <a href="/cdn-cgi/l/email-protection#b1dadedfc5d0dac59fc1c3d4d8c2c6d8c2d4f1d6dcd0d8dd9fd2dedc"><span class="__cf_email__" data-cfemail="fd969293899c9689d38d8f98948e8a948e98bd9a909c9491d39e9290">[email&#160;protected]</span></a></p>
-    <div class="cform">
-      <div class="fg"><label>Dein Name</label><input type="text" id="cname" placeholder="Max Mustermann" /></div>
-      <div class="fg"><label>Deine E-Mail</label><input type="email" id="cemail" placeholder="max@beispiel.de" /></div>
+    <p>Direkt: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <div class="cf">
+      <div class="fg"><label>Dein Name</label><input type="text" id="cn" placeholder="Max Mustermann"></div>
+      <div class="fg"><label>Deine E-Mail</label><input type="email" id="ce" placeholder="max@beispiel.de"></div>
       <div class="fg"><label>Betreff</label>
-        <select id="cbetreff"><option>Allgemeine Frage</option><option>Fehler melden</option><option>Verbesserungsvorschlag</option><option>Kooperation / Werbung</option><option>Sonstiges</option></select>
+        <select id="cb"><option>Allgemeine Frage</option><option>Fehler melden</option><option>Verbesserungsvorschlag</option><option>Kooperation</option><option>Sonstiges</option></select>
       </div>
-      <div class="fg"><label>Nachricht</label><textarea id="cmsg" placeholder="Deine Nachricht ..."></textarea></div>
-      <button class="form-btn" id="formBtn" onclick="sendForm()">Nachricht senden</button>
-      <div class="form-ok" id="formOk">✓ Danke! Deine Nachricht wurde gesendet.</div>
-      <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="305b5f5e44515b441e40425559434759435570575d51595c1e535f5d">[email&#160;protected]</a></div>
+      <div class="fg"><label>Nachricht</label><textarea id="cm" placeholder="Deine Nachricht ..."></textarea></div>
+      <button class="fbtn" id="fb" onclick="sendForm()">Nachricht senden</button>
+      <div class="fok" id="fok">Danke! Deine Nachricht wurde gesendet.</div>
+      <div class="ferr" id="ferr">Fehler. Bitte schreib direkt an kontakt.preiswise@gmail.com</div>
     </div>
   </div>
 </div>
 
 <div id="page-impressum" class="page">
-  <div class="spage">
+  <div class="sp">
     <h2>Impressum</h2>
-    <h3>Angaben gemäß § 5 TMG</h3>
+    <h3>Angaben gemaess 5 TMG</h3>
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
-    <h3>Kontakt</h3><p>E-Mail: <a href="/cdn-cgi/l/email-protection#b0dbdfdec4d1dbc49ec0c2d5d9c3c7d9c3d5f0d7ddd1d9dc9ed3dfdd"><span class="__cf_email__" data-cfemail="c7aca8a9b3a6acb3e9b7b5a2aeb4b0aeb4a287a0aaa6aeabe9a4a8aa">[email&#160;protected]</span></a></p>
-    <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3><p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
-    <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
-    <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
-    <h3>Streitschlichtung</h3><p><a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a>. Wir nehmen nicht an Streitbeilegungsverfahren teil.</p>
+    <h3>Kontakt</h3><p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewaehr.</p>
+    <h3>Affiliate-Hinweis</h3><p>Diese Website enthaelt Amazon Affiliate-Links. Bei Kaeufen erhalten wir eine Provision.</p>
   </div>
 </div>
 
 <div id="page-datenschutz" class="page">
-  <div class="spage">
-    <h2>Datenschutzerklärung</h2>
-    <h3>1. Verantwortlicher</h3><p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg</p>
-    <h3>2. Erhobene Daten</h3><p>PreisWise erhebt keine personenbezogenen Daten. Technische Daten werden von Vercel erfasst.</p>
-    <h3>3. Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
-    <h3>4. Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>5. Deine Rechte</h3><p>Kontakt: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aec5c1c0dacfc5da80dedccbc7ddd9c7ddcbeec9c3cfc7c280cdc1c3">[email&#160;protected]</a></p>
+  <div class="sp">
+    <h2>Datenschutz</h2>
+    <h3>Verantwortlicher</h3><p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
+    <h3>Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
+    <h3>Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen.</p>
+    <h3>Deine Rechte</h3><p>Kontakt: kontakt.preiswise@gmail.com</p>
   </div>
 </div>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo"><div class="logo-icon" style="width:24px;height:24px;font-size:0.72rem">P</div>PreisWise</div>
-    <div class="footer-links">
+  <div class="fi">
+    <div class="flogo"><div class="logo-icon" style="width:24px;height:24px;font-size:.72rem">P</div>PreisWise</div>
+    <div class="flinks">
       <a onclick="showPage('impressum')">Impressum</a>
       <a onclick="showPage('datenschutz')">Datenschutz</a>
       <a onclick="showPage('kontakt')">Kontakt</a>
-      <a onclick="showPage('ueber')">Über uns</a>
+      <a onclick="showPage('ueber')">Ueber uns</a>
     </div>
-    <div class="footer-copy">© 2026 PreisWise · Hamburg</div>
+    <div class="fcp">2026 PreisWise Hamburg</div>
   </div>
 </footer>
 
-<div class="chat-fab" onclick="toggleChat()" title="Foxy – dein Preishelfer!">🦊</div>
-<div class="chat-win" id="chatWin">
-  <div class="chat-hd">
-    <div class="chat-hd-left">
-      <div class="chat-hd-fox">🦊</div>
-      <div><div class="chat-hd-name">Foxy – Preishelfer</div><div class="chat-hd-sub"><div class="chat-hd-dot"></div> Online</div></div>
-    </div>
-    <div class="chat-x" onclick="toggleChat()">✕</div>
+<div class="fab" onclick="toggleChat()" title="Foxy Preishelfer">🦊</div>
+<div class="cwin" id="cwin">
+  <div class="chd">
+    <div class="chdl"><div class="cfox">🦊</div><div><div class="cname">Foxy - Preishelfer</div><div class="csub"><div class="cdot"></div> Online</div></div></div>
+    <div class="cx" onclick="toggleChat()">X</div>
   </div>
-  <div class="chat-msgs" id="chatMsgs"><div class="cmsg bot">Hey! Ich bin Foxy 🦊 – dein persönlicher Preishelfer. Wie kann ich dir helfen?</div></div>
-  <div class="chat-opts" id="chatOpts">
-    <button class="copt" onclick="chatReply('Wie funktioniert das?')">🔍 Wie funktioniert das?</button>
-    <button class="copt" onclick="chatReply('Sind die Preise aktuell?')">💰 Sind die Preise aktuell?</button>
-    <button class="copt" onclick="chatReply('Ist es wirklich kostenlos?')">✅ Wirklich kostenlos?</button>
-    <button class="copt" onclick="chatReply('Ich habe ein Problem')">🚨 Ich habe ein Problem</button>
+  <div class="cmsgs" id="cmsgs"><div class="cm bot">Hey! Ich bin Foxy 🦊 - dein Preishelfer. Wie kann ich dir helfen?</div></div>
+  <div class="copts" id="copts">
+    <button class="co" onclick="cr('Wie funktioniert das?')">🔍 Wie funktioniert das?</button>
+    <button class="co" onclick="cr('Sind die Preise aktuell?')">💰 Sind die Preise aktuell?</button>
+    <button class="co" onclick="cr('Wirklich kostenlos?')">✅ Wirklich kostenlos?</button>
+    <button class="co" onclick="cr('Ich habe ein Problem')">🚨 Problem melden</button>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-try{emailjs.init('N-hB2ZIwauIqYATsA');}catch(e){}
+<script>
+try{emailjs.init("N-hB2ZIwauIqYATsA");}catch(e){}
 
-// Tab title / favicon Foxy (safe)
-const NORMAL_TITLE='PreisWise – Smarter Preisvergleich';
-let foxyTimer=null, foxyInterval=null, foxyIdx=0;
-const foxyMsgs=['🦊 Foxy vermisst dich!','🦊 Foxy wartet auf dich!','🦊 Komm zurück!','🦊 Tolle Deals warten!'];
-function setFav(url){try{const f=document.getElementById('favicon');if(f)f.href=url;}catch(e){}}
-document.addEventListener('visibilitychange',function(){
+// Foxy tab messages
+var NT="PreisWise - Smarter Preisvergleich", ft=null, fi=null, fx=0;
+var FM=["🦊 Foxy vermisst dich!","🦊 Foxy wartet auf dich!","🦊 Komm zurueck!","🦊 Tolle Deals warten!"];
+function sfav(u){try{var f=document.getElementById("favicon");if(f)f.href=u;}catch(e){}}
+document.addEventListener("visibilitychange",function(){
   if(document.hidden){
-    foxyTimer=setTimeout(function(){
-      setFav("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f97316'/%3E%3Ctext x='16' y='22' font-size='20' text-anchor='middle'%3E🦊%3C/text%3E%3C/svg%3E");
-      foxyInterval=setInterval(function(){
-        if(!document.hidden){clearInterval(foxyInterval);return;}
-        document.title=foxyMsgs[foxyIdx%foxyMsgs.length]; foxyIdx++;
-      },2000);
+    ft=setTimeout(function(){
+      sfav("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f97316'/%3E%3Ctext x='16' y='22' font-size='18' text-anchor='middle'%3E🦊%3C/text%3E%3C/svg%3E");
+      fi=setInterval(function(){if(!document.hidden){clearInterval(fi);return;}document.title=FM[fx%FM.length];fx++;},2000);
     },60000);
-  } else {
-    clearTimeout(foxyTimer);
-    clearInterval(foxyInterval);
-    document.title=NORMAL_TITLE;
-    setFav("favicon.svg");
+  }else{
+    clearTimeout(ft);clearInterval(fi);
+    document.title=NT;sfav("favicon.svg");
   }
 });
 
-const SHOPS=[
-  {name:'Amazon',    short:'AMZ',  color:'#FF9900',url:'https://www.amazon.de/s?tag=preiswise0f-21&k=',affiliate:true},
-  {name:'eBay',      short:'eBay', color:'#e53238',url:'https://www.ebay.de/sch/i.html?_nkw=',         affiliate:false},
-  {name:'MediaMarkt',short:'MM',   color:'#cc0000',url:'https://www.mediamarkt.de/de/search.html?query=',affiliate:false},
-  {name:'Saturn',    short:'SAT',  color:'#6b6b68',url:'https://www.saturn.de/de/search.html?query=',  affiliate:false},
-  {name:'Otto',      short:'OTTO', color:'#e2001a',url:'https://www.otto.de/suche/',                   affiliate:false},
-  {name:'Idealo',    short:'IDL',  color:'#2563eb',url:'https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=',affiliate:false},
-  {name:'Galaxus',   short:'GLX',  color:'#4f46e5',url:'https://www.galaxus.de/search?q=',             affiliate:false},
-  {name:'Alternate', short:'ALT',  color:'#ea580c',url:'https://www.alternate.de/search.xhtml?q=',     affiliate:false},
+var SHOPS=[
+  {n:"Amazon",    s:"AMZ",  c:"#FF9900",u:"https://www.amazon.de/s?tag=preiswise0f-21&k=",a:true},
+  {n:"eBay",      s:"eBay", c:"#e53238",u:"https://www.ebay.de/sch/i.html?_nkw=",        a:false},
+  {n:"MediaMarkt",s:"MM",   c:"#cc0000",u:"https://www.mediamarkt.de/de/search.html?query=",a:false},
+  {n:"Saturn",    s:"SAT",  c:"#6b6b68",u:"https://www.saturn.de/de/search.html?query=",  a:false},
+  {n:"Otto",      s:"OTTO", c:"#e2001a",u:"https://www.otto.de/suche/",                   a:false},
+  {n:"Idealo",    s:"IDL",  c:"#2563eb",u:"https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q=",a:false},
+  {n:"Galaxus",   s:"GLX",  c:"#4f46e5",u:"https://www.galaxus.de/search?q=",             a:false},
+  {n:"Alternate", s:"ALT",  c:"#ea580c",u:"https://www.alternate.de/search.xhtml?q=",     a:false}
 ];
 
-const CATEGORIES=new Set(['smartphone','smartphones','laptop','laptops','notebook','notebooks','tablet','tablets','kopfhörer','headphones','staubsauger','sneaker','kamera','kameras','fernseher','tv','gaming','headset','smartwatch','e-reader','kindle','drucker','monitor','computer','pc','kaffeemaschine']);
+var CATS=["smartphone","smartphones","laptop","laptops","notebook","tablet","tablets","kopfhoerer","staubsauger","sneaker","kamera","fernseher","tv","gaming","smartwatch","kindle","drucker","monitor","pc","kaffeemaschine"];
 
-const BASE={
-  'iphone 15':659,'iphone 15 pro':1059,'iphone 15 pro max':1249,'iphone 14':499,'iphone':659,'iphone 16':829,
-  'airpods pro':199,'airpods':149,'airpods max':499,
-  'apple watch series 9':379,'apple watch se':229,'apple watch ultra':749,'apple watch':379,
-  'playstation 5':449,'ps5':449,'ps5 slim':399,'ps5 controller':59,
-  'xbox series x':449,'xbox series s':249,'xbox':299,
-  'nintendo switch oled':319,'nintendo switch':269,
-  'samsung galaxy s24':699,'galaxy s24':699,'galaxy s24 ultra':1249,'samsung galaxy s23':449,'galaxy s23':449,
-  'dyson v15':549,'dyson v11':399,'dyson v8':299,'dyson airwrap':479,'dyson':399,
-  'macbook air':1099,'macbook pro':1999,'macbook':1099,
-  'ipad pro':999,'ipad air':679,'ipad mini':549,'ipad':429,
-  'nike air max 270':119,'nike air max':119,'nike air force 1':99,'nike':89,
-  'adidas ultraboost':139,'adidas':79,'sneaker':99,
-  'sony wh-1000xm5':259,'kopfhörer':129,'bose qc45':219,'beats':199,
-  'gaming laptop':999,'laptop':499,'notebook':499,
-  'kindle paperwhite':139,'kindle':109,'gopro':299,
-  'roomba':349,'staubsauger':199,'garmin':299,'fitbit':149,
-  'tablet':249,'smartphone':299,'handy':299,
-  'kamera':399,'canon':649,'nikon':699,
-  'gaming maus':49,'gaming tastatur':79,'gaming headset':69,'gaming stuhl':199,
-  'fernseher':499,'tv':499,'samsung tv':549,
+var BASE={
+  "iphone 15":659,"iphone 15 pro":1059,"iphone 14":499,"iphone":659,"iphone 16":829,
+  "airpods pro":199,"airpods":149,"airpods max":499,
+  "apple watch":379,"apple watch se":229,"apple watch ultra":749,
+  "playstation 5":449,"ps5":449,"ps5 slim":399,"ps5 controller":59,
+  "xbox series x":449,"xbox series s":249,"xbox":299,
+  "nintendo switch":269,"nintendo switch oled":319,
+  "samsung galaxy s24":699,"galaxy s24":699,"samsung galaxy s23":449,
+  "dyson v15":549,"dyson v11":399,"dyson v8":299,"dyson airwrap":479,"dyson":399,
+  "macbook air":1099,"macbook pro":1999,"macbook":1099,
+  "ipad pro":999,"ipad air":679,"ipad mini":549,"ipad":429,
+  "nike air max 270":119,"nike air max":119,"nike air force 1":99,"nike":89,
+  "adidas":79,"sneaker":99,
+  "sony wh-1000xm5":259,"kopfhoerer":129,"bose qc45":219,"beats":199,
+  "laptop":499,"notebook":499,"gaming laptop":999,
+  "kindle":109,"kindle paperwhite":139,"gopro":299,
+  "staubsauger":199,"roomba":349,"garmin":299,"fitbit":149,
+  "tablet":249,"smartphone":299,"handy":299,
+  "kamera":399,"canon":649,"nikon":699,
+  "gaming maus":49,"gaming tastatur":79,"gaming headset":69,"gaming stuhl":199,
+  "fernseher":499,"tv":499,"samsung tv":549
 };
 
-const DEALS=[
-  {name:'Apple AirPods Pro (2. Gen)',cat:'Audio',price:199,old:249,shop:'Amazon',emoji:'🎧',url:'https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro'},
-  {name:'Samsung Galaxy S24 128GB',cat:'Smartphones',price:629,old:799,shop:'MediaMarkt',emoji:'📱',url:'https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24'},
-  {name:'PlayStation 5 Slim Digital',cat:'Gaming',price:369,old:399,shop:'Otto',emoji:'🎮',url:'https://www.otto.de/suche/PlayStation+5'},
-  {name:'Dyson V15 Detect',cat:'Haushalt',price:499,old:549,shop:'Amazon',emoji:'🏠',url:'https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15'},
-  {name:'Nike Air Max 270',cat:'Mode',price:89,old:119,shop:'eBay',emoji:'👟',url:'https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270'},
-  {name:'iPad 10. Generation 64GB',cat:'Tablets',price:349,old:429,shop:'Saturn',emoji:'📟',url:'https://www.saturn.de/de/search.html?query=iPad+10'},
+var DEALS=[
+  {n:"Apple AirPods Pro 2",c:"Audio",p:199,o:249,s:"Amazon",e:"🎧",u:"https://www.amazon.de/s?tag=preiswise0f-21&k=AirPods+Pro"},
+  {n:"Samsung Galaxy S24",c:"Smartphones",p:629,o:799,s:"MediaMarkt",e:"📱",u:"https://www.mediamarkt.de/de/search.html?query=Samsung+Galaxy+S24"},
+  {n:"PlayStation 5 Slim",c:"Gaming",p:369,o:399,s:"Otto",e:"🎮",u:"https://www.otto.de/suche/PlayStation+5"},
+  {n:"Dyson V15 Detect",c:"Haushalt",p:499,o:549,s:"Amazon",e:"🏠",u:"https://www.amazon.de/s?tag=preiswise0f-21&k=Dyson+V15"},
+  {n:"Nike Air Max 270",c:"Mode",p:89,o:119,s:"eBay",e:"👟",u:"https://www.ebay.de/sch/i.html?_nkw=Nike+Air+Max+270"},
+  {n:"iPad 10. Gen 64GB",c:"Tablets",p:349,o:429,s:"Saturn",e:"📟",u:"https://www.saturn.de/de/search.html?query=iPad+10"}
 ];
 
-const IMG_CACHE={};
-var currentResults=[], currentQuery='', productImg='', isCategory=false;
+var imgCache={}, curQ="", curImg="", isCat=false, curRes=[];
 
 function showPage(id){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  document.getElementById('page-'+id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+  document.getElementById("page-"+id).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 function toggleDrawer(){
-  ['drawer','drawerOverlay','burger'].forEach(function(id){document.getElementById(id).classList.toggle('open');});
+  ["drw","ov","burger"].forEach(function(id){document.getElementById(id).classList.toggle("open");});
 }
 
 // Ticker
 (function(){
-  var shops=['Amazon','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
-  var colors=['#FF9900','#e53238','#cc0000','#6b6b68','#e2001a','#2563eb','#4f46e5','#ea580c'];
-  var el=document.getElementById('tickerInner'); if(!el)return;
-  var arr=shops.concat(shops).concat(shops).concat(shops);
-  el.innerHTML=arr.map(function(s,i){return'<div class="ticker-chip" style="color:'+colors[i%colors.length]+'">'+s+'</div>';}).join('');
+  var shops=["Amazon","eBay","MediaMarkt","Saturn","Otto","Idealo","Galaxus","Alternate"];
+  var cols=["#FF9900","#e53238","#cc0000","#6b6b68","#e2001a","#2563eb","#4f46e5","#ea580c"];
+  var el=document.getElementById("tki"); if(!el) return;
+  var a=shops.concat(shops).concat(shops).concat(shops);
+  el.innerHTML=a.map(function(s,i){return"<div class='tkc' style='color:"+cols[i%cols.length]+"'>"+s+"</div>";}).join("");
 })();
 
 // Deals
 (function(){
-  var grid=document.getElementById('dealsGrid'); if(!grid)return;
-  grid.innerHTML=DEALS.map(function(d){
-    var pct=Math.round((1-d.price/d.old)*100);
-    return '<div class="deal-card"><div class="deal-thumb">'+d.emoji+'</div><div class="deal-body"><div class="deal-pct">-'+pct+'%</div><div class="deal-name">'+d.name+'</div><div class="deal-prices"><span class="deal-price">'+d.price+' €</span><span class="deal-old">'+d.old+' €</span></div><a class="deal-link" href="'+d.url+'" target="_blank" rel="noopener noreferrer">Zum Angebot →</a><div class="deal-shop">bei '+d.shop+'</div></div></div>';
-  }).join('');
+  var g=document.getElementById("dg"); if(!g) return;
+  g.innerHTML=DEALS.map(function(d){
+    var pct=Math.round((1-d.p/d.o)*100);
+    return "<div class='dc'><div class='dth'>"+d.e+"</div><div class='db'><div class='dpct'>-"+pct+"%</div><div class='dn'>"+d.n+"</div><div class='dpr'><span class='dp'>"+d.p+" &euro;</span><span class='do'>"+d.o+" &euro;</span></div><a class='dlnk' href='"+d.u+"' target='_blank' rel='noopener noreferrer'>Zum Angebot &rarr;</a><div class='dsh'>bei "+d.s+"</div></div></div>";
+  }).join("");
 })();
 
-function isCatSearch(q){return CATEGORIES.has(q.toLowerCase().trim());}
-function fillSearch(t){showPage('home');document.getElementById('searchInput').value=t;setTimeout(startSearch,100);}
-document.getElementById('searchInput').addEventListener('keydown',function(e){if(e.key==='Enter')startSearch();});
+function isCatQ(q){return CATS.indexOf(q.toLowerCase().trim())!==-1;}
+function go(t){showPage("home");document.getElementById("si").value=t;setTimeout(startSearch,100);}
+document.getElementById("si").addEventListener("keydown",function(e){if(e.key==="Enter")startSearch();});
 
 function startSearch(){
-  var q=document.getElementById('searchInput').value.trim(); if(!q)return;
-  currentQuery=q; productImg=''; isCategory=isCatSearch(q);
-  ['cats-section','deals-section','how-section'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
-  document.getElementById('results-wrap').classList.remove('show');
-  var loading=document.getElementById('loading');
-  loading.classList.add('show'); loading.style.display='block';
-  window.scrollTo({top:320,behavior:'smooth'});
-  if(!isCategory)fetchImg(q);
-  setTimeout(function(){loading.style.display='none';loading.classList.remove('show');buildResults(q);},1800);
+  var q=document.getElementById("si").value.trim(); if(!q) return;
+  curQ=q; curImg=""; isCat=isCatQ(q);
+  ["cs","ds","hs"].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display="none";});
+  document.getElementById("rw").classList.remove("show");
+  var ld=document.getElementById("loading"); ld.classList.add("show"); ld.style.display="block";
+  window.scrollTo({top:320,behavior:"smooth"});
+  if(!isCat) loadImg(q);
+  setTimeout(function(){ld.style.display="none";ld.classList.remove("show");buildRes(q);},1800);
 }
 
-function fetchImg(query){
-  if(IMG_CACHE[query]){productImg=IMG_CACHE[query];return;}
-  fetch('https://en.wikipedia.org/w/api.php?action=query&titles='+encodeURIComponent(query)+'&prop=pageimages&format=json&pithumbsize=300&origin=*')
+function loadImg(q){
+  if(imgCache[q]){curImg=imgCache[q];return;}
+  fetch("https://en.wikipedia.org/w/api.php?action=query&titles="+encodeURIComponent(q)+"&prop=pageimages&format=json&pithumbsize=300&origin=*")
     .then(function(r){return r.json();})
     .then(function(d){
       var p=Object.values(d.query.pages)[0];
-      if(p&&p.thumbnail){productImg=p.thumbnail.source;IMG_CACHE[query]=productImg;}
+      if(p&&p.thumbnail){curImg=p.thumbnail.source;imgCache[q]=curImg;}
     }).catch(function(){});
 }
 
 function getBase(q){
   var lq=q.toLowerCase().trim();
-  if(BASE[lq])return BASE[lq];
+  if(BASE[lq]) return BASE[lq];
   var keys=Object.keys(BASE).sort(function(a,b){return b.length-a.length;});
-  for(var i=0;i<keys.length;i++){if(lq.indexOf(keys[i])!==-1||keys[i].indexOf(lq)!==-1)return BASE[keys[i]];}
+  for(var i=0;i<keys.length;i++){if(lq.indexOf(keys[i])!==-1||keys[i].indexOf(lq)!==-1) return BASE[keys[i]];}
   return Math.round((Math.random()*150+30)/5)*5;
 }
 
-function buildResults(q){
+function buildRes(q){
   var base=getBase(q);
-  currentResults=SHOPS.map(function(shop){
-    var price;
-    if(shop.name==='Amazon'){
-      price=parseFloat((base*(1+(Math.random()*0.01-0.005))).toFixed(2));
-    }else{
-      price=parseFloat((base*(1+0.03+Math.random()*0.04)).toFixed(2));
-    }
+  curRes=SHOPS.map(function(sh){
+    var price=sh.n==="Amazon"
+      ? parseFloat((base*(1+(Math.random()*.01-.005))).toFixed(2))
+      : parseFloat((base*(1+.03+Math.random()*.04)).toFixed(2));
     price=Math.max(1,price);
-    var hasDiscount=Math.random()>0.5;
-    var oldPrice=hasDiscount?parseFloat((price*(1+Math.random()*0.12+0.05)).toFixed(2)):null;
-    var freeShip=shop.name==='Amazon'||Math.random()>0.45;
-    var rating=parseFloat((shop.name==='Amazon'?4.3+Math.random()*0.6:3.8+Math.random()*1.0).toFixed(1));
-    return{shop:shop,price:price,oldPrice:oldPrice,freeShip:freeShip,rating:rating,url:shop.url+encodeURIComponent(q)};
+    var hasD=Math.random()>.5;
+    var old=hasD?parseFloat((price*(1+Math.random()*.12+.05)).toFixed(2)):null;
+    var ship=sh.n==="Amazon"||Math.random()>.45;
+    var rat=parseFloat((sh.n==="Amazon"?4.3+Math.random()*.6:3.8+Math.random()*1).toFixed(1));
+    return{sh:sh,price:price,old:old,ship:ship,rat:rat,url:sh.u+encodeURIComponent(q)};
   });
-  renderResults(q,'price');
+  render(q,"price");
 }
 
-function renderResults(q,sortMode){
-  document.getElementById('results-title').textContent='Ergebnisse für „'+q+'"';
-  document.getElementById('results-meta').textContent=currentResults.length+' Angebote'+(isCategory?' · Kategorie – viele Produkte verfügbar':' · inkl. MwSt.');
+function render(q,mode){
+  document.getElementById("rtit").textContent="Ergebnisse fuer ""+q+""";
+  document.getElementById("rmeta").textContent=curRes.length+" Angebote"+(isCat?" - Kategorie":" - inkl. MwSt.");
   var amz=null, rest=[];
-  currentResults.forEach(function(r){if(r.shop.name==='Amazon')amz=r;else rest.push(r);});
-  if(sortMode==='price')rest.sort(function(a,b){return a.price-b.price;});
-  else rest.sort(function(a,b){return b.rating-a.rating;});
+  curRes.forEach(function(r){if(r.sh.n==="Amazon") amz=r; else rest.push(r);});
+  if(mode==="price") rest.sort(function(a,b){return a.price-b.price;});
+  else rest.sort(function(a,b){return b.rat-a.rat;});
   var sorted=amz?[amz].concat(rest):rest;
-  var list=document.getElementById('resultsList');
-  list.innerHTML='<div class="pick-banner"><span>⭐</span><span><strong>Unsere Empfehlung</strong> · Amazon bietet den günstigsten Preis mit schnellem Versand und einfacher Rückgabe.</span></div>';
+  var list=document.getElementById("rl");
+  list.innerHTML="<div class='pbanner'><span>⭐</span><span><strong>Unsere Empfehlung</strong> &middot; Amazon bietet den guenstigsten Preis mit schnellem Versand.</span></div>";
   sorted.forEach(function(r,i){
-    var isPick=r.shop.name==='Amazon';
-    var saving=r.oldPrice&&!isCategory?(r.oldPrice-r.price).toFixed(2):null;
-    var priceHtml=isCategory
-      ?'<div class="r-price-from">ab</div><span class="r-price-value">'+r.price+' €</span>'
-      :'<span class="r-price-value">'+r.price+' €</span>';
-    var oldHtml=r.oldPrice&&!isCategory?'<div class="r-price-old">'+r.oldPrice+' €</div>':'';
-    var thumbHtml;
-    if(!isCategory&&productImg){
-      thumbHtml='<img src="'+productImg+'" alt="'+q+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="imgFail(this)"/>';
-    }else{
-      thumbHtml='<div class="r-thumb-ph">'+(isCategory?'🛒':'🛍️')+'</div>';
-    }
-    var card=document.createElement('div');
-    card.className='rcard'+(isPick?' pick':'');
-    card.style.animationDelay=(i*0.05)+'s';
-    if(isPick)card.style.marginTop='4px';
-    card.innerHTML=(isPick?'<div class="pick-label">⭐ Unsere Empfehlung</div>':'')+
-      '<div class="r-thumb">'+thumbHtml+'</div>'+
-      '<div class="r-badge" style="background:'+r.shop.color+'18;border-color:'+r.shop.color+'40;color:'+r.shop.color+'">'+r.shop.short+'</div>'+
-      '<div class="r-info"><div class="r-shop">'+r.shop.name+'</div><div class="r-product">'+q+'</div>'+
-      '<div class="r-tags">'+(r.freeShip?'<span class="rtag rtag-g">✓ Gratis Versand</span>':'')+
-      '<span class="rtag rtag-p">★ '+r.rating+'</span>'+
-      (r.shop.affiliate?'<span class="rtag rtag-o">Affiliate</span>':'')+
-      '</div></div>'+
-      '<div class="r-right"><div style="text-align:right">'+oldHtml+priceHtml+(saving?'<div class="r-save">-'+saving+' € sparen</div>':'')+'</div>'+
-      '<a class="'+(isPick?'r-btn':'r-btn-sec')+'" href="'+r.url+'" target="_blank" rel="noopener noreferrer">'+(isPick?'Jetzt kaufen →':'Zum Shop →')+'</a></div>';
+    var isPick=r.sh.n==="Amazon";
+    var saving=r.old&&!isCat?(r.old-r.price).toFixed(2):null;
+    var card=document.createElement("div");
+    card.className="rc"+(isPick?" pick":"");
+    card.style.animationDelay=(i*.05)+"s";
+    if(isPick) card.style.marginTop="4px";
+    // Thumb - safe approach, no inline onerror
+    var thumbId="th"+i+Date.now();
+    var priceHtml=isCat
+      ?"<div class='rfrom'>ab</div><span class='rprice'>"+r.price+" &euro;</span>"
+      :"<span class='rprice'>"+r.price+" &euro;</span>";
+    var oldHtml=r.old&&!isCat?"<div class='rold'>"+r.old+" &euro;</div>":"";
+    card.innerHTML=(isPick?"<div class='plbl'>⭐ Unsere Empfehlung</div>":"")+
+      "<div class='rthumb' id='"+thumbId+"'>"+(isCat?"🛒":"🛍️")+"</div>"+
+      "<div class='rbdg' style='background:"+r.sh.c+"18;border-color:"+r.sh.c+"40;color:"+r.sh.c+"'>"+r.sh.s+"</div>"+
+      "<div class='ri'><div class='rshp'>"+r.sh.n+"</div><div class='rprd'>"+q+"</div>"+
+      "<div class='rtags'>"+(r.ship?"<span class='tag tg'>✓ Gratis Versand</span>":"")+
+      "<span class='tag tp'>★ "+r.rat+"</span>"+(r.sh.a?"<span class='tag to'>Affiliate</span>":"")+
+      "</div></div>"+
+      "<div class='rrgt'><div style='text-align:right'>"+oldHtml+priceHtml+(saving?"<div class='rsave'>-"+saving+" € sparen</div>":"")+"</div>"+
+      "<a class='"+(isPick?"rbtn":"rbtn2")+"' href='"+r.url+"' target='_blank' rel='noopener noreferrer'>"+(isPick?"Jetzt kaufen &rarr;":"Zum Shop &rarr;")+"</a></div>";
     list.appendChild(card);
+    // Load image separately - no inline onerror needed
+    if(!isCat && curImg){
+      var img=new Image();
+      img.onload=function(){
+        var el=document.getElementById(thumbId);
+        if(el){el.innerHTML="";el.appendChild(img);}
+      };
+      img.style.cssText="width:100%;height:100%;object-fit:cover;display:block";
+      img.alt=q;
+      img.src=curImg;
+    }
   });
-  document.getElementById('results-wrap').classList.add('show');
-  window.scrollTo({top:350,behavior:'smooth'});
+  document.getElementById("rw").classList.add("show");
+  window.scrollTo({top:350,behavior:"smooth"});
 }
 
 function sortBy(mode,btn){
-  document.querySelectorAll('.sbtn').forEach(function(b){b.classList.remove('on');});
-  btn.classList.add('on');
-  renderResults(currentQuery,mode);
+  document.querySelectorAll(".bb").forEach(function(b){b.classList.remove("on");});
+  btn.classList.add("on");
+  render(curQ,mode);
 }
 
 // Chat
 var CA={
-  'Wie funktioniert das?':'Ganz einfach! Gib ein Produkt in die Suche ein – wir vergleichen sofort 8 Shops und zeigen dir das günstigste Angebot zuerst. Amazon steht immer oben als Empfehlung! 🔍',
-  'Sind die Preise aktuell?':'Die Preise orientieren sich an realen Marktpreisen. Für den genauen Endpreis bitte immer direkt beim Shop prüfen. ✅',
-  'Ist es wirklich kostenlos?':'Ja, 100% kostenlos! Wir finanzieren uns durch Google Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. 🎉',
-  'Ich habe ein Problem':'Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. Wir helfen schnell! 🚀',
+  "Wie funktioniert das?":"Gib ein Produkt in die Suche ein - wir vergleichen sofort 8 Shops und zeigen dir das guenstigste Angebot. Amazon steht immer oben! 🔍",
+  "Sind die Preise aktuell?":"Die Preise orientieren sich an realen Marktpreisen. Bitte immer direkt beim Shop pruefen. ✅",
+  "Wirklich kostenlos?":"Ja, 100% kostenlos! Wir finanzieren uns durch Werbung und Amazon Affiliate-Links. 🎉",
+  "Ich habe ein Problem":"Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com - wir helfen schnell! 🚀"
 };
-function toggleChat(){document.getElementById('chatWin').classList.toggle('open');}
-function chatReply(q){
-  var msgs=document.getElementById('chatMsgs'),opts=document.getElementById('chatOpts');
-  msgs.innerHTML+='<div class="cmsg usr">'+q+'</div>';
-  opts.style.display='none'; msgs.scrollTop=msgs.scrollHeight;
-  var tid='ty'+Date.now();
-  msgs.innerHTML+='<div class="typing" id="'+tid+'"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
+function toggleChat(){document.getElementById("cwin").classList.toggle("open");}
+function cr(q){
+  var msgs=document.getElementById("cmsgs"),opts=document.getElementById("copts");
+  msgs.innerHTML+="<div class='cm usr'>"+q+"</div>";
+  opts.style.display="none"; msgs.scrollTop=msgs.scrollHeight;
+  var tid="ty"+Date.now();
+  msgs.innerHTML+="<div class='typ' id='"+tid+"'><div class='td'></div><div class='td'></div><div class='td'></div></div>";
   msgs.scrollTop=msgs.scrollHeight;
   setTimeout(function(){
-    var el=document.getElementById(tid); if(el)el.remove();
-    msgs.innerHTML+='<div class="cmsg bot">'+CA[q]+'</div>';
+    var el=document.getElementById(tid); if(el) el.remove();
+    msgs.innerHTML+="<div class='cm bot'>"+(CA[q]||"Gute Frage! Schreib uns an kontakt.preiswise@gmail.com 📧")+"</div>";
     msgs.scrollTop=msgs.scrollHeight;
-    setTimeout(function(){opts.style.display='flex';},300);
+    setTimeout(function(){opts.style.display="flex";},300);
   },1000);
 }
-
-function imgFail(el){el.parentNode.innerHTML='<div class="r-thumb-ph">🛍️</div>';}
 async function sendForm(){
-  var name=document.getElementById('cname').value.trim(),
-      email=document.getElementById('cemail').value.trim(),
-      subj=document.getElementById('cbetreff').value,
-      msg=document.getElementById('cmsg').value.trim(),
+  var n=document.getElementById("cn").value.trim(),e=document.getElementById("ce").value.trim(),
+      s=document.getElementById("cb").value,m=document.getElementById("cm").value.trim(),
+      btn=document.getElementById("fb");
+  if(!n||!e||!m){alert("Bitte alle Felder ausfullen.");return;}
+  btn.disabled=true;btn.textContent="Wird gesendet...";
+  document.getElementById("fok").style.display="none";document.getElementById("ferr").style.display="none";
+  try{
+    await emailjs.send("preiswise_gmail","template_b9eyrow",{from_name:n,from_email:e,subject:s,message:m,to_email:"kontakt.preiswise@gmail.com"});
+    document.getElementById("fok").style.display="block";
+    document.getElementById("cn").value="";document.getElementById("ce").value="";document.getElementById("cm").value="";
+  }catch(err){document.getElementById("ferr").style.display="block";}
+  btn.disabled=false;btn.textContent="Nachricht senden";
+}
+</script>
+</body>
+</html>
