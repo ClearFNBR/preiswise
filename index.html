@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PreisWise – Smarter Preisvergleich</title>
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr." />
-  <link rel="icon" id="favicon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2316a34a'/><text x='16' y='23' font-family='Arial Black' font-weight='900' font-size='18' text-anchor='middle' fill='white'>P</text></svg>" />
+  <link rel="icon" id="favicon" type="image/svg+xml" href="favicon.svg" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
@@ -20,7 +20,7 @@
       --radius:14px;--radius-sm:9px;
     }
     html{scroll-behavior:smooth}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.6}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.6}
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
 
     nav{position:sticky;top:0;z-index:200;background:rgba(242,240,234,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;overflow:hidden}
@@ -72,7 +72,7 @@
     .hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);font-size:0.8rem;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:1.8rem}
     .htag-dot{width:6px;height:6px;background:var(--green-light);border-radius:50%;animation:blink 2s ease-in-out infinite}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-    h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1.2rem;color:var(--text)}
+    h1{font-family:'Syne','Arial Black',Arial,sans-serif;font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1.2rem;color:var(--text)}
     h1 .accent{color:var(--green)}
     .hero-sub{color:var(--text-muted);font-size:1.05rem;max-width:520px;margin:0 auto 2.8rem;line-height:1.7}
 
@@ -423,7 +423,7 @@
     <h3>Wie verdient PreisWise Geld?</h3>
     <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
     <h3>Fragen?</h3>
-    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a>.</p>
+    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <a href="/cdn-cgi/l/email-protection#e88387869c89839cc6989a8d819b9f819b8da88f85898184c68b8785"><span class="__cf_email__" data-cfemail="a9c2c6c7ddc8c2dd87d9dbccc0dadec0dacce9cec4c8c0c587cac6c4">[email&#160;protected]</span></a>.</p>
   </div>
 </div>
 
@@ -431,7 +431,7 @@
   <div class="spage">
     <h2>Kontakt</h2>
     <p>Fragen oder Feedback? Wir antworten schnell.</p>
-    <p>Direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <p>Direkt per E-Mail: <a href="/cdn-cgi/l/email-protection#b1dadedfc5d0dac59fc1c3d4d8c2c6d8c2d4f1d6dcd0d8dd9fd2dedc"><span class="__cf_email__" data-cfemail="fd969293899c9689d38d8f98948e8a948e98bd9a909c9491d39e9290">[email&#160;protected]</span></a></p>
     <div class="cform">
       <div class="fg"><label>Dein Name</label><input type="text" id="cname" placeholder="Max Mustermann" /></div>
       <div class="fg"><label>Deine E-Mail</label><input type="email" id="cemail" placeholder="max@beispiel.de" /></div>
@@ -441,7 +441,7 @@
       <div class="fg"><label>Nachricht</label><textarea id="cmsg" placeholder="Deine Nachricht ..."></textarea></div>
       <button class="form-btn" id="formBtn" onclick="sendForm()">Nachricht senden</button>
       <div class="form-ok" id="formOk">✓ Danke! Deine Nachricht wurde gesendet.</div>
-      <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an kontakt.preiswise@gmail.com</div>
+      <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="305b5f5e44515b441e40425559434759435570575d51595c1e535f5d">[email&#160;protected]</a></div>
     </div>
   </div>
 </div>
@@ -451,7 +451,7 @@
     <h2>Impressum</h2>
     <h3>Angaben gemäß § 5 TMG</h3>
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
-    <h3>Kontakt</h3><p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <h3>Kontakt</h3><p>E-Mail: <a href="/cdn-cgi/l/email-protection#b0dbdfdec4d1dbc49ec0c2d5d9c3c7d9c3d5f0d7ddd1d9dc9ed3dfdd"><span class="__cf_email__" data-cfemail="c7aca8a9b3a6acb3e9b7b5a2aeb4b0aeb4a287a0aaa6aeabe9a4a8aa">[email&#160;protected]</span></a></p>
     <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3><p>Evan Lennart Daniel, Fabriciusstr. 274, 22177 Hamburg</p>
     <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
     <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
@@ -466,7 +466,7 @@
     <h3>2. Erhobene Daten</h3><p>PreisWise erhebt keine personenbezogenen Daten. Technische Daten werden von Vercel erfasst.</p>
     <h3>3. Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>4. Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>5. Deine Rechte</h3><p>Kontakt: kontakt.preiswise@gmail.com</p>
+    <h3>5. Deine Rechte</h3><p>Kontakt: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="aec5c1c0dacfc5da80dedccbc7ddd9c7ddcbeec9c3cfc7c280cdc1c3">[email&#160;protected]</a></p>
   </div>
 </div>
 
@@ -501,7 +501,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 try{emailjs.init('N-hB2ZIwauIqYATsA');}catch(e){}
 
 // Tab title / favicon Foxy (safe)
@@ -512,7 +512,7 @@ function setFav(url){try{const f=document.getElementById('favicon');if(f)f.href=
 document.addEventListener('visibilitychange',function(){
   if(document.hidden){
     foxyTimer=setTimeout(function(){
-      setFav("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f97316'/><text x='16' y='22' font-size='20' text-anchor='middle'>🦊</text></svg>");
+      setFav("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f97316'/%3E%3Ctext x='16' y='22' font-size='20' text-anchor='middle'%3E🦊%3C/text%3E%3C/svg%3E");
       foxyInterval=setInterval(function(){
         if(!document.hidden){clearInterval(foxyInterval);return;}
         document.title=foxyMsgs[foxyIdx%foxyMsgs.length]; foxyIdx++;
@@ -522,7 +522,7 @@ document.addEventListener('visibilitychange',function(){
     clearTimeout(foxyTimer);
     clearInterval(foxyInterval);
     document.title=NORMAL_TITLE;
-    setFav("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2316a34a'/><text x='16' y='23' font-family='Arial Black' font-weight='900' font-size='18' text-anchor='middle' fill='white'>P</text></svg>");
+    setFav("favicon.svg");
   }
 });
 
@@ -672,7 +672,7 @@ function renderResults(q,sortMode){
       :'<span class="r-price-value">'+r.price+' €</span>';
     var oldHtml=r.oldPrice&&!isCategory?'<div class="r-price-old">'+r.oldPrice+' €</div>':'';
     var thumbHtml=(!isCategory&&productImg)
-      ?'<img src="'+productImg+'" alt="'+q+'" onerror="this.parentNode.innerHTML=\'<div class=\\\"r-thumb-ph\\\">🛍️</div>\'" loading="lazy"/>'
+      ?'<img src="'+productImg+'" alt="'+q+'" onload="this.style.display=\'block\'" onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.r-thumb-fallback\').style.display=\'flex\'" loading="lazy" style="display:block"/><div class="r-thumb-fallback r-thumb-ph" style="display:none">🛍️</div>'
       :'<div class="r-thumb-ph">'+(isCategory?'🛒':'🛍️')+'</div>';
     var card=document.createElement('div');
     card.className='rcard'+(isPick?' pick':'');
@@ -728,20 +728,3 @@ async function sendForm(){
       email=document.getElementById('cemail').value.trim(),
       subj=document.getElementById('cbetreff').value,
       msg=document.getElementById('cmsg').value.trim(),
-      btn=document.getElementById('formBtn');
-  if(!name||!email||!msg){alert('Bitte alle Felder ausfüllen.');return;}
-  btn.disabled=true; btn.textContent='Wird gesendet...';
-  document.getElementById('formOk').style.display='none';
-  document.getElementById('formErr').style.display='none';
-  try{
-    await emailjs.send('preiswise_gmail','template_b9eyrow',{from_name:name,from_email:email,subject:subj,message:msg,to_email:'kontakt.preiswise@gmail.com'});
-    document.getElementById('formOk').style.display='block';
-    document.getElementById('cname').value='';
-    document.getElementById('cemail').value='';
-    document.getElementById('cmsg').value='';
-  }catch(e){document.getElementById('formErr').style.display='block';}
-  btn.disabled=false; btn.textContent='Nachricht senden';
-}
-</script>
-</body>
-</html>
