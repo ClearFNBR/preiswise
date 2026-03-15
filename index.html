@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PreisWise – Smarter Preisvergleich</title>
   <meta name="description" content="Vergleiche Preise von Amazon, eBay, MediaMarkt und mehr – kostenlos und in Sekunden." />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2316a34a'/><text x='16' y='23' font-family='Arial Black' font-weight='900' font-size='18' text-anchor='middle' fill='white'>P</text></svg>" />
+  <!-- Normal favicon -->
+  <link rel="icon" id="favicon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2316a34a'/><text x='16' y='23' font-family='Arial Black' font-weight='900' font-size='18' text-anchor='middle' fill='white'>P</text></svg>" />
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6197552398301422" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
@@ -29,13 +30,12 @@
       --shadow-md: 0 4px 24px rgba(0,0,0,0.15);
       --radius: 14px;
       --radius-sm: 9px;
-      --orange: #ea580c;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; font-size: 16px; line-height: 1.6; }
     ::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:#bbb;border-radius:3px}
 
-    /* ── ANIMATED NAV ── */
+    /* ── NAV ── */
     nav {
       position: sticky; top: 0; z-index: 200;
       background: rgba(242,240,234,0.95);
@@ -45,7 +45,6 @@
       display: flex; align-items: center; justify-content: space-between; height: 66px;
       overflow: hidden;
     }
-    /* Animated green line at top of nav */
     nav::before {
       content: '';
       position: absolute; top: 0; left: -100%; width: 100%; height: 3px;
@@ -54,20 +53,8 @@
     }
     @keyframes navLine { 0%{left:-100%} 100%{left:100%} }
 
-    /* MASCOT in nav */
-    .nav-mascot {
-      position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
-      display: flex; align-items: center; gap: 0;
-      pointer-events: none;
-    }
-    .mascot-face {
-      width: 36px; height: 36px;
-      animation: mascotBob 3s ease-in-out infinite;
-    }
-    @keyframes mascotBob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
-
     .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; color: var(--text); }
-    .logo-icon { width: 30px; height: 30px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #fff; }
+    .logo-icon { width: 30px; height: 30px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: #fff; font-weight: 800; }
     .nav-right { display: flex; align-items: center; gap: 1rem; }
     .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; margin-left: 1.4rem; cursor: pointer; transition: color 0.15s; font-weight: 500; }
     .nav-links a:hover { color: var(--green); }
@@ -84,7 +71,6 @@
     .drawer { position:fixed; top:0; left:-290px; width:275px; height:100vh; background:var(--surface); border-right:1px solid var(--border-med); z-index:400; transition:left 0.3s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; overflow-y:auto; }
     .drawer.open { left:0; }
     .drawer-header { padding:1.4rem 1.5rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-    .drawer-top { display:flex; align-items:center; gap:10px; }
     .drawer-logo { font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:800; color:var(--text); }
     .drawer-x { width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; border-radius:50%; color:var(--text-muted); transition:all 0.15s; }
     .drawer-x:hover { background:var(--surface2); color:var(--text); }
@@ -102,9 +88,8 @@
     .page.active { display:block; animation:fadeUp 0.3s ease; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero { max-width:780px; margin:0 auto; padding:5rem 2rem 3rem; text-align:center; position:relative; }
-    /* Subtle floating particles */
     .hero-particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
     .particle { position:absolute; width:4px; height:4px; border-radius:50%; background:var(--green); opacity:0.15; animation:floatUp linear infinite; }
     .particle:nth-child(1){left:10%;animation-duration:8s;animation-delay:0s;width:3px;height:3px}
@@ -116,8 +101,7 @@
 
     .hero-tag { display:inline-flex; align-items:center; gap:8px; background:var(--green-bg); border:1px solid var(--green-border); color:var(--green); font-size:0.8rem; font-weight:600; padding:6px 16px; border-radius:100px; margin-bottom:1.8rem; }
     .htag-dot { width:6px; height:6px; background:var(--green-light); border-radius:50%; animation:blink 2s ease-in-out infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
     h1 { font-family:'Syne',sans-serif; font-size:clamp(2.4rem,5.5vw,3.6rem); font-weight:800; line-height:1.1; letter-spacing:-1px; margin-bottom:1.2rem; color:var(--text); }
     h1 .accent { color:var(--green); }
     .hero-sub { color:var(--text-muted); font-size:1.05rem; max-width:520px; margin:0 auto 2.8rem; line-height:1.7; }
@@ -186,13 +170,41 @@
     .deal-link:hover { background:var(--green); color:#fff; }
     .deal-shop { font-size:0.72rem; color:var(--text-hint); text-align:center; margin-top:6px; }
 
-    /* LOADING */
-    #loading { display:none; text-align:center; padding:4rem 2rem; max-width:860px; margin:0 auto; }
+    /* ── FOXY LOADING ANIMATION ── */
+    #loading { display:none; text-align:center; padding:3rem 2rem 4rem; max-width:860px; margin:0 auto; position:relative; }
     #loading.show { display:block; }
-    .spin { width:40px; height:40px; border:3px solid var(--border-med); border-top-color:var(--green); border-radius:50%; animation:spin 0.7s linear infinite; margin:0 auto 1rem; }
-    @keyframes spin{to{transform:rotate(360deg)}}
-    /* Foxy loading mascot */
-    .loading-mascot { font-size:2.5rem; margin-bottom:0.5rem; animation:mascotBob 1s ease-in-out infinite; }
+    .foxy-loading-scene { position:relative; height:140px; width:280px; margin:0 auto 1.5rem; }
+    /* Ground */
+    .foxy-ground { position:absolute; bottom:0; left:0; right:0; height:30px; background:var(--bg2); border-radius:50% 50% 0 0 / 20px 20px 0 0; border:2px solid var(--border-med); border-bottom:none; }
+    /* Grass tufts */
+    .foxy-ground::before { content:'🌿🌱🌿'; position:absolute; top:-14px; left:50%; transform:translateX(-50%); font-size:1rem; letter-spacing:4px; }
+    /* Hole in ground */
+    .foxy-hole { position:absolute; bottom:18px; left:50%; transform:translateX(-50%); width:44px; height:22px; background:#2a2a20; border-radius:50%; box-shadow:inset 0 4px 8px rgba(0,0,0,0.4); }
+    /* Dirt pile next to hole */
+    .foxy-dirt { position:absolute; bottom:24px; left:calc(50% + 26px); width:28px; height:14px; background:#8B6914; border-radius:50% 50% 0 50%; opacity:0.7; }
+    /* Foxy diving into hole */
+    .foxy-diver { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); font-size:2.2rem; animation:foxyDive 1.4s ease-in-out infinite; transform-origin: bottom center; }
+    @keyframes foxyDive {
+      0%   { transform:translateX(-50%) translateY(0) rotate(0deg); }
+      30%  { transform:translateX(-50%) translateY(-30px) rotate(-20deg); }
+      55%  { transform:translateX(-50%) translateY(0px) rotate(10deg) scaleY(0.7); }
+      65%  { transform:translateX(-50%) translateY(8px) rotate(0deg) scaleY(0.4) scaleX(1.2); }
+      80%  { transform:translateX(-50%) translateY(12px) scaleY(0.1) scaleX(1.3); }
+      90%  { transform:translateX(-50%) translateY(14px) scaleY(0); }
+      95%  { transform:translateX(-50%) translateY(0px) scaleY(1); }
+      100% { transform:translateX(-50%) translateY(0) rotate(0deg); }
+    }
+    /* Stars/sparkles that pop out */
+    .foxy-sparkle { position:absolute; font-size:1rem; animation:sparkle 1.4s ease-in-out infinite; }
+    .foxy-sparkle:nth-child(1) { bottom:28px; left:calc(50% - 38px); animation-delay:0.55s; }
+    .foxy-sparkle:nth-child(2) { bottom:28px; left:calc(50% + 22px); animation-delay:0.65s; }
+    .foxy-sparkle:nth-child(3) { bottom:45px; left:calc(50% - 20px); animation-delay:0.6s; }
+    @keyframes sparkle {
+      0%,50%{opacity:0;transform:scale(0)}
+      60%{opacity:1;transform:scale(1.2)}
+      75%{opacity:1;transform:scale(1)}
+      100%{opacity:0;transform:scale(0) translateY(-10px)}
+    }
     .loading-label { color:var(--text-muted); font-size:0.95rem; margin-bottom:1rem; font-weight:500; }
     .loading-shops { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; }
     .ls { font-size:0.78rem; padding:4px 13px; border-radius:100px; border:1px solid var(--border-med); color:var(--text-hint); background:var(--surface); animation:lpulse 1.4s ease-in-out infinite; font-weight:500; }
@@ -219,7 +231,6 @@
     .rcard:hover { border-color:var(--border-med); box-shadow:var(--shadow-md); transform:translateY(-1px); }
     .rcard.pick { border-color:var(--green); background:linear-gradient(135deg,var(--surface),var(--green-bg)); }
     .pick-label { position:absolute; top:0; left:16px; background:var(--green); color:#fff; font-size:0.7rem; font-weight:700; padding:3px 12px; border-radius:0 0 8px 8px; font-family:'Syne',sans-serif; }
-
     .r-thumb { width:72px; height:72px; border-radius:12px; overflow:hidden; flex-shrink:0; border:1px solid var(--border); background:var(--bg2); display:flex; align-items:center; justify-content:center; }
     .r-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
     .r-thumb-ph { font-size:1.8rem; }
@@ -234,18 +245,15 @@
     .rtag-o { background:rgba(249,115,22,0.1); color:#ea580c; border:1px solid rgba(249,115,22,0.2); }
     .r-right { display:flex; flex-direction:column; align-items:flex-end; gap:8px; flex-shrink:0; min-width:130px; }
     .r-price-old { font-size:0.78rem; color:var(--text-hint); text-decoration:line-through; }
-    .r-price { font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:600; color:var(--text); line-height:1; }
-    .r-price.from { font-size:0.78rem; font-weight:500; color:var(--text-hint); display:block; margin-bottom:-2px; }
-    .r-price-value { font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:600; color:var(--text); }
+    .r-price-from { font-size:0.72rem; color:var(--text-hint); font-weight:500; }
+    .r-price-value { font-family:'Inter',sans-serif; font-size:1.3rem; font-weight:600; color:var(--text); line-height:1; display:block; }
     .pick .r-price-value { color:var(--green); font-weight:700; }
     .r-save { font-size:0.75rem; color:#dc2626; font-weight:600; }
     .r-btn { background:var(--green); color:#fff; border:none; padding:9px 20px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; white-space:nowrap; }
     .r-btn:hover { background:#15803d; transform:translateY(-1px); }
     .r-btn-sec { background:var(--bg2); color:var(--text-muted); border:1.5px solid var(--border-med); padding:9px 18px; border-radius:100px; font-family:'Inter',sans-serif; font-size:0.85rem; cursor:pointer; transition:all 0.15s; text-decoration:none; display:inline-block; white-space:nowrap; font-weight:500; }
     .r-btn-sec:hover { border-color:var(--green); color:var(--green); }
-
-    /* Tiny, very faint notices */
-    .aff-notice { max-width:860px; margin:0.6rem auto 0; padding:0 2rem; font-size:0.62rem; color:rgba(0,0,0,0.25); }
+    .aff-notice { max-width:860px; margin:0.5rem auto 0; padding:0 2rem; font-size:0.6rem; color:rgba(0,0,0,0.22); }
 
     /* HOW IT WORKS */
     .how-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
@@ -286,35 +294,36 @@
     /* ── FOXY CHATBOT ── */
     .chat-fab {
       position:fixed; bottom:24px; right:24px;
-      width:58px; height:58px;
+      width:60px; height:60px;
       border-radius:50%; cursor:pointer; z-index:999;
-      box-shadow:0 4px 20px rgba(22,163,74,0.3);
+      box-shadow:0 4px 20px rgba(22,163,74,0.25);
       transition:transform 0.2s, box-shadow 0.2s;
       display:flex; align-items:center; justify-content:center;
       background:var(--surface); border:2px solid var(--green-border);
-      animation:fabPop 4s ease-in-out infinite;
-      font-size:1.8rem;
+      font-size:1.9rem;
     }
-    @keyframes fabPop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05) rotate(5deg)} }
-    .chat-fab:hover { transform:scale(1.12) rotate(-5deg)!important; box-shadow:0 6px 28px rgba(22,163,74,0.4); }
+    /* Foxy fab idle animation */
+    .chat-fab { animation:foxyIdle 4s ease-in-out infinite; }
+    @keyframes foxyIdle {
+      0%,100%{transform:scale(1) rotate(0deg)}
+      20%{transform:scale(1.05) rotate(5deg)}
+      40%{transform:scale(1) rotate(-3deg)}
+      60%{transform:scale(1.03) rotate(2deg)}
+    }
+    .chat-fab:hover { transform:scale(1.15) rotate(-8deg)!important; box-shadow:0 6px 28px rgba(22,163,74,0.4); }
 
-    .chat-win { position:fixed; bottom:94px; right:24px; width:330px; background:var(--surface); border:1.5px solid var(--border-med); border-radius:20px; box-shadow:0 16px 48px rgba(0,0,0,0.15); z-index:998; display:none; flex-direction:column; overflow:hidden; }
+    .chat-win { position:fixed; bottom:96px; right:24px; width:330px; background:var(--surface); border:1.5px solid var(--border-med); border-radius:20px; box-shadow:0 16px 48px rgba(0,0,0,0.15); z-index:998; display:none; flex-direction:column; overflow:hidden; }
     .chat-win.open { display:flex; animation:chatPop 0.3s cubic-bezier(0.34,1.56,0.64,1); }
     @keyframes chatPop{from{opacity:0;transform:scale(0.8) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
-
-    .chat-hd {
-      background:var(--green); padding:14px 16px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
+    .chat-hd { background:var(--green); padding:14px 16px; display:flex; align-items:center; justify-content:space-between; }
     .chat-hd-left { display:flex; align-items:center; gap:10px; }
-    .chat-mascot-hd { font-size:1.8rem; animation:mascotBob 2s ease-in-out infinite; }
-    .chat-hd-info {}
+    .chat-hd-fox { font-size:1.8rem; animation:foxyBob 2s ease-in-out infinite; }
+    @keyframes foxyBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
     .chat-hd-name { font-size:0.95rem; font-weight:700; color:#fff; }
     .chat-hd-sub { font-size:0.7rem; color:rgba(255,255,255,0.8); display:flex; align-items:center; gap:4px; }
     .chat-hd-dot { width:5px; height:5px; background:#fff; border-radius:50%; animation:blink 1.8s ease-in-out infinite; }
     .chat-x { cursor:pointer; color:rgba(255,255,255,0.7); font-size:1rem; transition:color 0.15s; }
     .chat-x:hover { color:#fff; }
-
     .chat-msgs { padding:14px; display:flex; flex-direction:column; gap:9px; max-height:260px; overflow-y:auto; background:var(--bg); }
     .chat-msgs::-webkit-scrollbar{width:3px} .chat-msgs::-webkit-scrollbar-thumb{background:#ccc}
     .cmsg { max-width:88%; padding:10px 14px; border-radius:16px; font-size:0.85rem; line-height:1.5; animation:msgPop 0.2s ease; }
@@ -333,45 +342,16 @@
       .rcard{flex-wrap:wrap} .r-right{flex-direction:row;align-items:center;width:100%;justify-content:space-between}
       .chat-win{width:calc(100vw - 32px);right:16px} .nav-links{display:none}
       .footer-inner{flex-direction:column;text-align:center} .stats-strip{flex-wrap:wrap}
-      .nav-mascot{display:none}
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAV – clean, no Foxy here -->
 <nav>
   <div class="logo" onclick="showPage('home')">
-    <div class="logo-icon">🦊</div>
+    <div class="logo-icon">P</div>
     PreisWise
-  </div>
-  <!-- FOXY in navbar -->
-  <div class="nav-mascot" id="navMascot">
-    <svg class="mascot-face" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Fox body/head -->
-      <ellipse cx="18" cy="20" rx="11" ry="10" fill="#f97316"/>
-      <!-- Ears -->
-      <polygon points="8,14 4,4 12,10" fill="#f97316"/>
-      <polygon points="28,14 32,4 24,10" fill="#f97316"/>
-      <!-- Inner ears -->
-      <polygon points="8,13 5.5,6 11,10" fill="#fde68a"/>
-      <polygon points="28,13 30.5,6 25,10" fill="#fde68a"/>
-      <!-- Face white -->
-      <ellipse cx="18" cy="22" rx="7" ry="6" fill="#fde68a"/>
-      <!-- Eyes -->
-      <circle cx="14" cy="19" r="1.8" fill="#1a1a18"/>
-      <circle cx="22" cy="19" r="1.8" fill="#1a1a18"/>
-      <!-- Eye shine -->
-      <circle cx="14.7" cy="18.3" r="0.6" fill="white"/>
-      <circle cx="22.7" cy="18.3" r="0.6" fill="white"/>
-      <!-- Nose -->
-      <ellipse cx="18" cy="23" rx="1.5" ry="1" fill="#dc2626"/>
-      <!-- Smile -->
-      <path d="M15.5 25 Q18 27 20.5 25" stroke="#1a1a18" stroke-width="1" fill="none" stroke-linecap="round"/>
-      <!-- Tail hint -->
-      <ellipse cx="29" cy="26" rx="4" ry="3" fill="#f97316" transform="rotate(-20 29 26)"/>
-      <ellipse cx="30" cy="25" rx="2" ry="1.5" fill="white" transform="rotate(-20 30 25)"/>
-    </svg>
   </div>
   <div class="nav-right">
     <div class="nav-links">
@@ -386,10 +366,7 @@
 <!-- DRAWER -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
 <div class="drawer" id="drawer">
-  <div class="drawer-header">
-    <div class="drawer-top"><div style="font-size:1.4rem">🦊</div><div class="drawer-logo">PreisWise</div></div>
-    <div class="drawer-x" onclick="toggleDrawer()">✕</div>
-  </div>
+  <div class="drawer-header"><div class="drawer-logo">PreisWise</div><div class="drawer-x" onclick="toggleDrawer()">✕</div></div>
   <div class="drawer-nav">
     <a onclick="showPage('home');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>Startseite</a>
     <a onclick="showPage('ueber');toggleDrawer()"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>Über uns</a>
@@ -473,9 +450,19 @@
     </div>
   </div>
 
+  <!-- FOXY LOADING SCENE -->
   <div id="loading">
-    <div class="loading-mascot">🦊</div>
-    <div class="loading-label">Foxy sucht die besten Preise ...</div>
+    <div class="foxy-loading-scene">
+      <div class="foxy-ground">
+        <div class="foxy-hole"></div>
+        <div class="foxy-dirt"></div>
+      </div>
+      <div class="foxy-diver">🦊</div>
+      <div class="foxy-sparkle">✨</div>
+      <div class="foxy-sparkle">💰</div>
+      <div class="foxy-sparkle">⭐</div>
+    </div>
+    <div class="loading-label">Foxy jagt die besten Preise ...</div>
     <div class="loading-shops">
       <span class="ls">Amazon</span><span class="ls">eBay</span>
       <span class="ls">MediaMarkt</span><span class="ls">Idealo</span><span class="ls">Otto</span>
@@ -507,7 +494,7 @@
     <div class="sec-hd"><div class="sec-title">So funktioniert's</div></div>
     <div class="how-grid">
       <div class="how-card" data-step="1"><div class="how-icon">🔍</div><h3>Produkt eingeben</h3><p>Gib einfach ein, was du suchst – egal ob iPhone, Sneaker oder Kaffeemaschine.</p></div>
-      <div class="how-card" data-step="2"><div class="how-icon">🦊</div><h3>Foxy vergleicht</h3><p>Unser Maskottchen Foxy durchsucht sofort 8+ Shops und findet die besten Preise.</p></div>
+      <div class="how-card" data-step="2"><div class="how-icon">⚡</div><h3>Wir vergleichen</h3><p>In Sekunden vergleichen wir 8+ Shops gleichzeitig und sortieren nach Preis.</p></div>
       <div class="how-card" data-step="3"><div class="how-icon">⭐</div><h3>Amazon oben</h3><p>Amazon steht immer als günstigste Empfehlung oben – vertrauenswürdig und schnell.</p></div>
       <div class="how-card" data-step="4"><div class="how-icon">💰</div><h3>Einfach kaufen</h3><p>Ein Klick bringt dich direkt zum günstigsten Angebot – fertig!</p></div>
     </div>
@@ -519,12 +506,12 @@
   <div class="spage">
     <h2>Über PreisWise</h2>
     <p>PreisWise ist ein unabhängiger, kostenloser Preisvergleich für den deutschen Markt – entwickelt in Hamburg von Evan Lennart Daniel.</p>
-    <h3>Unser Maskottchen Foxy 🦊</h3>
-    <p>Foxy der Fuchs ist das Gesicht von PreisWise. Wie ein echter Fuchs – schlau, schnell und immer auf der Jagd nach dem besten Deal! Du findest Foxy im Chat unten rechts, wenn du Fragen hast.</p>
     <h3>Wie funktioniert PreisWise?</h3>
-    <p>Gib ein Produkt ein – Foxy vergleicht sofort 8+ Shops. Amazon steht immer oben als günstigste und vertrauenswürdigste Empfehlung.</p>
+    <p>Gib ein Produkt ein und wir vergleichen sofort 8+ Shops. Amazon steht immer oben als günstigste und vertrauenswürdigste Empfehlung.</p>
     <h3>Wie verdient PreisWise Geld?</h3>
     <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
+    <h3>Fragen?</h3>
+    <p>Nutze unseren Live-Chat unten rechts oder schreib uns direkt an <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a>.</p>
   </div>
 </div>
 
@@ -532,7 +519,7 @@
 <div id="page-kontakt" class="page">
   <div class="spage">
     <h2>Kontakt</h2>
-    <p>Fragen oder Feedback? Foxy hilft! 🦊</p>
+    <p>Fragen oder Feedback? Wir antworten schnell.</p>
     <p>Direkt per E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
     <div class="cform">
       <div class="fg"><label>Dein Name</label><input type="text" id="cname" placeholder="Max Mustermann" /></div>
@@ -541,8 +528,8 @@
         <select id="cbetreff"><option>Allgemeine Frage</option><option>Fehler melden</option><option>Verbesserungsvorschlag</option><option>Kooperation / Werbung</option><option>Sonstiges</option></select>
       </div>
       <div class="fg"><label>Nachricht</label><textarea id="cmsg" placeholder="Deine Nachricht ..."></textarea></div>
-      <button class="form-btn" id="formBtn" onclick="sendForm()">Absenden 🦊</button>
-      <div class="form-ok" id="formOk">🦊 Danke! Foxy hat deine Nachricht erhalten. Wir melden uns bald!</div>
+      <button class="form-btn" id="formBtn" onclick="sendForm()">Nachricht senden</button>
+      <div class="form-ok" id="formOk">✓ Danke! Deine Nachricht wurde gesendet.</div>
       <div class="form-err" id="formErr">⚠ Fehler. Bitte schreib direkt an kontakt.preiswise@gmail.com</div>
     </div>
   </div>
@@ -576,32 +563,32 @@
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><span style="font-size:1.2rem">🦊</span> PreisWise</div>
+    <div class="footer-logo"><div class="logo-icon" style="width:24px;height:24px;font-size:0.72rem;color:#fff;">P</div> PreisWise</div>
     <div class="footer-links">
       <a onclick="showPage('impressum')">Impressum</a>
       <a onclick="showPage('datenschutz')">Datenschutz</a>
       <a onclick="showPage('kontakt')">Kontakt</a>
       <a onclick="showPage('ueber')">Über uns</a>
     </div>
-    <div class="footer-copy">© 2026 PreisWise · Hamburg 🦊</div>
+    <div class="footer-copy">© 2026 PreisWise · Hamburg</div>
   </div>
 </footer>
 
-<!-- FOXY CHATBOT -->
-<div class="chat-fab" onclick="toggleChat()" title="Foxy hilft!">🦊</div>
+<!-- FOXY CHATBOT – only place Foxy appears -->
+<div class="chat-fab" onclick="toggleChat()" title="Foxy – dein Preishelfer!">🦊</div>
 <div class="chat-win" id="chatWin">
   <div class="chat-hd">
     <div class="chat-hd-left">
-      <div class="chat-mascot-hd">🦊</div>
-      <div class="chat-hd-info">
-        <div class="chat-hd-name">Foxy · PreisWise</div>
+      <div class="chat-hd-fox">🦊</div>
+      <div>
+        <div class="chat-hd-name">Foxy – Preishelfer</div>
         <div class="chat-hd-sub"><div class="chat-hd-dot"></div> Online & hilfsbereit</div>
       </div>
     </div>
     <div class="chat-x" onclick="toggleChat()">✕</div>
   </div>
   <div class="chat-msgs" id="chatMsgs">
-    <div class="cmsg bot">Hey! Ich bin Foxy 🦊 – dein PreisWise Assistent. Wie kann ich dir helfen?</div>
+    <div class="cmsg bot">Hey! Ich bin Foxy 🦊 – dein persönlicher Preishelfer. Wie kann ich dir helfen?</div>
   </div>
   <div class="chat-opts" id="chatOpts">
     <button class="copt" onclick="chatReply('Wie funktioniert das?')">🔍 Wie funktioniert das?</button>
@@ -612,9 +599,44 @@
 </div>
 
 <script>
+// ── EMAILJS ──
 const EJ_SVC='DEINE_SERVICE_ID', EJ_TPL='DEINE_TEMPLATE_ID', EJ_KEY='DEIN_PUBLIC_KEY';
 try{emailjs.init(EJ_KEY);}catch(e){}
 
+// ── TAB FAVICON & TITLE SWITCH (Foxy misses you) ──
+const NORMAL_TITLE = 'PreisWise – Smarter Preisvergleich';
+const NORMAL_FAVICON = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2316a34a'/><text x='16' y='23' font-family='Arial Black' font-weight='900' font-size='18' text-anchor='middle' fill='white'>P</text></svg>`;
+const FOXY_FAVICON = `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23f97316'/><text x='16' y='22' font-size='20' text-anchor='middle'>🦊</text></svg>`;
+const foxyMessages = ['🦊 Foxy vermisst dich!', '🦊 Foxy wartet auf dich!', '🦊 Komm zurück!', '🦊 Tolle Deals warten!'];
+let foxyMsgIdx = 0;
+let foxyTimer = null;
+let tabAwayTime = null;
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    tabAwayTime = Date.now();
+    foxyTimer = setTimeout(() => {
+      // After 1 minute away, switch to Foxy
+      document.getElementById('favicon').href = FOXY_FAVICON;
+      const interval = setInterval(() => {
+        if (!document.hidden) { clearInterval(interval); return; }
+        document.title = foxyMessages[foxyMsgIdx % foxyMessages.length];
+        foxyMsgIdx++;
+      }, 2000);
+      // Store interval so we can clear it
+      window._foxyInterval = interval;
+    }, 60000);
+  } else {
+    // User came back
+    clearTimeout(foxyTimer);
+    if (window._foxyInterval) { clearInterval(window._foxyInterval); window._foxyInterval = null; }
+    document.title = NORMAL_TITLE;
+    document.getElementById('favicon').href = NORMAL_FAVICON;
+    tabAwayTime = null;
+  }
+});
+
+// ── SHOPS ──
 const SHOPS=[
   {name:'Amazon',    short:'AMZ',  color:'#FF9900',url:'https://www.amazon.de/s?tag=preiswise0f-21&k=',affiliate:true},
   {name:'eBay',      short:'eBay', color:'#e53238',url:'https://www.ebay.de/sch/i.html?_nkw=',         affiliate:false},
@@ -626,8 +648,7 @@ const SHOPS=[
   {name:'Alternate', short:'ALT',  color:'#ea580c',url:'https://www.alternate.de/search.xhtml?q=',     affiliate:false},
 ];
 
-// Category keywords – when matched, show "ab X€" instead of fixed price
-const CATEGORIES=new Set(['smartphone','smartphones','laptop','laptops','notebook','notebooks','tablet','tablets','kopfhörer','headphones','staubsauger','sneaker','kamera','kameras','fernseher','tv','gaming','headset','smartwatch','e-reader','kindle','drucker','monitor','computer','pc','drucker','kaffeemaschine','mikrowelle','kühlschrank','waschmaschine']);
+const CATEGORIES=new Set(['smartphone','smartphones','laptop','laptops','notebook','notebooks','tablet','tablets','kopfhörer','headphones','staubsauger','sneaker','kamera','kameras','fernseher','tv','gaming','headset','smartwatch','e-reader','kindle','drucker','monitor','computer','pc','kaffeemaschine']);
 
 const BASE={
   'iphone 15':659,'iphone 15 plus':749,'iphone 15 pro':1059,'iphone 15 pro max':1249,
@@ -677,7 +698,7 @@ function toggleDrawer(){ ['drawer','drawerOverlay','burger'].forEach(id=>documen
 
 // TICKER
 (function(){
-  const shops=['Amazon 🦊','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
+  const shops=['Amazon','eBay','MediaMarkt','Saturn','Otto','Idealo','Galaxus','Alternate'];
   const colors=['#FF9900','#e53238','#cc0000','#6b6b68','#e2001a','#2563eb','#4f46e5','#ea580c'];
   const el=document.getElementById('tickerInner'); if(!el)return;
   const arr=[...shops,...shops,...shops,...shops];
@@ -701,10 +722,7 @@ function toggleDrawer(){ ['drawer','drawerOverlay','burger'].forEach(id=>documen
   }).join('');
 })();
 
-function isCategorySearch(q){
-  return CATEGORIES.has(q.toLowerCase().trim());
-}
-
+function isCategorySearch(q){ return CATEGORIES.has(q.toLowerCase().trim()); }
 function fillSearch(t){ showPage('home'); document.getElementById('searchInput').value=t; setTimeout(startSearch,100); }
 document.getElementById('searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter')startSearch(); });
 
@@ -718,7 +736,7 @@ function startSearch(){
   loading.classList.add('show'); loading.style.display='block';
   window.scrollTo({top:320,behavior:'smooth'});
   if(!isCategory) fetchImg(q).then(url=>{ productImg=url; });
-  setTimeout(()=>{ loading.style.display='none'; loading.classList.remove('show'); buildResults(q); },1600);
+  setTimeout(()=>{ loading.style.display='none'; loading.classList.remove('show'); buildResults(q); },1800);
 }
 
 async function fetchImg(query){
@@ -748,7 +766,7 @@ function buildResults(q){
     let price;
     if(shop.name==='Amazon'){
       price=parseFloat((base*(1+(Math.random()*0.01-0.005))).toFixed(2));
-    } else {
+    }else{
       const markup=0.03+Math.random()*0.04;
       price=parseFloat((base*(1+markup)).toFixed(2));
     }
@@ -764,7 +782,7 @@ function buildResults(q){
 
 function renderResults(q,sortMode){
   document.getElementById('results-title').textContent=`Ergebnisse für „${q}"`;
-  const suffix=isCategory?' · Kategorie – viele Preise verfügbar':' · Preise inkl. MwSt.';
+  const suffix=isCategory?' · Kategorie – viele Produkte verfügbar':' · Preise inkl. MwSt.';
   document.getElementById('results-meta').textContent=`${currentResults.length} Angebote${suffix}`;
 
   const amz=currentResults.find(r=>r.shop.name==='Amazon');
@@ -773,17 +791,15 @@ function renderResults(q,sortMode){
   const sorted=amz?[amz,...rest]:rest;
 
   const list=document.getElementById('resultsList');
-  list.innerHTML=`<div class="pick-banner"><span>🦊</span><span><strong>Foxy empfiehlt Amazon</strong> · Günstigster Preis, schneller Versand, einfache Rückgabe.</span></div>`;
+  list.innerHTML=`<div class="pick-banner"><span>⭐</span><span><strong>Unsere Empfehlung</strong> · Amazon bietet den günstigsten Preis mit schnellem Versand und einfacher Rückgabe.</span></div>`;
 
   sorted.forEach((r,i)=>{
     const isPick=r.shop.name==='Amazon';
     const saving=r.oldPrice&&!isCategory?(r.oldPrice-r.price).toFixed(2):null;
-    // For categories: show "ab X €", for specific products: fixed price
-    const priceDisplay=isCategory
-      ?`<span class="r-price from">ab</span><span class="r-price-value">${r.price} €</span>`
+    const priceHtml=isCategory
+      ?`<div class="r-price-from">ab</div><span class="r-price-value">${r.price} €</span>`
       :`<span class="r-price-value">${r.price} €</span>`;
-    const oldDisplay=r.oldPrice&&!isCategory?`<div class="r-price-old">${r.oldPrice} €</div>`:'';
-
+    const oldHtml=r.oldPrice&&!isCategory?`<div class="r-price-old">${r.oldPrice} €</div>`:'';
     const thumbHtml=(!isCategory&&productImg)
       ?`<img src="${productImg}" alt="${q}" onerror="this.parentNode.innerHTML='<div class=\\'r-thumb-ph\\'>🛍️</div>'" loading="lazy"/>`
       :`<div class="r-thumb-ph">${isCategory?'🛒':'🛍️'}</div>`;
@@ -793,7 +809,7 @@ function renderResults(q,sortMode){
     card.style.animationDelay=(i*0.05)+'s';
     if(isPick)card.style.marginTop='4px';
     card.innerHTML=`
-      ${isPick?'<div class="pick-label">🦊 Unsere Empfehlung</div>':''}
+      ${isPick?'<div class="pick-label">⭐ Unsere Empfehlung</div>':''}
       <div class="r-thumb">${thumbHtml}</div>
       <div class="r-badge" style="background:${r.shop.color}18;border-color:${r.shop.color}40;color:${r.shop.color};">${r.shop.short}</div>
       <div class="r-info">
@@ -806,11 +822,7 @@ function renderResults(q,sortMode){
         </div>
       </div>
       <div class="r-right">
-        <div style="text-align:right;">
-          ${oldDisplay}
-          <div>${priceDisplay}</div>
-          ${saving?`<div class="r-save">-${saving} € sparen</div>`:''}
-        </div>
+        <div style="text-align:right;">${oldHtml}${priceHtml}${saving?`<div class="r-save">-${saving} € sparen</div>`:''}</div>
         <a class="${isPick?'r-btn':'r-btn-sec'}" href="${r.url}" target="_blank" rel="noopener noreferrer">${isPick?'Jetzt kaufen →':'Zum Shop →'}</a>
       </div>`;
     list.appendChild(card);
@@ -829,10 +841,10 @@ function sortBy(mode,btn){
 
 // FOXY CHAT
 const CA={
-  'Wie funktioniert das?':'Ganz einfach! 🦊 Gib ein Produkt in die Suche ein – ich durchsuche sofort 8 Shops und zeige dir Amazon als günstigste Empfehlung ganz oben!',
-  'Sind die Preise aktuell?':'Die Preise orientieren sich an realen Marktpreisen. 🦊 Für den genauen Endpreis bitte immer direkt beim Shop prüfen – Preise können sich ändern!',
-  'Ist es wirklich kostenlos?':'Ja, 100% kostenlos! 🦊 Ich finanziere PreisWise durch Google Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. Versprochen!',
-  'Ich habe ein Problem':'Oh nein! 🦊 Schreib uns an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. Ich kümmere mich persönlich darum!',
+  'Wie funktioniert das?':'Ganz einfach! Gib ein Produkt in die Suche ein – wir vergleichen sofort 8 Shops und zeigen dir das günstigste Angebot zuerst. Amazon steht immer oben als Empfehlung! 🔍',
+  'Sind die Preise aktuell?':'Die Preise orientieren sich an realen Marktpreisen. Für den genauen Endpreis bitte immer direkt beim Shop prüfen – Preise können sich ändern! ✅',
+  'Ist es wirklich kostenlos?':'Ja, 100% kostenlos! Wir finanzieren uns durch Google Werbung und Amazon Affiliate-Links – für dich keine Mehrkosten. Versprochen! 🎉',
+  'Ich habe ein Problem':'Das tut mir leid! Schreib uns an kontakt.preiswise@gmail.com oder nutze das Kontaktformular. Wir helfen schnell! 🚀',
 };
 function toggleChat(){ document.getElementById('chatWin').classList.toggle('open'); }
 function chatReply(q){
@@ -847,14 +859,14 @@ function chatReply(q){
 async function sendForm(){
   const name=document.getElementById('cname').value.trim(),email=document.getElementById('cemail').value.trim(),subj=document.getElementById('cbetreff').value,msg=document.getElementById('cmsg').value.trim(),btn=document.getElementById('formBtn');
   if(!name||!email||!msg){alert('Bitte alle Felder ausfüllen.');return;}
-  btn.disabled=true; btn.textContent='Foxy sendet ...';
+  btn.disabled=true; btn.textContent='Wird gesendet...';
   document.getElementById('formOk').style.display='none'; document.getElementById('formErr').style.display='none';
   try{
     await emailjs.send(EJ_SVC,EJ_TPL,{from_name:name,from_email:email,subject:subj,message:msg,to_email:'kontakt.preiswise@gmail.com'});
     document.getElementById('formOk').style.display='block';
     document.getElementById('cname').value=''; document.getElementById('cemail').value=''; document.getElementById('cmsg').value='';
   }catch(e){ document.getElementById('formErr').style.display='block'; }
-  btn.disabled=false; btn.textContent='Absenden 🦊';
+  btn.disabled=false; btn.textContent='Nachricht senden';
 }
 </script>
 </body>
