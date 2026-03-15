@@ -880,10 +880,7 @@ function srt(mode, btn) {
   render(curQ, mode);
 }
 
-// ── FOXY KI CHAT ──
-var chatHistory = [];
-var FOXY_SYSTEM = "Du bist Foxy, ein freundlicher und witziger KI-Preishelfer fuer PreisWise.de, eine deutsche Preisvergleich-Website. Du hilfst Nutzern beim Preisvergleich und gibst Kauftipps. Antworte immer auf Deutsch, kurz und freundlich (max 2-3 Saetze). Benutze manchmal Emojis. PreisWise vergleicht 8 Shops: Amazon, eBay, MediaMarkt, Saturn, Otto, Idealo, Galaxus, Alternate. Du heisst Foxy und bist ein Fuchs. Wenn du etwas nicht weisst oder das Problem komplex ist, sage dem Nutzer er soll das Kontaktformular nutzen.";
-
+// ── FOXY SMART CHAT ──
 function toggleChat() {
   document.getElementById("cw").classList.toggle("open");
   document.querySelector(".fab").classList.toggle("chat-open");
@@ -909,6 +906,42 @@ function showTyping() {
   return tid;
 }
 
+var FOXY_KB = [
+  {k:["funktioniert","wie","was ist","erkläre"], r:"Gib einfach ein Produkt in die Suche ein – ich vergleiche sofort 8 Shops und zeige dir das günstigste Angebot ganz oben! 🔍"},
+  {k:["preis","aktuell","stimmt","genau","richtig"], r:"Die Preise orientieren sich an echten Marktpreisen. Für den genauen Preis immer direkt beim Shop checken – Preise können sich täglich ändern! 💰"},
+  {k:["kostenlos","gratis","kosten","zahlen","bezahlen"], r:"Ja, PreisWise ist 100% kostenlos! Wir finanzieren uns durch Werbung – für dich keine Mehrkosten. Versprochen! 🎉"},
+  {k:["amazon","ebay","mediamarkt","saturn","otto","idealo","galaxus","alternate","shop"], r:"Wir vergleichen 8 Shops gleichzeitig: Amazon, eBay, MediaMarkt, Saturn, Otto, Idealo, Galaxus und Alternate. Immer den besten Preis für dich! 🏪"},
+  {k:["affiliate","provision","verdienen","geld","werbung"], r:"PreisWise verdient eine kleine Provision wenn du über unsere Links kaufst – für dich ändert sich der Preis nicht! Damit halten wir PreisWise kostenlos. 🤝"},
+  {k:["tracking","datenschutz","daten","sicher","privacy"], r:"Wir tracken dich nicht! Keine persönlichen Daten werden gespeichert. PreisWise ist dein anonymer Preisvergleich. 🔒"},
+  {k:["iphone","samsung","ps5","playstation","laptop","handy","smartphone","airpods","tablet"], r:"Such einfach direkt in der Suchleiste! Ich finde dir sofort die besten Preise aus 8 Shops. 📱"},
+  {k:["danke","super","toll","klasse","gut","top","nice","cool"], r:"Sehr gerne! Ich helfe immer gerne beim Sparen. 🦊 Noch eine Frage?"},
+  {k:["hallo","hi","hey","moin","servus","guten"], r:"Hey hey! Foxy hier 🦊 Wie kann ich dir beim Sparen helfen?"},
+  {k:["wer","du","foxy","name","heißt"], r:"Ich bin Foxy, der schlaue Preisfuchs von PreisWise! 🦊 Ich helfe dir dabei, immer das beste Angebot zu finden!"},
+  {k:["app","erweiterung","extension","chrome","browser"], r:"Eine Chrome Extension ist in Planung! Damit bekommst du Preisvergleiche direkt beim Shopping angezeigt. Bleib gespannt! 🚀"},
+  {k:["kontakt","email","mail","problem","fehler","hilfe","support"], r:"Für komplexere Fragen erreichst du uns über das Kontaktformular oben! Wir antworten superschnell. 📧"},
+  {k:["schnäppchen","deal","angebot","günstig","rabatt","sparen"], r:"Scroll runter zu den Top Deals – dort findest du täglich die besten Schnäppchen! 🔥 Oder such direkt nach deinem Wunschprodukt!"},
+  {k:["versand","lieferung","gratis","kostenlos versand","porto"], r:"Gratis Versand siehst du direkt beim Preisvergleich als grünes Tag. Amazon bietet oft kostenlosen Versand mit Prime! 📦"},
+];
+
+function foxyReply(q) {
+  var lq = q.toLowerCase();
+  for (var i = 0; i < FOXY_KB.length; i++) {
+    var entry = FOXY_KB[i];
+    for (var j = 0; j < entry.k.length; j++) {
+      if (lq.indexOf(entry.k[j]) !== -1) return entry.r;
+    }
+  }
+  // Default fallback
+  var fallbacks = [
+    "Gute Frage! Da bin ich überfragt 🦊 Schreib uns über das Kontaktformular – wir helfen dir persönlich weiter!",
+    "Hmm, das weiß ich leider nicht genau. Nutz am besten unser Kontaktformular – die Menschen hinter PreisWise helfen dir! 📧",
+    "Das übersteigt mein Fuchswissen! 🦊 Schau mal ins Kontaktformular – da bekommst du eine richtige Antwort!"
+  ];
+  return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+}
+
+var chatHistory = [];
+
 async function sendChat() {
   var input = document.getElementById("chat-input");
   var q = (input.value || "").trim(); if (!q) return;
@@ -918,23 +951,24 @@ async function sendChat() {
   chatHistory.push({role: "user", content: q});
   var tid = showTyping();
   try {
-    var res = await fetch("https://api.anthropic.com/v1/messages", {
+    var res = await fetch("/api/chat", {
       method: "POST",
-      headers: {"Content-Type": "application/json", "x-api-key": "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", "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true"},
-      body: JSON.stringify({model: "claude-haiku-4-5-20251001", max_tokens: 200, system: FOXY_SYSTEM, messages: chatHistory})
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({messages: chatHistory})
     });
     var data = await res.json();
-    var reply = (data.content && data.content[0] && data.content[0].text) ? data.content[0].text : null;
-    if (!reply) throw new Error("no reply");
+    var reply = data.reply || foxyReply(q);
     var el = document.getElementById(tid); if (el) el.remove();
     addMsg(reply, "bot");
     chatHistory.push({role: "assistant", content: reply});
     if (chatHistory.length > 10) chatHistory = chatHistory.slice(-10);
   } catch(err) {
     var el = document.getElementById(tid); if (el) el.remove();
-    addMsg("Ich steck kurz im Bau fest! 🦊 Nutz am besten unser Kontaktformular – wir helfen dir superschnell!", "bot");
+    // Fallback to keyword matcher if API fails
+    addMsg(foxyReply(q), "bot");
   }
-  input.disabled = false; input.focus();
+  input.disabled = false;
+  input.focus();
 }
 document.addEventListener("DOMContentLoaded", function() {
   renderTicker();
