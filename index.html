@@ -671,9 +671,12 @@ function renderResults(q,sortMode){
       ?'<div class="r-price-from">ab</div><span class="r-price-value">'+r.price+' €</span>'
       :'<span class="r-price-value">'+r.price+' €</span>';
     var oldHtml=r.oldPrice&&!isCategory?'<div class="r-price-old">'+r.oldPrice+' €</div>':'';
-    var thumbHtml=(!isCategory&&productImg)
-      ?'<img src="'+productImg+'" alt="'+q+'" onload="this.style.display=\'block\'" onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.r-thumb-fallback\').style.display=\'flex\'" loading="lazy" style="display:block"/><div class="r-thumb-fallback r-thumb-ph" style="display:none">🛍️</div>'
-      :'<div class="r-thumb-ph">'+(isCategory?'🛒':'🛍️')+'</div>';
+    var thumbHtml;
+    if(!isCategory&&productImg){
+      thumbHtml='<img src="'+productImg+'" alt="'+q+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" onerror="imgFail(this)"/>';
+    }else{
+      thumbHtml='<div class="r-thumb-ph">'+(isCategory?'🛒':'🛍️')+'</div>';
+    }
     var card=document.createElement('div');
     card.className='rcard'+(isPick?' pick':'');
     card.style.animationDelay=(i*0.05)+'s';
@@ -723,6 +726,7 @@ function chatReply(q){
   },1000);
 }
 
+function imgFail(el){el.parentNode.innerHTML='<div class="r-thumb-ph">🛍️</div>';}
 async function sendForm(){
   var name=document.getElementById('cname').value.trim(),
       email=document.getElementById('cemail').value.trim(),
