@@ -72,7 +72,24 @@ nav::before{content:"";position:absolute;top:0;left:-100%;width:100%;height:3px;
 .htag{display:inline-flex;align-items:center;gap:8px;background:var(--gbg);border:1px solid var(--gbd);color:var(--gr);font-size:.8rem;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:1.8rem}
 .hd{width:6px;height:6px;background:var(--gl);border-radius:50%;animation:bl 2s ease-in-out infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-family:Syne,Arial Black,sans-serif;font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:1.2rem;color:var(--tx)}
+h1{font-family:Arial Black,Arial,sans-serif;font-size:clamp(2.4rem,5.5vw,3.6rem);font-weight:900;line-height:1.1;letter-spacing:-1px;margin-bottom:1.2rem;color:var(--tx)}
+.letter{
+  display:inline-block;cursor:default;
+  transition:transform 0.15s cubic-bezier(0.34,2,0.64,1),text-shadow 0.15s ease,color 0.15s ease;
+  animation:letterIn 0.5s cubic-bezier(0.34,1.5,0.64,1) both;
+}
+.letter:hover{
+  transform:translateY(-6px) rotate(-4deg) scale(1.2);
+  text-shadow:0 0 20px rgba(22,163,74,0.8),0 0 40px rgba(22,163,74,0.5),0 0 80px rgba(22,163,74,0.3);
+  color:var(--gr);
+}
+.ac .letter{color:var(--gr)}
+.ac .letter:hover{
+  text-shadow:0 0 20px rgba(22,163,74,1),0 0 40px rgba(22,163,74,0.8),0 0 80px rgba(22,163,74,0.5),0 0 120px rgba(22,163,74,0.3);
+  transform:translateY(-8px) rotate(4deg) scale(1.25);
+  color:#4ade80;
+}
+@keyframes letterIn{from{opacity:0;transform:translateY(30px) rotate(-10deg)}to{opacity:1;transform:translateY(0) rotate(0)}}
 h1 .ac{color:var(--gr)}
 .hs{color:var(--mu);font-size:1.05rem;max-width:520px;margin:0 auto 2.8rem;line-height:1.7}
 
@@ -408,7 +425,10 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   <section class="hero">
     <div class="hp"><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div><div class="pt"></div></div>
     <div class="htag"><div class="hd"></div> Live Preisvergleich · 8 Shops</div>
-    <h1>Kauf schlauer.<br><span class="ac">Spare mehr.</span></h1>
+    <h1 id="hero-title" aria-label="Kauf schlauer. Spare mehr.">
+      <span class="word-wrap" id="line1"></span><br>
+      <span class="word-wrap ac" id="line2"></span>
+    </h1>
     <p class="hs">Wir vergleichen Amazon, eBay, MediaMarkt und 5 weitere Shops – und zeigen dir immer das günstigste Angebot zuerst.</p>
     <div class="sw">
       <div class="sb">
@@ -511,7 +531,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h3>Wie verdient PreisWise Geld?</h3>
     <p>PreisWise ist 100% kostenlos. Wir finanzieren uns durch Google AdSense und Amazon Affiliate-Provisionen – für dich keine Mehrkosten.</p>
     <h3>Fragen?</h3>
-    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a>.</p>
+    <p>Nutze unseren Live-Chat unten rechts oder schreib uns an <a href="/cdn-cgi/l/email-protection#33585c5d475258471d4341565a40445a405673545e525a5f1d505c5e"><span class="__cf_email__" data-cfemail="8de6e2e3f9ece6f9a3fdffe8e4fefae4fee8cdeae0ece4e1a3eee2e0">[email&#160;protected]</span></a>.</p>
   </div>
 </div>
 
@@ -519,7 +539,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   <div class="sp">
     <h2>Kontakt</h2>
     <p>Fragen oder Feedback? Wir antworten schnell.</p>
-    <p>Direkt: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <p>Direkt: <a href="/cdn-cgi/l/email-protection#650e0a0b11040e114b1517000c16120c1600250208040c094b060a08"><span class="__cf_email__" data-cfemail="660d090812070d12481614030f15110f150326010b070f0a4805090b">[email&#160;protected]</span></a></p>
     <div class="cf">
       <div class="fg2"><label>Dein Name</label><input type="text" id="cn" placeholder="Max Mustermann"></div>
       <div class="fg2"><label>Deine E-Mail</label><input type="email" id="ce" placeholder="max@beispiel.de"></div>
@@ -529,7 +549,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
       <div class="fg2"><label>Nachricht</label><textarea id="cm" placeholder="Deine Nachricht ..."></textarea></div>
       <button class="fbtn" id="fb" onclick="sendForm()">Nachricht senden</button>
       <div class="fok" id="fok">✓ Danke! Deine Nachricht wurde gesendet.</div>
-      <div class="ferr" id="ferr">⚠ Fehler. Bitte schreib direkt an kontakt.preiswise@gmail.com</div>
+      <div class="ferr" id="ferr">⚠ Fehler. Bitte schreib direkt an <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c575352485d5748124c4e59554f4b554f597c5b515d5550125f5351">[email&#160;protected]</a></div>
     </div>
   </div>
 </div>
@@ -539,7 +559,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h2>Impressum</h2>
     <h3>Angaben gemäß § 5 TMG</h3>
     <p>Evan Lennart Daniel<br>Fabriciusstr. 274<br>22177 Hamburg<br>Deutschland</p>
-    <h3>Kontakt</h3><p>E-Mail: <a href="mailto:kontakt.preiswise@gmail.com">kontakt.preiswise@gmail.com</a></p>
+    <h3>Kontakt</h3><p>E-Mail: <a href="/cdn-cgi/l/email-protection#f3989c9d87929887dd8381969a80849a8096b3949e929a9fdd909c9e"><span class="__cf_email__" data-cfemail="e3888c8d97828897cd9391868a90948a9086a3848e828a8fcd808c8e">[email&#160;protected]</span></a></p>
     <h3>Haftungsausschluss</h3><p>Preisangaben sind Richtwerte ohne Gewähr.</p>
     <h3>Affiliate-Hinweis</h3><p>Diese Website enthält Amazon Affiliate-Links. Bei Käufen erhalten wir eine Provision – für dich keine Mehrkosten.</p>
     <h3>Streitschlichtung</h3><p><a href="https://ec.europa.eu/consumers/odr" target="_blank">ec.europa.eu/consumers/odr</a></p>
@@ -552,7 +572,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
     <h3>Verantwortlicher</h3><p>Evan Lennart Daniel · Fabriciusstr. 274 · 22177 Hamburg</p>
     <h3>Google AdSense</h3><p>Google kann Cookies setzen. Infos: <a href="https://policies.google.com/privacy" target="_blank">policies.google.com/privacy</a></p>
     <h3>Amazon Partnerprogramm</h3><p>Amazon kann Cookies setzen. Infos: <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank">Amazon Datenschutz</a></p>
-    <h3>Deine Rechte</h3><p>Kontakt: kontakt.preiswise@gmail.com</p>
+    <h3>Deine Rechte</h3><p>Kontakt: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dab1b5b4aebbb1aef4aaa8bfb3a9adb3a9bf9abdb7bbb3b6f4b9b5b7">[email&#160;protected]</a></p>
   </div>
 </div>
 
@@ -584,7 +604,7 @@ footer{border-top:1px solid var(--bd);padding:2rem;margin-top:5rem;background:va
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 try { emailjs.init("N-hB2ZIwauIqYATsA"); } catch(e) {}
 
 // Foxy tab
@@ -818,6 +838,41 @@ function cr(q) {
 document.addEventListener("DOMContentLoaded", function() {
   renderTicker();
   renderDeals();
+  // Build letter-by-letter h1
+  var line1 = "Kauf schlauer.";
+  var line2 = "Spare mehr.";
+  var l1el = document.getElementById("line1");
+  var l2el = document.getElementById("line2");
+  if (l1el) {
+    var delay = 0;
+    for (var i = 0; i < line1.length; i++) {
+      var ch = line1[i];
+      if (ch === " ") { l1el.innerHTML += "<span style='display:inline-block;width:0.3em'>&nbsp;</span>"; }
+      else {
+        var s = document.createElement("span");
+        s.className = "letter";
+        s.textContent = ch;
+        s.style.animationDelay = (delay * 0.04) + "s";
+        l1el.appendChild(s);
+        delay++;
+      }
+    }
+  }
+  if (l2el) {
+    var delay2 = line1.replace(/ /g,"").length;
+    for (var j = 0; j < line2.length; j++) {
+      var ch2 = line2[j];
+      if (ch2 === " ") { l2el.innerHTML += "<span style='display:inline-block;width:0.3em'>&nbsp;</span>"; }
+      else {
+        var s2 = document.createElement("span");
+        s2.className = "letter";
+        s2.textContent = ch2;
+        s2.style.animationDelay = (delay2 * 0.04) + "s";
+        l2el.appendChild(s2);
+        delay2++;
+      }
+    }
+  }
   // Scroll reveal
   var revealEls = document.querySelectorAll(".sec,.stats,.tr");
   revealEls.forEach(function(el) { el.classList.add("reveal"); });
